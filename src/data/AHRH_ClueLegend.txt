@@ -1,0 +1,10 @@
+L, Library, Card
+J, Janitor Room, Card
+H, Hufflepuff House, Card
+G, Griffindor House, Card
+S, Slytherin House, Card
+R, Ravenclaw House, Card
+B, Ballroom, Other
+M, Mines, Other
+D, Dungeon, Card
+X, Closet, Other
