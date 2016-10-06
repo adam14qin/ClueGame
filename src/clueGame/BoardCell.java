@@ -35,12 +35,13 @@ public class BoardCell {
 	}
 	
 	public boolean isRoom() {
-		return (initial != walkway);
+		return (!isWalkway());
 	}
 	
 	public boolean isDoorway() {
 		return (doorDirection != DoorDirection.NONE);
 	}
+	
 	
 	public DoorDirection getDoorDirection(){
 		return doorDirection;

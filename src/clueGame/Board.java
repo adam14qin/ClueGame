@@ -56,6 +56,8 @@ public class Board {
 		} catch (BadConfigFormatException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		
+		calcAdjacencies();
 	}
 	
 	// Read the legend file
@@ -96,7 +98,7 @@ public class Board {
 		// File reader objects
 		FileReader reader = new FileReader(boardConfigName);
 		Scanner in = null;
-		numColumns = -1;
+		numColumns = -1; numRows = 0;
 		
 		try {
 			// Initialize the file scanner
@@ -144,7 +146,7 @@ public class Board {
 		}
 	}
 	
-	public void calcAdjacencies() {
+	private void calcAdjacencies() {
 		// Complexity: O(n)-> n=number of cells
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numColumns; j++) {
@@ -156,20 +158,32 @@ public class Board {
 					adjMtx.put(bc, new HashSet<BoardCell>());
 				
 				// Add left, right, up, down cells conditionally
-				if (i > 0 && !board[i-1][j].isRoom()) adjMtx.get(bc).add(board[i-1][j]);
-				if (i < numColumns - 1 && !board[i+1][j].isRoom()) adjMtx.get(bc).add(board[i+1][j]);
-				if (j > 0 && !board[i][j-1].isRoom()) adjMtx.get(bc).add(board[i][j-1]);
-				if (j < numRows - 1 && !board[i][j+1].isRoom()) adjMtx.get(bc).add(board[i][j+1]);
+				// If inside a walkway
+				if (board[i][j].isWalkway()){
+
+					if (i > 0 && (board[i-1][j].isWalkway() || (board[i-1][j].isDoorway() && board[i-1][j].getDoorDirection() == DoorDirection.DOWN))) 				adjMtx.get(bc).add(board[i-1][j]);		
+					if (i < numRows - 1 && (board[i+1][j].isWalkway() || (board[i+1][j].isDoorway() && board[i+1][j].getDoorDirection() == DoorDirection.UP))) 	adjMtx.get(bc).add(board[i+1][j]);
+					if (j > 0 && (board[i][j-1].isWalkway() || (board[i][j-1].isDoorway() && board[i][j-1].getDoorDirection() == DoorDirection.RIGHT))) 				adjMtx.get(bc).add(board[i][j-1]);
+					if (j < numColumns - 1 && (board[i][j+1].isWalkway() || (board[i][j+1].isDoorway() && board[i][j+1].getDoorDirection() == DoorDirection.LEFT))) adjMtx.get(bc).add(board[i][j+1]);
+				}
+				
+				else if (board[i][j].isDoorway()){
+					if (i > 0 && board[i-1][j].isWalkway()) 				adjMtx.get(bc).add(board[i-1][j]);			
+					if (i < numRows - 1 && board[i+1][j].isWalkway()) 		adjMtx.get(bc).add(board[i+1][j]);
+					if (j > 0 && board[i][j-1].isWalkway()) 				adjMtx.get(bc).add(board[i][j-1]);
+					if (j < numColumns - 1 && board[i][j+1].isWalkway()) 	adjMtx.get(bc).add(board[i][j+1]);
+				}
 			}
 		}
 	}
 	
-	public void calcTargets(BoardCell startCell, int pathLength) {
+	public void calcTargets(int row, int column, int pathLength) {
 		// Empty out the visited/targets lists
 		visited.clear();
 		targets.clear();
 		
 		// Add the start location to visited
+		BoardCell startCell = board[row][column];
 		visited.add(startCell);
 		
 		// Kick off the recursion
@@ -198,10 +212,10 @@ public class Board {
 	}
 	
 	public Set<BoardCell> getAdjList(int row, int column) {
-		return null;
+		return adjMtx.get(board[row][column]);
 	}
 	
 	public Set<BoardCell> getTargets() {
-		return null;
+		return targets;
 	} 
 }
