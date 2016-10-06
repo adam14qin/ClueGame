@@ -3,8 +3,10 @@ package clueGame;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Board {
 	public static final int MAX_BOARD_SIZE = 50;
@@ -13,6 +15,10 @@ public class Board {
 	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private String roomConfigName;
 	private String boardConfigName;
+	
+	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
+	private Set<BoardCell> visited = new HashSet<BoardCell>();
+	private Set<BoardCell> targets = new HashSet<BoardCell>();
 	
 	// Variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -139,10 +145,63 @@ public class Board {
 	}
 	
 	public void calcAdjacencies() {
-		
+		// Complexity: O(n)-> n=number of cells
+		for (int i = 0; i < numRows; i++) {
+			for (int j = 0; j < numColumns; j++) {
+				// Get cell of interest
+				BoardCell bc = board[i][j];
+				
+				// Ensure entry exists in map
+				if (!adjMtx.containsKey(bc))
+					adjMtx.put(bc, new HashSet<BoardCell>());
+				
+				// Add left, right, up, down cells conditionally
+				if (i > 0 && !board[i-1][j].isRoom()) adjMtx.get(bc).add(board[i-1][j]);
+				if (i < numColumns - 1 && !board[i+1][j].isRoom()) adjMtx.get(bc).add(board[i+1][j]);
+				if (j > 0 && !board[i][j-1].isRoom()) adjMtx.get(bc).add(board[i][j-1]);
+				if (j < numRows - 1 && !board[i][j+1].isRoom()) adjMtx.get(bc).add(board[i][j+1]);
+			}
+		}
 	}
 	
-	public void calcTargets(BoardCell cell, int pathLength) {
+	public void calcTargets(BoardCell startCell, int pathLength) {
+		// Empty out the visited/targets lists
+		visited.clear();
+		targets.clear();
 		
+		// Add the start location to visited
+		visited.add(startCell);
+		
+		// Kick off the recursion
+		findAllTargets(startCell, pathLength);
 	}
+	
+	private void findAllTargets(BoardCell startCell, int pathLength) {
+		// Iterate through adjacent BoardCell(s)
+		for (BoardCell adj : adjMtx.get(startCell)) {
+			// Don't double back on our path
+			if (visited.contains(adj))
+				continue;
+			
+			// Protect ourselves from doubling back in the next round
+			visited.add(adj);
+			
+			// Add a target if we expired the pathLength counter, otherwise recurse
+			if (pathLength == 1 || adj.isDoorway())
+				targets.add(adj);
+			else
+				findAllTargets(adj, pathLength - 1);
+			
+			// Clean adjacent cell out of visited set
+			visited.remove(adj);
+		}
+	}
+	
+	public Set<BoardCell> getAdjList(int row, int column) {
+		return null;
+	}
+	
+	public Set<BoardCell> getTargets() {
+		return null;
+	} 
 }
