@@ -65,7 +65,7 @@ public class Board {
 		// File reader objects
 		FileReader reader = new FileReader(roomConfigName);
 		Scanner in = null;
-		
+		rooms.clear();
 		try {
 			// Initialize file scanner
 			in = new Scanner(reader);
