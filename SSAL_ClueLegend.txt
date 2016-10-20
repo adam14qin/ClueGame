@@ -1,0 +1,11 @@
+G, Great Hall, Card
+R, Sanctorium, Card
+D, Dungeon, Card
+C, Cellar, Card
+P, Greenhouse, Card
+B, Study, Card
+K, Kitchen, Card
+L, Library, Card
+O, Laboratory, Card
+W, Walkway, Other
+X, Scriptorium, Other
