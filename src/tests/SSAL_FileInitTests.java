@@ -27,7 +27,7 @@ public class SSAL_FileInitTests {
 			// Board is singleton, get the only instance
 			board = Board.getInstance();
 			// set the file names to use my config files
-			board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt");		
+			board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_ClueDeck.txt");		
 			// Initialize will load BOTH config files 
 			board.initialize();
 		}

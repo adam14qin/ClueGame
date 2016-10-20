@@ -2,6 +2,7 @@ package clueGame;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -15,10 +16,13 @@ public class Board {
 	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private String roomConfigName;
 	private String boardConfigName;
+	private String cardConfigName; 
 	
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
+	
+	private ArrayList<Card> deck = new ArrayList<>();
 	
 	// Variable used for singleton pattern
 	private static Board theInstance = new Board();
@@ -43,9 +47,10 @@ public class Board {
 	}
 	
 	// Store the legend and layout configuration file names
-	public void setConfigFiles(String layoutFileName, String legendFileName) {
+	public void setConfigFiles(String layoutFileName, String legendFileName, String cardFileName) {
 		roomConfigName = legendFileName;
 		boardConfigName = layoutFileName;
+		cardConfigName = cardFileName; 
 	}
 
 	// Read from the configuration files and initialize the Board
@@ -53,6 +58,7 @@ public class Board {
 		try {
 			loadRoomConfig();
 			loadBoardConfig();
+			loadCardConfig(); 
 		} catch (BadConfigFormatException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -146,6 +152,11 @@ public class Board {
 		}
 	}
 	
+	public void loadCardConfig()
+	{
+		
+	}
+	
 	private void calcAdjacencies() {
 		// Complexity: O(n)-> n=number of cells
 		for (int i = 0; i < numRows; i++) {
@@ -218,4 +229,9 @@ public class Board {
 	public Set<BoardCell> getTargets() {
 		return targets;
 	} 
+	
+	public ArrayList<Card> getDeck()
+	{
+		return deck; 
+	}
 }

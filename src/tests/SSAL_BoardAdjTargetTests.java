@@ -23,7 +23,7 @@ public class SSAL_BoardAdjTargetTests {
 	public static void setUp() {
 		// Board is singleton, get the only instance and initialize it		
 		board = Board.getInstance();
-		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt");		
+		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_ClueDeck.txt");		
 		board.initialize();
 	}
 
