@@ -1,23 +1,12 @@
 W, Cat
-
 W, Bunny
-
 W, Puppy
-
 W, Acid
-
 W, Bird
-
 W, AK47
-
 P, Thorin
-
 P, Fili
-
 P, Kili
-
 P, Balin
-
 P, Dori
-
 P, Nori

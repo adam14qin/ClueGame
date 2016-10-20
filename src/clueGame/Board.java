@@ -152,9 +152,43 @@ public class Board {
 		}
 	}
 	
-	public void loadCardConfig()
+	public void loadCardConfig() throws FileNotFoundException, BadConfigFormatException
 	{
-		
+		// File reader objects
+				FileReader reader = new FileReader(cardConfigName);
+				Scanner in = null;
+				deck.clear();
+				try {
+					// Initialize file scanner
+					in = new Scanner(reader);
+					
+					// Iterate through definitions of rooms
+					while(in.hasNextLine()){
+						String theLine = in.nextLine();
+						String[] theChunks = theLine.split(", ");
+						
+						// Error condition: Row of legend doesn't have 3 comma separated values
+						if (theChunks.length != 2)
+							throw new BadConfigFormatException("Invalid legend entry: " + theLine);
+						
+						// Error condition: Type of room is not 'Other' or 'Card'
+						else if (!(theChunks[0].equals("W") || theChunks[0].equals("P")))
+							throw new BadConfigFormatException("Invalid card type: " + theChunks[0]);
+						
+						// Store the room into the map
+						deck.add(new Card(theChunks[0].charAt(0), theChunks[1])); 
+						
+					}	
+				for(char x : rooms.keySet())
+				{
+					if(x != 'W' && x!= 'X')
+					deck.add(new Card('R', rooms.get(x))); 
+				}
+				} finally {
+					// Cleanup the scanner, even if an exception was thrown
+					if (in != null)
+						in.close();
+				}
 	}
 	
 	private void calcAdjacencies() {
@@ -172,17 +206,25 @@ public class Board {
 				// If inside a walkway
 				if (board[i][j].isWalkway()){
 
-					if (i > 0 && (board[i-1][j].isWalkway() || (board[i-1][j].isDoorway() && board[i-1][j].getDoorDirection() == DoorDirection.DOWN))) 				adjMtx.get(bc).add(board[i-1][j]);		
-					if (i < numRows - 1 && (board[i+1][j].isWalkway() || (board[i+1][j].isDoorway() && board[i+1][j].getDoorDirection() == DoorDirection.UP))) 	adjMtx.get(bc).add(board[i+1][j]);
-					if (j > 0 && (board[i][j-1].isWalkway() || (board[i][j-1].isDoorway() && board[i][j-1].getDoorDirection() == DoorDirection.RIGHT))) 				adjMtx.get(bc).add(board[i][j-1]);
-					if (j < numColumns - 1 && (board[i][j+1].isWalkway() || (board[i][j+1].isDoorway() && board[i][j+1].getDoorDirection() == DoorDirection.LEFT))) adjMtx.get(bc).add(board[i][j+1]);
+					if (i > 0 && (board[i-1][j].isWalkway() || (board[i-1][j].isDoorway() && board[i-1][j].getDoorDirection() == DoorDirection.DOWN))) 				
+						adjMtx.get(bc).add(board[i-1][j]);		
+					if (i < numRows - 1 && (board[i+1][j].isWalkway() || (board[i+1][j].isDoorway() && board[i+1][j].getDoorDirection() == DoorDirection.UP))) 	
+						adjMtx.get(bc).add(board[i+1][j]);
+					if (j > 0 && (board[i][j-1].isWalkway() || (board[i][j-1].isDoorway() && board[i][j-1].getDoorDirection() == DoorDirection.RIGHT))) 				
+						adjMtx.get(bc).add(board[i][j-1]);
+					if (j < numColumns - 1 && (board[i][j+1].isWalkway() || (board[i][j+1].isDoorway() && board[i][j+1].getDoorDirection() == DoorDirection.LEFT))) 
+						adjMtx.get(bc).add(board[i][j+1]);
 				}
 				
 				else if (board[i][j].isDoorway()){
-					if (i > 0 && board[i-1][j].isWalkway()) 				adjMtx.get(bc).add(board[i-1][j]);			
-					if (i < numRows - 1 && board[i+1][j].isWalkway()) 		adjMtx.get(bc).add(board[i+1][j]);
-					if (j > 0 && board[i][j-1].isWalkway()) 				adjMtx.get(bc).add(board[i][j-1]);
-					if (j < numColumns - 1 && board[i][j+1].isWalkway()) 	adjMtx.get(bc).add(board[i][j+1]);
+					if (i > 0 && board[i-1][j].isWalkway()) 				
+						adjMtx.get(bc).add(board[i-1][j]);			
+					if (i < numRows - 1 && board[i+1][j].isWalkway()) 		
+						adjMtx.get(bc).add(board[i+1][j]);
+					if (j > 0 && board[i][j-1].isWalkway()) 				
+						adjMtx.get(bc).add(board[i][j-1]);
+					if (j < numColumns - 1 && board[i][j+1].isWalkway()) 	
+						adjMtx.get(bc).add(board[i][j+1]);
 				}
 			}
 		}

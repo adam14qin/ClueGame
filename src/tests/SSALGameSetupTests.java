@@ -40,7 +40,7 @@ public class SSALGameSetupTests {
 		assertTrue(deck.contains(new Card('W', "Cat")));
 		assertTrue(deck.contains(new Card('W', "Bunny")));
 		assertTrue(deck.contains(new Card('W', "AK47")));
-		assertTrue(deck.contains(new Card('w', "Acid")));
+		assertTrue(deck.contains(new Card('W', "Acid")));
 		assertEquals(21, deck.size());
 	}
 	
