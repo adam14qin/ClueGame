@@ -70,14 +70,15 @@ public class SSALGameSetupTests {
 	}
 	
 	@Test
-	public void testWeaponsCards()
+	public void testWeapons()
 	{
-		ArrayList<Card> deck = board.getDeck(); 
-		assertTrue(deck.contains(new Card('R', "Kitchen")));
-		assertTrue(deck.contains(new Card('R', "Great Hall")));
-		assertTrue(deck.contains(new Card('R', "Laboratory")));
-		assertTrue(deck.contains(new Card('R', "Study")));
-		assertEquals(21, deck.size());
+		ArrayList<String> weapons = board.getWeapons(); 
+		assertTrue(weapons.contains("Cat"));
+		assertTrue(weapons.contains("Bunny"));
+		assertTrue(weapons.contains("Bird"));
+		assertTrue(weapons.contains("AK47"));
+		assertEquals(6, weapons.size());
+		
 	}
 	
 	

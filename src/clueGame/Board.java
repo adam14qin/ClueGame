@@ -326,6 +326,11 @@ public class Board {
 		return players; 
 	}
 	
+	public ArrayList<String> getWeapons()
+	{
+		return weapons; 
+	}
+	
 	public Color convertColor(String strColor) {
 	    Color color; 
 	    try {     
