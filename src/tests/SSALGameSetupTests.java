@@ -61,12 +61,16 @@ public class SSALGameSetupTests {
 	public void testPeople()
 	{
 		ArrayList<Player> players = board.getPlayers();  
-		assertTrue(Player.contains(new Player("Thorin", 15, 1, Color.blue)));
+		System.out.println(players.toString());
+		assertTrue(players.contains(new Player("Thorin", 15, 1, Color.blue)));
+		assertTrue(players.contains(new Player("Fili", 22, 5, Color.red)));
+		assertTrue(players.contains(new Player("Dori", 11, 21, Color.orange)));
+		assertTrue(players.contains(new Player("Nori", 1, 21, Color.gray)));
 		assertEquals(6, players.size());
 	}
 	
 	@Test
-	public void testRoomCards()
+	public void testWeaponsCards()
 	{
 		ArrayList<Card> deck = board.getDeck(); 
 		assertTrue(deck.contains(new Card('R', "Kitchen")));

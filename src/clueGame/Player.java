@@ -33,12 +33,6 @@ public class Player {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
 		Player other = (Player) obj;
 		if (color == null) {
 			if (other.color != null)
@@ -56,6 +50,14 @@ public class Player {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Player [playerName=" + playerName + ", color=" + color + ", row=" + row + ", column=" + column
+				+ ", hand=" + hand + "]";
+	}
+	
+	
 	
 	
 }
