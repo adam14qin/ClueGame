@@ -16,6 +16,8 @@ public class SSALGameSetupTests {
 
 	private static Board board;
 	
+	/* The beforeClass sets up the board before starting the tests 
+	 */
 	@BeforeClass
 	public static void setUp() {
 		// Board is singleton, get the only instance and initialize it		
@@ -24,6 +26,10 @@ public class SSALGameSetupTests {
 				board.initialize();
 	}
 	
+	/* This tests the people cards in the desk, by seeing if they have the proper 
+	 * letter ('P' for person), as well as having the correct name.
+	 * Then we test that the deck has the proper total of cards  
+	 */
 	@Test
 	public void testPeopleCards()
 	{
@@ -35,6 +41,10 @@ public class SSALGameSetupTests {
 		assertEquals(21, deck.size());
 	}
 	
+	/* testWeapon cards checks the after reading in the weapons, 
+	 * they are in the correct format ('W' for weapon) and that 
+	 * the names are the properly associated weapons 
+	 */
 	@Test
 	public void testWeaponCards()
 	{
@@ -46,6 +56,10 @@ public class SSALGameSetupTests {
 		assertEquals(21, deck.size());
 	}
 	
+	/* testRoomCards tests that the rooms are loaded in correctly
+	 * we see that each room has an 'R' with it, and that it is also
+	 * named correctly according to our config file
+	 */
 	@Test
 	public void testRoomCards()
 	{
@@ -57,6 +71,11 @@ public class SSALGameSetupTests {
 		assertEquals(21, deck.size());
 	}
 	
+	/* testPeople checks that our players ArrayList has not only the names
+	 * but also the proper row/col number for starting locations, as well as 
+	 * the color associated to each player is have been properly converted into 
+	 * a usable value
+	 */
 	@Test
 	public void testPeople()
 	{
@@ -69,6 +88,10 @@ public class SSALGameSetupTests {
 		assertEquals(6, players.size());
 	}
 	
+	/*testWeapons tests the weapons ArrayList to see that there are weapons
+	 * in it. The first and last weapons, as well as 2 middle weapons were tested
+	 * and it also checks that it's size is equal to the total number of weapons
+	 */
 	@Test
 	public void testWeapons()
 	{
