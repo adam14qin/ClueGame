@@ -18,8 +18,10 @@ public class Board {
 	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private String roomConfigName;
 	private String boardConfigName;
-	private String cardConfigName; 
+	private String playerConfigName; 
+	private String weaponConfigName; 
 	
+	private ArrayList<Player> players = new ArrayList<>(); 
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
@@ -49,10 +51,11 @@ public class Board {
 	}
 	
 	// Store the legend and layout configuration file names
-	public void setConfigFiles(String layoutFileName, String legendFileName, String cardFileName) {
+	public void setConfigFiles(String layoutFileName, String legendFileName, String weaponFileName, String playerFileName) {
 		roomConfigName = legendFileName;
 		boardConfigName = layoutFileName;
-		cardConfigName = cardFileName; 
+		weaponConfigName = weaponFileName; 
+		playerConfigName = playerFileName;
 	}
 
 	// Read from the configuration files and initialize the Board
@@ -154,12 +157,11 @@ public class Board {
 		}
 	}
 	
-	public void loadCardConfig() throws FileNotFoundException, BadConfigFormatException
+	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException
 	{
 		// File reader objects
-				FileReader reader = new FileReader(cardConfigName);
+				FileReader reader = new FileReader(playerConfigName);
 				Scanner in = null;
-				deck.clear();
 				try {
 					// Initialize file scanner
 					in = new Scanner(reader);
@@ -170,16 +172,14 @@ public class Board {
 						String[] theChunks = theLine.split(", ");
 						
 						// Error condition: Row of legend doesn't have 3 comma separated values
-						if (theChunks.length != 2)
+						if (theChunks.length != 4)
 							throw new BadConfigFormatException("Invalid legend entry: " + theLine);
 						
 						// Error condition: Type of room is not 'Other' or 'Card'
-						else if (!(theChunks[0].equals("W") || theChunks[0].equals("P")))
-							throw new BadConfigFormatException("Invalid card type: " + theChunks[0]);
 						
 						// Store the room into the map
-						deck.add(new Card(theChunks[0].charAt(0), theChunks[1])); 
-						
+						deck.add(new Card('P', theChunks[0])); 
+						players.add(new Player)
 					}	
 				for(char x : rooms.keySet())
 				{
