@@ -1,0 +1,6 @@
+P, Thorin, 15, 1, blue
+C, Fili, 22, 5, red
+C, Kili, 22, 12, green
+C, Balin, 19, 22, magenta
+C, Dori, 11, 21, orange
+C, Nori, 1, 21, gray
