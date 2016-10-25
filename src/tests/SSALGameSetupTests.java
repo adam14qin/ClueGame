@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import org.junit.BeforeClass;
@@ -9,6 +10,7 @@ import org.junit.Test;
 
 import clueGame.Board;
 import clueGame.Card;
+import clueGame.Player;
 
 public class SSALGameSetupTests {
 
@@ -54,5 +56,25 @@ public class SSALGameSetupTests {
 		assertTrue(deck.contains(new Card('R', "Study")));
 		assertEquals(21, deck.size());
 	}
+	
+	@Test
+	public void testPeople()
+	{
+		ArrayList<Player> players = board.getPlayers();  
+		assertTrue(Player.contains(new Player("Thorin", 15, 1, Color.blue)));
+		assertEquals(6, players.size());
+	}
+	
+	@Test
+	public void testRoomCards()
+	{
+		ArrayList<Card> deck = board.getDeck(); 
+		assertTrue(deck.contains(new Card('R', "Kitchen")));
+		assertTrue(deck.contains(new Card('R', "Great Hall")));
+		assertTrue(deck.contains(new Card('R', "Laboratory")));
+		assertTrue(deck.contains(new Card('R', "Study")));
+		assertEquals(21, deck.size());
+	}
+	
 	
 }

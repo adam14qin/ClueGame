@@ -15,16 +15,20 @@ public class Board {
 	public static final int MAX_BOARD_SIZE = 50;
 	private int numRows, numColumns;
 	private BoardCell[][] board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
-	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private String roomConfigName;
 	private String boardConfigName;
 	private String playerConfigName; 
 	private String weaponConfigName; 
 	
 	private ArrayList<Player> players = new ArrayList<>(); 
+	private Map<Character, String> rooms = new HashMap<Character, String>();
+	private ArrayList<String> weapons = new ArrayList<>(); 
+	
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
 	private Set<BoardCell> targets = new HashSet<BoardCell>();
+	
+	public Solution answer = new Solution(); 
 	
 	private ArrayList<Card> deck = new ArrayList<>();
 	
@@ -63,12 +67,18 @@ public class Board {
 		try {
 			loadRoomConfig();
 			loadBoardConfig();
-			loadCardConfig(); 
+			loadPlayerConfig(); 
+			loadWeaponConfig();
+			answer = generateAnswer(); 
 		} catch (BadConfigFormatException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		calcAdjacencies();
+	}
+	
+	private Solution generateAnswer() {
+		return new Solution(); 
 	}
 	
 	// Read the legend file
@@ -77,6 +87,7 @@ public class Board {
 		FileReader reader = new FileReader(roomConfigName);
 		Scanner in = null;
 		rooms.clear();
+		deck.clear(); 
 		try {
 			// Initialize file scanner
 			in = new Scanner(reader);
@@ -101,6 +112,11 @@ public class Board {
 			// Cleanup the scanner, even if an exception was thrown
 			if (in != null)
 				in.close();
+		}
+		for(char x : rooms.keySet())
+		{
+			if(x != 'W' && x!= 'X')
+			deck.add(new Card('R', rooms.get(x))); 
 		}
 	}
 	
@@ -159,6 +175,7 @@ public class Board {
 	
 	public void loadPlayerConfig() throws FileNotFoundException, BadConfigFormatException
 	{
+		players.clear();
 		// File reader objects
 				FileReader reader = new FileReader(playerConfigName);
 				Scanner in = null;
@@ -172,25 +189,50 @@ public class Board {
 						String[] theChunks = theLine.split(", ");
 						
 						// Error condition: Row of legend doesn't have 3 comma separated values
-						if (theChunks.length != 4)
+						if (theChunks.length != 5)
 							throw new BadConfigFormatException("Invalid legend entry: " + theLine);
 						
 						// Error condition: Type of room is not 'Other' or 'Card'
 						
 						// Store the room into the map
-						deck.add(new Card('P', theChunks[0])); 
-						players.add(new Player)
+						deck.add(new Card('P', theChunks[1])); 
+						if(theChunks[0].charAt(0)=='P')
+						{
+							players.add(new HumanPlayer(theChunks[1], Integer.parseInt(theChunks[2]), Integer.parseInt(theChunks[3]), convertColor(theChunks[4])));
+						}
+						else
+						{
+							players.add(new ComputerPlayer(theChunks[1], Integer.parseInt(theChunks[2]), Integer.parseInt(theChunks[3]), convertColor(theChunks[4])));
+						}
 					}	
-				for(char x : rooms.keySet())
-				{
-					if(x != 'W' && x!= 'X')
-					deck.add(new Card('R', rooms.get(x))); 
-				}
+
 				} finally {
 					// Cleanup the scanner, even if an exception was thrown
 					if (in != null)
 						in.close();
 				}
+	}
+	
+	public void loadWeaponConfig() throws FileNotFoundException, BadConfigFormatException {
+		// File reader objects
+		weapons.clear(); 
+		FileReader reader = new FileReader(weaponConfigName);
+		Scanner in = null;
+		try {
+			// Initialize file scanner
+			in = new Scanner(reader);
+			
+			// Iterate through definitions of rooms
+			while(in.hasNextLine()){
+				String theLine = in.nextLine();
+				deck.add(new Card('W', theLine)); 
+				weapons.add(theLine); 
+			}	
+		} finally {
+			// Cleanup the scanner, even if an exception was thrown
+			if (in != null)
+				in.close();
+		}
 	}
 	
 	private void calcAdjacencies() {
@@ -277,6 +319,11 @@ public class Board {
 	public ArrayList<Card> getDeck()
 	{
 		return deck; 
+	}
+	
+	public ArrayList<Player> getPlayers()
+	{
+		return players; 
 	}
 	
 	public Color convertColor(String strColor) {
