@@ -24,6 +24,7 @@ public class Board {
 	private String weaponConfigName; 
 	
 	private ArrayList<Player> players = new ArrayList<>(); 
+	private ArrayList<String> habitableRooms = new ArrayList<>(); 
 	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private ArrayList<String> weapons = new ArrayList<>(); 
 	
@@ -72,8 +73,9 @@ public class Board {
 			loadBoardConfig();
 			loadPlayerConfig(); 
 			loadWeaponConfig();
-			dealCards();
 			answer = generateAnswer(); 
+			dealCards();
+			
 		} catch (BadConfigFormatException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -83,8 +85,7 @@ public class Board {
 	private Solution generateAnswer() {
 		Random rand = new Random();
 		Player playerAnswer = players.get(rand.nextInt(players.size())); 
-		Object roomsArray[] = rooms.values().toArray(); 
-		String roomAnswer = (String) roomsArray[rand.nextInt(roomsArray.length)];
+		String roomAnswer = habitableRooms.get(rand.nextInt(habitableRooms.size()));
 		String weaponAnswer = weapons.get(rand.nextInt(weapons.size())); 
 		return new Solution(new Card('W', weaponAnswer), new Card('P', playerAnswer.getName()), new Card('R', roomAnswer)); 
 	}
@@ -93,10 +94,15 @@ public class Board {
 		ArrayList<Card> tempDeck = new ArrayList<>(); 
 		tempDeck.addAll(deck); 
 		Collections.shuffle(tempDeck);
-		
-		tempDeck.remove(answer.getPlayer()); 
-		tempDeck.remove(answer.getRoom());
-		tempDeck.remove(answer.getWeapon());
+		for(int i = tempDeck.size()-1; i>=0; i--)
+		{
+			if(tempDeck.get(i).equals(answer.getPlayer()))
+				tempDeck.remove(i);
+			else if(tempDeck.get(i).equals(answer.getRoom()))
+				tempDeck.remove(i);
+			else if(tempDeck.get(i).equals(answer.getWeapon()))
+				tempDeck.remove(i);
+		}
 		int currentPlayer = 0; 
 		while(!tempDeck.isEmpty())
 		{
@@ -141,7 +147,10 @@ public class Board {
 		for(char x : rooms.keySet())
 		{
 			if(x != 'W' && x!= 'X')
+			{
 			deck.add(new Card('R', rooms.get(x))); 
+			habitableRooms.add(rooms.get(x)); 
+			}
 		}
 	}
 	

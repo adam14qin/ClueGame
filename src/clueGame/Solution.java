@@ -28,6 +28,12 @@ public class Solution {
 	public Card getRoom() {
 		return room;
 	}
+
+	@Override
+	public String toString() {
+		return "Solution [weapon=" + weapon + ", player=" + player + ", room=" + room + "]";
+	}
+	
 	
 	
 }

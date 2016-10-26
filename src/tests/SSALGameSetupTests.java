@@ -131,7 +131,6 @@ public class SSALGameSetupTests {
 		for(int i=0; i<board.getPlayers().size(); i++)
 		{
 			assertTrue(board.getPlayers().get(i).getHand().size()>0);
-			System.out.println(board.getPlayers().get(i).getHand().size());
 			for(Card x: board.getPlayers().get(i).getHand())
 			{
 				assertFalse(allCards.contains(x)); 
@@ -140,5 +139,12 @@ public class SSALGameSetupTests {
 			if(i < board.getPlayers().size()-1)
 			assertTrue((board.getPlayers().get(i).getHand().size() - board.getPlayers().get(i+1).getHand().size()) < 2);
 		}
+		assertEquals(18, allCards.size());
+		
+		//Check that we did not deal the solution cards! 
+		assertFalse(allCards.contains(board.answer.getPlayer()));
+		assertFalse(allCards.contains(board.answer.getWeapon()));
+		assertFalse(allCards.contains(board.answer.getRoom()));
 	}
+
 }
