@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -117,7 +119,21 @@ public class SSALGameSetupTests {
 		assertNotNull(sol.getWeapon()); 
 	}
 	
-	
-	
+	@Test 
+	public void testDealingCards()
+	{
+		ArrayList<Card >allCards = new ArrayList<>(); 
+		for(int i=0; i<board.getPlayers().size()-1; i++)
+		{
+			for(Card x: board.getPlayers().get(i).getHand())
+			{
+				assertFalse(allCards.contains(x)); 
+				allCards.add(x); 
+			}
+			assertTrue((board.getPlayers().get(i).getHand().size() - board.getPlayers().get(i+1).getHand().size()) < 2);
+		}
+		
+		
+	}
 	
 }

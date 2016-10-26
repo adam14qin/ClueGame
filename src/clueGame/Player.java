@@ -57,6 +57,9 @@ public class Player {
 				+ ", hand=" + hand + "]";
 	}
 	
+	public ArrayList<Card> getHand() {
+		return hand; 
+	}
 	
 	
 	
