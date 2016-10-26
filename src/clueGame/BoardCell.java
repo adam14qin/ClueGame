@@ -55,8 +55,6 @@ public class BoardCell {
 	@Override
 	public boolean equals(Object obj) {
 		BoardCell other = (BoardCell) obj;
-		System.out.println(row + " " + other.row);
-		System.out.println(column + " " + other.column);
 		if (column != other.column)
 		{
 			return false;

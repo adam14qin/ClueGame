@@ -26,5 +26,9 @@ public class ComputerPlayer extends Player {
 		Random rand = new Random();
 		return (BoardCell) targets.toArray()[rand.nextInt(targets.size())]; 
 	}
+	
+	public void setLastRoomVisited(char c){
+		lastRoomVisited = c; 
+	}
 
 }

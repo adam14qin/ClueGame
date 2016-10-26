@@ -6,10 +6,12 @@ import java.util.Random;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.Computer;
 
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.Card;
+import clueGame.ComputerPlayer;
 import clueGame.Player;
 import clueGame.Solution;
 
@@ -82,13 +84,19 @@ public class GameActionTests {
 			
 			@Test 
 			public void selectRoomTarget() {
+				/*
+				 * Tests to make sure that we do indeed choose the room because it is within our range of steps
+				 * After we move to the room, pass in new targets and assure that the player does not go to the 
+				 * room he just came from
+				 */
 				Player testPlayer = board.getPlayers().get(4); 
 				board.calcTargets(testPlayer.getRow(), testPlayer.getCol(), 6);
-				System.out.println(testPlayer);
-				System.out.println(board.getCellAt(14, 18));
-				for(int i=0; i<1; i++)
+				BoardCell newSpot = testPlayer.getMove(board.getTargets());
+				assertTrue(newSpot.equals(board.getCellAt(14, 18)));
+				board.calcTargets(newSpot.getRow(), newSpot.getColumn(), 6);
+				for(int i =0; i<100; i++)
 				{
-					assertTrue(testPlayer.getMove(board.getTargets()).equals(board.getCellAt(14, 18)));
+					assertFalse(testPlayer.getMove(board.getTargets()).equals(board.getCellAt(14, 18)));
 				}
 			}
 			
