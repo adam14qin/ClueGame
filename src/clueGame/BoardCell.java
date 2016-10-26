@@ -55,12 +55,26 @@ public class BoardCell {
 	@Override
 	public boolean equals(Object obj) {
 		BoardCell other = (BoardCell) obj;
+		System.out.println(row + " " + other.row);
+		System.out.println(column + " " + other.column);
 		if (column != other.column)
+		{
 			return false;
+		}
 		if (row != other.row)
+		{
 			return false;
+		}
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "BoardCell [row=" + row + ", column=" + column + ", initial=" + initial + ", doorDirection="
+				+ doorDirection + "]";
+	}
+	
+	
 	
 	
 }

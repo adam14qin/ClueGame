@@ -80,6 +80,18 @@ public class GameActionTests {
 		        assertTrue(loc_23_4);
 			}
 			
+			@Test 
+			public void selectRoomTarget() {
+				Player testPlayer = board.getPlayers().get(4); 
+				board.calcTargets(testPlayer.getRow(), testPlayer.getCol(), 6);
+				System.out.println(testPlayer);
+				System.out.println(board.getCellAt(14, 18));
+				for(int i=0; i<1; i++)
+				{
+					assertTrue(testPlayer.getMove(board.getTargets()).equals(board.getCellAt(14, 18)));
+				}
+			}
+			
 			@Test
 			public void checkAccusation() {
 				/*
