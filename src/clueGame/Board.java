@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 import java.lang.reflect.Field;
@@ -74,12 +75,16 @@ public class Board {
 		} catch (BadConfigFormatException | FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		calcAdjacencies();
 	}
 	
 	private Solution generateAnswer() {
-		return new Solution(); 
+		Random rand = new Random();
+		Player playerAnswer = players.get(rand.nextInt(players.size())); 
+		Object roomsArray[] = rooms.values().toArray(); 
+		String roomAnswer = (String) roomsArray[rand.nextInt(roomsArray.length)];
+		String weaponAnswer = weapons.get(rand.nextInt(weapons.size())); 
+		return new Solution(weaponAnswer, playerAnswer, roomAnswer); 
 	}
 	
 	// Read the legend file

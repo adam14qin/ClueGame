@@ -80,8 +80,7 @@ public class SSALGameSetupTests {
 	@Test
 	public void testPeople()
 	{
-		ArrayList<Player> players = board.getPlayers();  
-		System.out.println(players.toString());
+		ArrayList<Player> players = board.getPlayers();
 		assertTrue(players.contains(new Player("Thorin", 15, 1, Color.blue)));
 		assertTrue(players.contains(new Player("Fili", 22, 5, Color.red)));
 		assertTrue(players.contains(new Player("Dori", 11, 21, Color.orange)));
@@ -117,6 +116,7 @@ public class SSALGameSetupTests {
 		assertNotNull(sol.getRoom());
 		assertNotNull(sol.getWeapon()); 
 	}
+	
 	
 	
 	
