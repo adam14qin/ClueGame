@@ -33,6 +33,29 @@ public class Solution {
 	public String toString() {
 		return "Solution [weapon=" + weapon + ", player=" + player + ", room=" + room + "]";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Solution other = (Solution) obj;
+		if (player == null) {
+			if (other.player != null)
+				return false;
+		} else if (!player.equals(other.player))
+			return false;
+		if (room == null) {
+			if (other.room != null)
+				return false;
+		} else if (!room.equals(other.room))
+			return false;
+		if (weapon == null) {
+			if (other.weapon != null)
+				return false;
+		} else if (!weapon.equals(other.weapon))
+			return false;
+		return true;
+	}
+	
+	
 	
 	
 	

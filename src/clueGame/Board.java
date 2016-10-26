@@ -90,6 +90,12 @@ public class Board {
 		return new Solution(new Card('W', weaponAnswer), new Card('P', playerAnswer.getName()), new Card('R', roomAnswer)); 
 	}
 	
+	public boolean checkAccusation(Solution accusation) {
+		if(accusation.equals(answer))
+			return true;
+		return false;
+	}
+	
 	private void dealCards() {
 		ArrayList<Card> tempDeck = new ArrayList<>(); 
 		tempDeck.addAll(deck); 
@@ -269,6 +275,8 @@ public class Board {
 		}
 	}
 	
+	
+	
 	private void calcAdjacencies() {
 		// Complexity: O(n)-> n=number of cells
 		for (int i = 0; i < numRows; i++) {
@@ -367,6 +375,10 @@ public class Board {
 	
 	public Solution getAnswer() {
 		return answer; 
+	}
+	
+	public ArrayList<String> getHabitableRooms() {
+		return habitableRooms; 
 	}
 	
 	public Color convertColor(String strColor) {
