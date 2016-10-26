@@ -14,7 +14,12 @@ public class BoardCell {
 		this.column = col;
 		
 		// First character is the room name, second character is the door direction
+		if(initials.length()>0)
+		{
 		this.initial = initials.charAt(0);
+		} else {
+			this.initial = 'n'; 
+		}
 		doorDirection = (initials.length() > 1 ? DoorDirection.fromCharacter(initials.charAt(1)) : DoorDirection.NONE);
 	}
 	
@@ -46,4 +51,16 @@ public class BoardCell {
 	public DoorDirection getDoorDirection(){
 		return doorDirection;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		BoardCell other = (BoardCell) obj;
+		if (column != other.column)
+			return false;
+		if (row != other.row)
+			return false;
+		return true;
+	}
+	
+	
 }

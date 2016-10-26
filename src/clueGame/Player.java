@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class Player {
 
@@ -18,17 +19,6 @@ public class Player {
 		this.row = row;
 		this.column = column; 
 		this.color = color;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((color == null) ? 0 : color.hashCode());
-		result = prime * result + column;
-		result = prime * result + ((playerName == null) ? 0 : playerName.hashCode());
-		result = prime * result + row;
-		return result;
 	}
 
 	@Override
@@ -65,6 +55,16 @@ public class Player {
 		return playerName;
 	}
 	
+	public BoardCell getMove(Set<BoardCell>targets) {
+		return null;
+	}
 	
+	public int getRow(){
+		return row; 
+	}
+	
+	public int getCol(){
+		return column; 
+	}
 	
 }
