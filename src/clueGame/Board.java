@@ -15,6 +15,7 @@ public class Board {
 	public static final int MAX_BOARD_SIZE = 50;
 	private int numRows, numColumns;
 	private BoardCell[][] board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
+	
 	private String roomConfigName;
 	private String boardConfigName;
 	private String playerConfigName; 
@@ -329,6 +330,10 @@ public class Board {
 	public ArrayList<String> getWeapons()
 	{
 		return weapons; 
+	}
+	
+	public Solution getAnswer() {
+		return answer; 
 	}
 	
 	public Color convertColor(String strColor) {

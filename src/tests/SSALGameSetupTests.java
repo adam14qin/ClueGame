@@ -11,6 +11,7 @@ import org.junit.Test;
 import clueGame.Board;
 import clueGame.Card;
 import clueGame.Player;
+import clueGame.Solution;
 
 public class SSALGameSetupTests {
 
@@ -92,6 +93,7 @@ public class SSALGameSetupTests {
 	 * in it. The first and last weapons, as well as 2 middle weapons were tested
 	 * and it also checks that it's size is equal to the total number of weapons
 	 */
+	
 	@Test
 	public void testWeapons()
 	{
@@ -103,6 +105,19 @@ public class SSALGameSetupTests {
 		assertEquals(6, weapons.size());
 		
 	}
+	
+	@Test
+	public void testAnswerSolution()
+	{
+		Solution sol = board.getAnswer(); 
+		//Check that the solution to the game is not null, was correctly generated
+		assertNotNull(sol);
+		//Check that each piece of the solution is not null
+		assertNotNull(sol.getPlayer());
+		assertNotNull(sol.getRoom());
+		assertNotNull(sol.getWeapon()); 
+	}
+	
 	
 	
 }

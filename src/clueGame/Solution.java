@@ -16,4 +16,18 @@ public class Solution {
 		this.player = player;
 		this.room = room; 
 	}
+
+	public String getWeapon() {
+		return weapon;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+	
+	
 }
