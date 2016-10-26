@@ -1,0 +1,192 @@
+commit 8b8d290cbf9d41df0f5cb0e1caf5e7e1dae6c0b0
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Tue Oct 25 19:42:44 2016 -0600
+
+    Turns out we didnt make it pass, now they are actually right
+
+commit 8f3106bbb676bab9414c252bdf758c5cb81743b0
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Tue Oct 25 19:17:58 2016 -0600
+
+    Made dealing tests work
+
+commit db17db03e2494e4bb89bb9ceebfd4a7bc170eb80
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Tue Oct 25 18:45:24 2016 -0600
+
+    Made failing tests for deal cards
+
+commit bfe04cd662d38a442c597c064c870ea26980eb03
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Tue Oct 25 18:33:06 2016 -0600
+
+    Made solution tests pass
+
+commit 758f28bf6fa585c52aa57553767fd169cdecbf90
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Tue Oct 25 18:22:14 2016 -0600
+
+    Made solution tests, failing
+
+commit 00260afdf5936c5b6ddeb88b241c464e9bc301ab
+Author: Anthony Logan <Anthony Logan>
+Date:   Tue Oct 25 15:39:06 2016 -0600
+
+    Made weapons tests pass, also added descriptive comments to all tests
+
+commit a7e6a86fa83171cb6174557543b8eaf6e361bbb0
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Tue Oct 25 15:17:18 2016 -0600
+
+    Forgot to add players config file
+
+commit 014ec69d11892116ebe8b4d104a5bbb730a8a240
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Tue Oct 25 15:14:31 2016 -0600
+
+    Made failing tests for weapons!
+
+commit 3b125aefc95aa1b62934cd3c4105094225d69738
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Tue Oct 25 15:11:44 2016 -0600
+
+    Made testing people pass!
+
+commit 3d5db35b467a0147fb31b3abd9918fd294362697
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Tue Oct 25 15:05:35 2016 -0600
+
+    Added failing Player tests
+
+commit 586d6871f9aac8b615c5007f3f3df42ca7e3069b
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Tue Oct 25 14:35:32 2016 -0600
+
+    working on players
+
+commit a0e0aca1b37f67101a318e81007dbd4feb324035
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Tue Oct 25 13:56:28 2016 -0600
+
+    Didnt change much
+
+commit 59b648d08b063982471c38c859c4fe7febe37a1b
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Mon Oct 24 16:38:55 2016 -0600
+
+    added fields to Player class
+
+commit 822bc14370ddfdd50caaf0e9f5ea638745d28b1c
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Mon Oct 24 16:12:49 2016 -0600
+
+    Added Player and Solution classes
+
+commit cf8c979406476eb0569e8a11fe23feb604c45bfe
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Oct 20 15:15:56 2016 -0600
+
+    Set up tests are passing
+
+commit 47a19f27c903df6b79d4610687e18be987894e26
+Author: anlogan <anlogan@mines.edu>
+Date:   Thu Oct 20 15:01:58 2016 -0600
+
+    deleted extra txt file
+
+commit e981fc647f7a6a524240cb75c0bb51f78cb2d53b
+Author: anlogan <anlogan@mines.edu>
+Date:   Thu Oct 20 14:58:27 2016 -0600
+
+    Added SSAL_ClueDeck.txt to the project
+
+commit 422c7a4f184fb06a50af9ec956eff5e2885ab715
+Merge: 5bc9535 c6b7020
+Author: anlogan <anlogan@mines.edu>
+Date:   Thu Oct 20 14:57:05 2016 -0600
+
+    Added cardFile Merge branch 'cardfile'
+
+commit 5bc9535a06c06b36082c0abec1cc7c8bff931b8f
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Oct 20 14:55:24 2016 -0600
+
+    Added Card class and Card Type enum
+
+commit d6fefcd50d4cc8d5e6c95f16f15722ff0b9b3a27
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Oct 20 14:54:45 2016 -0600
+
+    Added failing tests for deck config
+
+commit c6b702090d5cea1f488c421fd390e01d9d064bef
+Author: anlogan <anlogan@mines.edu>
+Date:   Thu Oct 20 14:43:54 2016 -0600
+
+    Added CardDeck.txt
+
+commit 9fd3cf048ece8deb6d0073ae526cc9482387d141
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Oct 20 13:00:48 2016 -0600
+
+    Replaced all of our tests and board with theirs. Fixed our tests to use their BoardCell object, everything passed.
+
+commit 55d5e9038d068c073892fa0918db34cf5da0db5b
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Oct 13 14:53:42 2016 -0600
+
+    Added clear so all tests pass when ran together.
+
+commit 960b06aa8beb9d80066142833de6b95f76a5ca20
+Author: Ryan Hunt <ryhunt@adit.mines.edu>
+Date:   Thu Oct 13 14:48:32 2016 -0600
+
+    Added CR Boards and Legends
+
+commit c82024d69281206e4e3d4fde1399b7854806662a
+Author: Ryan Hunt <ryhunt@adit.mines.edu>
+Date:   Thu Oct 13 14:34:28 2016 -0600
+
+    Added excel layout
+
+commit 75486f0d09de4ac638dab60d053efe717cace747
+Author: Ryan Hunt <ryhunt@adit.mines.edu>
+Date:   Wed Oct 12 18:02:34 2016 -0600
+
+    Removed extraneous test and log files.
+
+commit 53ec91a9d004d6a1e6458f2bea94b49c0ad503d1
+Author: Ryan Hunt <ryhunt@adit.mines.edu>
+Date:   Thu Oct 6 17:26:17 2016 -0600
+
+    Implemented board functions to fix failing tests.
+
+commit bac8a6eb5d1755df2158ee353c5749fd7dd42d85
+Author: Ryan Hunt <ryhunt@adit.mines.edu>
+Date:   Thu Oct 6 16:10:08 2016 -0600
+
+    Added failing tests for board
+
+commit 70a71d085d6f7af7fdbc15125e8de22120623ffd
+Author: Ryan Hunt <ryhunt@adit.mines.edu>
+Date:   Thu Oct 6 14:24:11 2016 -0600
+
+    Implemented code to resolve failing tests.
+
+commit 86b42e7ca4c20f37cdd74f7823bb744cae615e4b
+Author: Ryan Hunt <ryhunt@adit.mines.edu>
+Date:   Tue Oct 4 15:19:18 2016 -0600
+
+    Added BadConfigFormatException class.
+
+commit 1535134816b9a9fa2aba5337ce5bc7ded72505fe
+Author: Ryan Hunt <ryhunt@adit.mines.edu>
+Date:   Tue Oct 4 15:14:59 2016 -0600
+
+    Wrote failing tests.
+
+commit 50acf4d021d4dc3816e5a2bd798a53845f089df1
+Author: Ryan Hunt <ryhunt@adit.mines.edu>
+Date:   Tue Oct 4 14:33:51 2016 -0600
+
+    Initial commit.
