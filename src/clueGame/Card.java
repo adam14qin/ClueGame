@@ -37,7 +37,14 @@ public class Card {
 		Card other = (Card) obj;
 		if (type != other.type)
 			return false;
+		if(!cardName.equals(other.cardName))
+			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Card [cardName=" + cardName + ", type=" + type + "]";
 	}
 	
 	

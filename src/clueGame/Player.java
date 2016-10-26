@@ -61,6 +61,10 @@ public class Player {
 		return hand; 
 	}
 	
+	public String getName() {
+		return playerName;
+	}
+	
 	
 	
 }

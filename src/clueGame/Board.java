@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -71,6 +72,7 @@ public class Board {
 			loadBoardConfig();
 			loadPlayerConfig(); 
 			loadWeaponConfig();
+			dealCards();
 			answer = generateAnswer(); 
 		} catch (BadConfigFormatException | FileNotFoundException e) {
 			e.printStackTrace();
@@ -84,7 +86,24 @@ public class Board {
 		Object roomsArray[] = rooms.values().toArray(); 
 		String roomAnswer = (String) roomsArray[rand.nextInt(roomsArray.length)];
 		String weaponAnswer = weapons.get(rand.nextInt(weapons.size())); 
-		return new Solution(weaponAnswer, playerAnswer, roomAnswer); 
+		return new Solution(new Card('W', weaponAnswer), new Card('P', playerAnswer.getName()), new Card('R', roomAnswer)); 
+	}
+	
+	private void dealCards() {
+		ArrayList<Card> tempDeck = new ArrayList<>(); 
+		tempDeck.addAll(deck); 
+		Collections.shuffle(tempDeck);
+		
+		tempDeck.remove(answer.getPlayer()); 
+		tempDeck.remove(answer.getRoom());
+		tempDeck.remove(answer.getWeapon());
+		int currentPlayer = 0; 
+		while(!tempDeck.isEmpty())
+		{
+			players.get(currentPlayer%players.size()).getHand().add(tempDeck.get(0)); 
+			tempDeck.remove(0); 
+			currentPlayer++; 
+		}
 	}
 	
 	// Read the legend file

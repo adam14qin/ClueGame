@@ -122,18 +122,23 @@ public class SSALGameSetupTests {
 	@Test 
 	public void testDealingCards()
 	{
-		ArrayList<Card >allCards = new ArrayList<>(); 
-		for(int i=0; i<board.getPlayers().size()-1; i++)
+		/*This is a very comprehensive test to make sure we are not dealing more than 1 card extra to any other player
+		 * and that every player has unique cards. We add cards to an array of seen cards as we check if we have seen them
+		 * before as we iterate through all the players.
+		 */
+		
+		ArrayList<Card > allCards = new ArrayList<>(); 
+		for(int i=0; i<board.getPlayers().size(); i++)
 		{
+			assertTrue(board.getPlayers().get(i).getHand().size()>0);
+			System.out.println(board.getPlayers().get(i).getHand().size());
 			for(Card x: board.getPlayers().get(i).getHand())
 			{
 				assertFalse(allCards.contains(x)); 
 				allCards.add(x); 
 			}
+			if(i < board.getPlayers().size()-1)
 			assertTrue((board.getPlayers().get(i).getHand().size() - board.getPlayers().get(i+1).getHand().size()) < 2);
 		}
-		
-		
 	}
-	
 }
