@@ -1,3 +1,93 @@
+commit 1098de90ddd61d553ea9fbd7fafba669726896db
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 23:31:13 2016 -0600
+
+    added comments
+
+commit 7a4edac7cd3874cbb855b8808c36f21d6636f214
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 23:22:57 2016 -0600
+
+    removed some syso statements
+
+commit 4b00b7a8c4c29a73a11e2ed4a1388fdf43b375f2
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 23:21:17 2016 -0600
+
+    Made all tests pass
+
+commit 527bfc63635ad03e08c08a0a0a79ed8c92b47f4a
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 22:49:49 2016 -0600
+
+    Made tests failing for handling suggestions
+
+commit cd8e6d1fed2511c5ee91d3e5242a362a0d89a2de
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 22:00:56 2016 -0600
+
+    Made testing for Disproving solutions pass
+
+commit 59390f6b6be01c0d5f725cce5c4dc30c29d6d8a7
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 21:40:06 2016 -0600
+
+    Made failing tests for disproing suggestion
+
+commit 4f1b793f60219742ccb302dfbea1c01d2142d8d1
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 21:22:08 2016 -0600
+
+    Made creating a suggestion tests pass
+
+commit cb2d0c568881990bb36c790aa33908d9b9bb0695
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 20:40:05 2016 -0600
+
+    Made failing test for making suggestion
+
+commit 39d3d3266486abe75f5468a089c57f0bdf5910b5
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 19:33:07 2016 -0600
+
+    more comments
+
+commit 72b9665cb22abbb35c4dd40ec44348e335306a54
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 12:59:41 2016 -0600
+
+    Finished making all tests for target calculation passing
+
+commit 6f014a20d2dfe9e67c239b1272677c26f3a1a0a8
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 12:44:09 2016 -0600
+
+    Made failing tests for choosing a room all the time
+
+commit 60cc57ddfb38133627799da010d08b3b389c7f25
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 09:38:06 2016 -0600
+
+    Forgot to add new test file
+
+commit 985d8302017abe7a375e1fe310ee5b9cd8f0e223
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 09:32:09 2016 -0600
+
+    Added failing tests for checking solutions and made selecting some of the targets pass
+
+commit 6b314bacb49b7569d2a296cf2f66538a83a51450
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Tue Oct 25 20:30:18 2016 -0600
+
+    Made some failing tests for choosing a target
+
+commit 06c8b496e7791c671a34b707a3313edb4dddb388
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Tue Oct 25 19:49:38 2016 -0600
+
+    added gitlog.txt
+
 commit 8b8d290cbf9d41df0f5cb0e1caf5e7e1dae6c0b0
 Author: sheastyermines <sheastyer@mines.edu>
 Date:   Tue Oct 25 19:42:44 2016 -0600
