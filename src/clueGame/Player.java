@@ -45,6 +45,10 @@ public class Player {
 		return null; 
 	}
 	
+	public Card disproveSuggestion(Board board, Solution suggestion) { 
+		return null;
+	}
+	
 	public ArrayList<Card> getHand() {
 		return hand; 
 	}
@@ -74,6 +78,8 @@ public class Player {
 		return "Player [playerName=" + playerName + ", color=" + color + ", row=" + row + ", column=" + column
 				+ ", hand=" + hand + "]";
 	}
+	
+	
 
 	
 }

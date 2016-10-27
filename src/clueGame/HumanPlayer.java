@@ -21,5 +21,10 @@ public class HumanPlayer extends Player{
 	{
 		return null;
 	}
+	
+	@Override
+	public Card disproveSuggestion(Board board, Solution suggestion) {
+		return new Card('P', "temp"); 
+	}
 
 }

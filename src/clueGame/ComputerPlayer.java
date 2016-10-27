@@ -53,6 +53,11 @@ public class ComputerPlayer extends Player {
 		return new Solution(weaponGuess, playerGuess, roomGuess); 
 	}
 	
+	@Override
+	public Card disproveSuggestion(Board board, Solution suggestion) {
+		return new Card('P', "temp"); 
+	}
+	
 	public void setLastRoomVisited(char c){
 		lastRoomVisited = c; 
 	}

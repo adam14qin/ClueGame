@@ -159,4 +159,36 @@ public class GameActionTests {
 				
 			}
 			
+			@Test 
+			public void disproveSuggestion() {
+				ComputerPlayer tempPlayer = new ComputerPlayer("Temp", 11, 3, Color.yellow); 
+				ArrayList<Card> newHand = new ArrayList<>(); 
+				newHand.add(new Card('P', "Balin")); 
+				newHand.add(new Card('W', "Acid")); 
+				newHand.add(new Card('W', "Bunny"));
+				tempPlayer.setHand(newHand); 
+				
+				Solution cantBeDisproved = new Solution(new Card('W', "Puppy"), new Card('P', "Dori"), new Card('R', "Kitchen"));
+				Card returned = tempPlayer.disproveSuggestion(board, cantBeDisproved); 
+				assertNull(returned);
+				Solution oneCanBeDisproved = new Solution(new Card('W', "Acid"), new Card('P', "Dori"), new Card('R', "Kitchen"));
+				returned = tempPlayer.disproveSuggestion(board, oneCanBeDisproved);
+				assertEquals(new Card('W', "Acid"), returned);
+				Solution multipleCanBeDisproved = new Solution(new Card('W', "Acid"), new Card('P', "Balin"), new Card('R', "Kitchen"));
+				boolean acidCard = false;
+				boolean balinCard = false;
+				for(int i=0; i<100; i++)
+				{
+					returned = tempPlayer.disproveSuggestion(board, multipleCanBeDisproved); 
+					if(returned.equals(new Card('W', "Acid"))) {
+						acidCard = true; 
+					}
+					else if(returned.equals(new Card('P', "Balin"))) {
+						balinCard = true; 
+					}
+				}
+				assertTrue(acidCard); 
+				assertTrue(balinCard); 	
+			}
+			
 }
