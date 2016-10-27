@@ -204,12 +204,13 @@ public class GameActionTests {
 			
 			@Test
 			public void testHandlingSuggestions() {
+				//Make three players two computer one person
 				ArrayList<Player> players = new ArrayList<>(); 
 				ArrayList<Card> hand1 = new ArrayList<Card>(); 
 				ArrayList<Card> hand2 = new ArrayList<Card>(); 
 				ArrayList<Card> hand3 = new ArrayList<Card>(); 
 				
-
+				//Assign cards
 				ComputerPlayer playerOne = new ComputerPlayer("Shea", 17, 1, Color.black);
 				hand1.add(new Card('P', "Balin")); 
 				hand1.add(new Card('W', "Acid")); 
@@ -217,6 +218,7 @@ public class GameActionTests {
 				playerOne.setHand(hand1);
 				hand1.clear(); 
 				
+				//Assign cards
 				ComputerPlayer playerTwo = new ComputerPlayer("Anthony", 15, 8, Color.white);
 				hand2.add(new Card('P', "Fili")); 
 				hand2.add(new Card('W', "Bird")); 
@@ -224,6 +226,7 @@ public class GameActionTests {
 				playerTwo.setHand(hand2);
 				hand2.clear(); 
 				
+				//Assign Cards
 				HumanPlayer playerThree = new HumanPlayer("Human", 5, 14, Color.blue); 
 				hand3.add(new Card('P', "Nori")); 
 				hand3.add(new Card('W', "Cat")); 
@@ -233,29 +236,36 @@ public class GameActionTests {
 				players.add(playerTwo);
 				players.add(playerThree); 
 				
+				//Nobody can disprove
 				Solution nobodyCanDisprove = new Solution(new Card('W', "null1"), new Card('P', "null2"), new Card('R', "null3") );
 				Card x = board.handleSuggestion(players, 0, nobodyCanDisprove);
 				assertNull(x); 
 				
+				//Only player one (Accuser) can disprove
 				Solution playerOneCanDisprove = new Solution(new Card('W', "Acid"), new Card('P', "null2"), new Card('R', "null3") );
 				x = board.handleSuggestion(players, 0, playerOneCanDisprove);
 				assertNull(x);
 				
+				//Only the human can disprove, but is not accuser
 				Solution humanCanDisprove = new Solution(new Card('W', "Cat"), new Card('P', "null2"), new Card('R', "null3") );
 				x = board.handleSuggestion(players, 0, humanCanDisprove);
 				assertTrue(playerThree.getHand().contains(x));
 				
+				//Only the human can disprove but is accuser
 				x = board.handleSuggestion(players, 2, humanCanDisprove);
 				assertNull(x);
 				
+				//Only player 1 and 2 can disprove, but player 1 disproves 1st
 				Solution _0_1_canDisprove = new Solution(new Card('W', "Bird"), new Card('P', "Balin"), new Card('R', "null3"));
 				x = board.handleSuggestion(players, 2, _0_1_canDisprove);
 				assertTrue(playerOne.getHand().contains(x));
 				
+				//Only player 2 and human can disprove, but player 2 goes first
 				Solution _1_2_canDisprove = new Solution(new Card('W', "null1"), new Card('P', "Fili"), new Card('R', "Library"));
 				x = board.handleSuggestion(players, 0, _1_2_canDisprove);
 				assertTrue(playerTwo.getHand().contains(x));
 				
+				//Only human player and 1 can disprove, but human (player three) goes first
 				Solution _2_0_canDisprove = new Solution(new Card('W', "Cat"), new Card('P', "Balin"), new Card('R', "null3"));
 				x = board.handleSuggestion(players, 1, _2_0_canDisprove);
 				assertTrue(playerThree.getHand().contains(x));
