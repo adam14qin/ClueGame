@@ -78,8 +78,5 @@ public class Player {
 		return "Player [playerName=" + playerName + ", color=" + color + ", row=" + row + ", column=" + column
 				+ ", hand=" + hand + "]";
 	}
-	
-	
 
-	
 }
