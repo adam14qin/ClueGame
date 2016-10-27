@@ -54,6 +54,7 @@ public class BoardCell {
 
 	@Override
 	public boolean equals(Object obj) {
+		//Added equals for comparing
 		BoardCell other = (BoardCell) obj;
 		if (column != other.column)
 		{
