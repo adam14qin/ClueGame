@@ -17,6 +17,7 @@ import clueGame.BoardCell;
 import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ComputerPlayer;
+import clueGame.HumanPlayer;
 import clueGame.Player;
 import clueGame.Solution;
 
@@ -189,6 +190,59 @@ public class GameActionTests {
 				}
 				assertTrue(acidCard); 
 				assertTrue(balinCard); 	
+			}
+			
+			@Test
+			public void testHandlingSuggestions() {
+				ArrayList<Player> players = new ArrayList<>(); 
+				ArrayList<Card> hand = new ArrayList<Card>(); 
+				hand.add(new Card('P', "Balin")); 
+				hand.add(new Card('W', "Acid")); 
+				hand.add(new Card('W', "Bunny"));
+				ComputerPlayer playerOne = new ComputerPlayer("Shea", 17, 1, Color.black);
+				playerOne.setHand(hand);
+				hand.clear(); 
+				hand.add(new Card('P', "Fili")); 
+				hand.add(new Card('W', "Bird")); 
+				hand.add(new Card('R', "Great Hall"));
+				ComputerPlayer playerTwo = new ComputerPlayer("Anthony", 15, 8, Color.white);
+				playerTwo.setHand(hand);
+				hand.clear(); 
+				hand.add(new Card('P', "Nori")); 
+				hand.add(new Card('W', "Cat")); 
+				hand.add(new Card('R', "Library"));
+				HumanPlayer playerThree = new HumanPlayer("Human", 5, 14, Color.blue); 
+				playerThree.setHand(hand);
+				players.add(playerOne);
+				players.add(playerTwo);
+				players.add(playerThree); 
+				
+				Solution nobodyCanDisprove = new Solution(new Card('W', "null1"), new Card('P', "null2"), new Card('R', "null3") );
+				Card x = board.handleSuggestion(players, 0, nobodyCanDisprove);
+				assertNull(x); 
+				
+				Solution playerOneCanDisprove = new Solution(new Card('W', "Acid"), new Card('P', "null2"), new Card('R', "null3") );
+				x = board.handleSuggestion(players, 0, playerOneCanDisprove);
+				assertNull(x);
+				
+				Solution humanCanDisprove = new Solution(new Card('W', "Cat"), new Card('P', "null2"), new Card('R', "null3") );
+				x = board.handleSuggestion(players, 0, humanCanDisprove);
+				assertTrue(playerThree.getHand().contains(x));
+				
+				x = board.handleSuggestion(players, 2, humanCanDisprove);
+				assertNull(x);
+				
+				Solution _0_1_canDisprove = new Solution(new Card('W', "Bird"), new Card('P', "Balin"), new Card('R', "null3"));
+				x = board.handleSuggestion(players, 2, _0_1_canDisprove);
+				assertTrue(playerOne.getHand().contains(x));
+				
+				Solution _1_2_canDisprove = new Solution(new Card('W', "null1"), new Card('P', "Fili"), new Card('R', "Library"));
+				x = board.handleSuggestion(players, 0, _1_2_canDisprove);
+				assertTrue(playerTwo.getHand().contains(x));
+				
+				Solution _2_0_canDisprove = new Solution(new Card('W', "Cat"), new Card('P', "Balin"), new Card('R', "null3"));
+				x = board.handleSuggestion(players, 1, _2_0_canDisprove);
+				assertTrue(playerThree.getHand().contains(x));
 			}
 			
 }

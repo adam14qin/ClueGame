@@ -12,6 +12,8 @@ import org.junit.Test;
 
 import clueGame.Board;
 import clueGame.Card;
+import clueGame.ComputerPlayer;
+import clueGame.HumanPlayer;
 import clueGame.Player;
 import clueGame.Solution;
 
@@ -149,4 +151,6 @@ public class SSALGameSetupTests {
 		assertFalse(allCards.contains(board.answer.getRoom()));
 	}
 
+	
+	
 }

@@ -97,6 +97,10 @@ public class Board {
 		return false;
 	}
 	
+	public Card handleSuggestion(ArrayList<Player> players, int accuser, Solution suggestion) {
+		return new Card('l', "temp");
+	}
+	
 	private void dealCards() {
 		ArrayList<Card> tempDeck = new ArrayList<>(); 
 		tempDeck.addAll(deck); 
