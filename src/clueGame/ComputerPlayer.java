@@ -1,8 +1,11 @@
 package clueGame;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
+
+import jdk.internal.org.objectweb.asm.Handle;
 
 public class ComputerPlayer extends Player {
 
@@ -28,9 +31,26 @@ public class ComputerPlayer extends Player {
 	}
 	
 	@Override
-	public Solution makeSuggestion()
+	public Solution makeSuggestion(Board board)
 	{
-		return new Solution(new Card('P', "null"),new Card('P', "null"),new Card('P', "null")); 
+		Random rand = new Random();
+		Solution suggestion; 
+		Card playerGuess; 
+		Card weaponGuess;
+		Card roomGuess = new Card('R', board.getLegend().get(board.getCellAt(11, 3).getInitial())); 
+		do {
+		ArrayList<Card> weapons = board.getUnseen().get(CardType.WEAPON);
+		System.out.println(weapons.toString());
+		weaponGuess = weapons.get(rand.nextInt(weapons.size())); 
+		ArrayList<Card> people = board.getUnseen().get(CardType.PERSON);
+		playerGuess = people.get(rand.nextInt(people.size())); 
+		System.out.println(hand.toString());
+		System.out.println(weaponGuess.toString());
+		System.out.println(playerGuess.toString());
+		
+		}while(hand.contains(weaponGuess) && hand.contains(playerGuess));
+		
+		return new Solution(weaponGuess, playerGuess, roomGuess); 
 	}
 	
 	public void setLastRoomVisited(char c){

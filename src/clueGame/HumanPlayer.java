@@ -17,7 +17,7 @@ public class HumanPlayer extends Player{
 	}
 	
 	@Override
-	public Solution makeSuggestion()
+	public Solution makeSuggestion(Board board)
 	{
 		return null;
 	}

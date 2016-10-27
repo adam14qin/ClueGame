@@ -27,7 +27,7 @@ public class Board {
 	private ArrayList<String> habitableRooms = new ArrayList<>(); 
 	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private ArrayList<String> weapons = new ArrayList<>(); 
-	private Map<CardType, Card> unseen = new HashMap<>(); 
+	private Map<CardType, ArrayList<Card>> unseen = new HashMap<>(); 
 	
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
@@ -382,11 +382,11 @@ public class Board {
 		return habitableRooms; 
 	}
 	
-	private Map<CardType, Card> getUnseen() {
+	public Map<CardType, ArrayList<Card>> getUnseen() {
 		return unseen;
 	}
 	
-	private void setUnseen(Map<CardType,Card> newUnseen)
+	public void setUnseen(Map<CardType,ArrayList<Card>> newUnseen)
 	{
 		unseen = newUnseen; 
 	}

@@ -134,22 +134,29 @@ public class GameActionTests {
 			@Test
 			public void makeSuggestion() {
 				ComputerPlayer tempPlayer = new ComputerPlayer("Temp", 11, 3, Color.yellow); 
-				Solution sol = tempPlayer.makeSuggestion(); 
 				ArrayList<Card> newHand = new ArrayList<>(); 
 				newHand.add(new Card('P', "Balin")); 
 				newHand.add(new Card('W', "Acid")); 
-				newHand.add(new Card('W', "Bunny")); 
-				
+				newHand.add(new Card('W', "Bunny"));
 				tempPlayer.setHand(newHand); 
+				
+				Map<CardType, ArrayList<Card>> newUnseen = new HashMap<>(); 
+				ArrayList<Card> weapons = new ArrayList<>(); 
+				ArrayList<Card> people = new ArrayList<>(); 
+				people.add(new Card('P', "Thorin"));
+				people.add(new Card('P', "Kili"));
+				weapons.add(new Card('W', "Cat"));
+				weapons.add(new Card('W', "AK47"));
+				newUnseen.put(CardType.PERSON, people);
+				newUnseen.put(CardType.WEAPON, weapons); 
+				board.setUnseen(newUnseen);
+				
+				Solution sol = tempPlayer.makeSuggestion(board); 
+				
 				assertTrue(sol.getRoom().getCardName().equals(board.getLegend().get(board.getCellAt(11, 3).getInitial()))); 
 				assertFalse(tempPlayer.getHand().contains(sol.getPlayer())); 
 				assertFalse(tempPlayer.getHand().contains(sol.getWeapon()));
 				
-				Map<CardType,Card> newUnseen = new HashMap<>(); 
-				newUnseen.put(CardType.PERSON, new Card('P', "Thorin"));
-				newUnseen.put(CardType.PERSON, new Card('P', "Kili"));
-				newUnseen.put(CardType.WEAPON, new Card('W', "Cat"));
-				newUnseen.put(CardType.WEAPON, new Card('W', "AK47"));
 			}
 			
 }

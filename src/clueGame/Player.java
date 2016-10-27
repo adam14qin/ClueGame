@@ -10,7 +10,7 @@ public class Player {
 	private Color color; 
 	int row; 
 	int column; 
-	private ArrayList<Card> hand; 
+	protected ArrayList<Card> hand; 
 	
 	public Player(String playerName,int row, int column, Color color)
 	{
@@ -41,8 +41,7 @@ public class Player {
 		return true;
 	}
 	
-	public Solution makeSuggestion()
-	{
+	public Solution makeSuggestion(Board board) {
 		return null; 
 	}
 	
