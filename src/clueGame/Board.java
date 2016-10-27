@@ -27,6 +27,7 @@ public class Board {
 	private ArrayList<String> habitableRooms = new ArrayList<>(); 
 	private Map<Character, String> rooms = new HashMap<Character, String>();
 	private ArrayList<String> weapons = new ArrayList<>(); 
+	private Map<CardType, Card> unseen = new HashMap<>(); 
 	
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
@@ -379,6 +380,15 @@ public class Board {
 	
 	public ArrayList<String> getHabitableRooms() {
 		return habitableRooms; 
+	}
+	
+	private Map<CardType, Card> getUnseen() {
+		return unseen;
+	}
+	
+	private void setUnseen(Map<CardType,Card> newUnseen)
+	{
+		unseen = newUnseen; 
 	}
 	
 	public Color convertColor(String strColor) {

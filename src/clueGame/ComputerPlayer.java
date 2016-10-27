@@ -27,6 +27,12 @@ public class ComputerPlayer extends Player {
 		return (BoardCell) targets.toArray()[rand.nextInt(targets.size())]; 
 	}
 	
+	@Override
+	public Solution makeSuggestion()
+	{
+		return new Solution(new Card('P', "null"),new Card('P', "null"),new Card('P', "null")); 
+	}
+	
 	public void setLastRoomVisited(char c){
 		lastRoomVisited = c; 
 	}

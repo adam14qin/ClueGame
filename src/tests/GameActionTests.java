@@ -2,6 +2,10 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.junit.BeforeClass;
@@ -11,6 +15,7 @@ import org.junit.runner.Computer;
 import clueGame.Board;
 import clueGame.BoardCell;
 import clueGame.Card;
+import clueGame.CardType;
 import clueGame.ComputerPlayer;
 import clueGame.Player;
 import clueGame.Solution;
@@ -124,6 +129,27 @@ public class GameActionTests {
 				
 				assertFalse(board.checkAccusation(guess));
 				assertTrue(board.checkAccusation(new Solution(board.answer.getWeapon(),board.answer.getPlayer(), board.answer.getRoom()))); 
+			}
+			
+			@Test
+			public void makeSuggestion() {
+				ComputerPlayer tempPlayer = new ComputerPlayer("Temp", 11, 3, Color.yellow); 
+				Solution sol = tempPlayer.makeSuggestion(); 
+				ArrayList<Card> newHand = new ArrayList<>(); 
+				newHand.add(new Card('P', "Balin")); 
+				newHand.add(new Card('W', "Acid")); 
+				newHand.add(new Card('W', "Bunny")); 
+				
+				tempPlayer.setHand(newHand); 
+				assertTrue(sol.getRoom().getCardName().equals(board.getLegend().get(board.getCellAt(11, 3).getInitial()))); 
+				assertFalse(tempPlayer.getHand().contains(sol.getPlayer())); 
+				assertFalse(tempPlayer.getHand().contains(sol.getWeapon()));
+				
+				Map<CardType,Card> newUnseen = new HashMap<>(); 
+				newUnseen.put(CardType.PERSON, new Card('P', "Thorin"));
+				newUnseen.put(CardType.PERSON, new Card('P', "Kili"));
+				newUnseen.put(CardType.WEAPON, new Card('W', "Cat"));
+				newUnseen.put(CardType.WEAPON, new Card('W', "AK47"));
 			}
 			
 }

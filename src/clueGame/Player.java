@@ -40,11 +40,10 @@ public class Player {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Player [playerName=" + playerName + ", color=" + color + ", row=" + row + ", column=" + column
-				+ ", hand=" + hand + "]";
+	
+	public Solution makeSuggestion()
+	{
+		return null; 
 	}
 	
 	public ArrayList<Card> getHand() {
@@ -66,5 +65,16 @@ public class Player {
 	public int getCol(){
 		return column; 
 	}
+	
+	public void setHand(ArrayList<Card> newHand) {
+		hand = newHand;
+	}
+	
+	@Override
+	public String toString() {
+		return "Player [playerName=" + playerName + ", color=" + color + ", row=" + row + ", column=" + column
+				+ ", hand=" + hand + "]";
+	}
+
 	
 }
