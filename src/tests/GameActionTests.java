@@ -127,8 +127,18 @@ public class GameActionTests {
 					if(!board.answer.equals(guess))
 							guessIsNotAnswer = true; 
 				}
-				
+				// All wrong
 				assertFalse(board.checkAccusation(guess));
+				//Wrong person
+				Solution wrongPerson = new Solution(board.answer.getWeapon(), new Card('P', "Wrong"), board.answer.getRoom()); 
+				assertFalse(board.checkAccusation(wrongPerson));
+				//Wrong Weapon
+				Solution wrongWeapon = new Solution(new Card('W', "wrong"), board.answer.getPlayer(), board.answer.getRoom()); 
+				assertFalse(board.checkAccusation(wrongWeapon));
+				//Wrong Room
+				Solution wrongRoom = new Solution(board.answer.getWeapon(), board.answer.getPlayer(), new Card('R', "Wrong")); 
+				assertFalse(board.checkAccusation(wrongRoom));
+				//All right
 				assertTrue(board.checkAccusation(new Solution(board.answer.getWeapon(),board.answer.getPlayer(), board.answer.getRoom()))); 
 			}
 			
