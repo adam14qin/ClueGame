@@ -141,8 +141,6 @@ public class SSALGameSetupTests {
 			if(i < board.getPlayers().size()-1)
 			assertTrue((board.getPlayers().get(i).getHand().size() - board.getPlayers().get(i+1).getHand().size()) < 2);
 		}
-		System.out.println(allCards.toString());
-		System.out.println(board.answer.toString());
 
 		
 		//Check that we did not deal the solution cards! 
