@@ -143,7 +143,7 @@ public class SSALGameSetupTests {
 		}
 		System.out.println(allCards.toString());
 		System.out.println(board.answer.toString());
-		//assertEquals(18, allCards.size());
+
 		
 		//Check that we did not deal the solution cards! 
 		assertFalse(allCards.contains(board.answer.getPlayer()));

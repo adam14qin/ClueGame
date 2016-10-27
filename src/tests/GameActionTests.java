@@ -195,24 +195,30 @@ public class GameActionTests {
 			@Test
 			public void testHandlingSuggestions() {
 				ArrayList<Player> players = new ArrayList<>(); 
-				ArrayList<Card> hand = new ArrayList<Card>(); 
-				hand.add(new Card('P', "Balin")); 
-				hand.add(new Card('W', "Acid")); 
-				hand.add(new Card('W', "Bunny"));
+				ArrayList<Card> hand1 = new ArrayList<Card>(); 
+				ArrayList<Card> hand2 = new ArrayList<Card>(); 
+				ArrayList<Card> hand3 = new ArrayList<Card>(); 
+				
+
 				ComputerPlayer playerOne = new ComputerPlayer("Shea", 17, 1, Color.black);
-				playerOne.setHand(hand);
-				hand.clear(); 
-				hand.add(new Card('P', "Fili")); 
-				hand.add(new Card('W', "Bird")); 
-				hand.add(new Card('R', "Great Hall"));
+				hand1.add(new Card('P', "Balin")); 
+				hand1.add(new Card('W', "Acid")); 
+				hand1.add(new Card('W', "Bunny"));
+				playerOne.setHand(hand1);
+				hand1.clear(); 
+				
 				ComputerPlayer playerTwo = new ComputerPlayer("Anthony", 15, 8, Color.white);
-				playerTwo.setHand(hand);
-				hand.clear(); 
-				hand.add(new Card('P', "Nori")); 
-				hand.add(new Card('W', "Cat")); 
-				hand.add(new Card('R', "Library"));
+				hand2.add(new Card('P', "Fili")); 
+				hand2.add(new Card('W', "Bird")); 
+				hand2.add(new Card('R', "Great Hall"));
+				playerTwo.setHand(hand2);
+				hand2.clear(); 
+				
 				HumanPlayer playerThree = new HumanPlayer("Human", 5, 14, Color.blue); 
-				playerThree.setHand(hand);
+				hand3.add(new Card('P', "Nori")); 
+				hand3.add(new Card('W', "Cat")); 
+				hand3.add(new Card('R', "Library"));
+				playerThree.setHand(hand3);
 				players.add(playerOne);
 				players.add(playerTwo);
 				players.add(playerThree); 
@@ -227,6 +233,7 @@ public class GameActionTests {
 				
 				Solution humanCanDisprove = new Solution(new Card('W', "Cat"), new Card('P', "null2"), new Card('R', "null3") );
 				x = board.handleSuggestion(players, 0, humanCanDisprove);
+				System.out.println(x);
 				assertTrue(playerThree.getHand().contains(x));
 				
 				x = board.handleSuggestion(players, 2, humanCanDisprove);

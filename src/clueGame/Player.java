@@ -70,7 +70,7 @@ public class Player {
 	}
 	
 	public void setHand(ArrayList<Card> newHand) {
-		hand = newHand;
+		hand = new ArrayList<Card>(newHand);
 	}
 	
 	@Override

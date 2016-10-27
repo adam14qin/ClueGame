@@ -97,8 +97,16 @@ public class Board {
 		return false;
 	}
 	
-	public Card handleSuggestion(ArrayList<Player> players, int accuser, Solution suggestion) {
-		return new Card('l', "temp");
+	public Card handleSuggestion(ArrayList<Player> playersInGame, int accuser, Solution suggestion) {
+		for(int i=accuser+1; i<accuser+playersInGame.size(); i++)
+		{
+			Card x = playersInGame.get(i%playersInGame.size()).disproveSuggestion(this, suggestion);
+			
+			if(x != null){
+				return x; 
+			}
+		}
+		return null; 
 	}
 	
 	private void dealCards() {
