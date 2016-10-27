@@ -233,7 +233,6 @@ public class GameActionTests {
 				
 				Solution humanCanDisprove = new Solution(new Card('W', "Cat"), new Card('P', "null2"), new Card('R', "null3") );
 				x = board.handleSuggestion(players, 0, humanCanDisprove);
-				System.out.println(x);
 				assertTrue(playerThree.getHand().contains(x));
 				
 				x = board.handleSuggestion(players, 2, humanCanDisprove);
