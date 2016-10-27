@@ -142,6 +142,15 @@ public class GameActionTests {
 				assertTrue(board.checkAccusation(new Solution(board.answer.getWeapon(),board.answer.getPlayer(), board.answer.getRoom()))); 
 			}
 			
+			/* This test checks that we created a suggestion properly, 
+			 * If checks that:
+			 * the room matches the current location
+			 * If only one weapon is not seen, it's selected
+			 * If only one persons not seen, it's selected
+			 * If multiple weapons not seen, one of them is randomly selected
+			 * if multiple persons not seen, on eof them is randomly selected
+			 * 
+			 */
 			@Test
 			public void makeSuggestion() {
 				ComputerPlayer tempPlayer = new ComputerPlayer("Temp", 11, 3, Color.yellow); 
@@ -170,6 +179,13 @@ public class GameActionTests {
 				
 			}
 			
+			/* This tests that we can disprove suggestions properly
+			 * If:
+			 * The player has only one matching card it will be returned
+			 * if the player has >1 matching card, return a random card
+			 * If a player has no matching cards, return null
+			 * 
+			 */
 			@Test 
 			public void disproveSuggestion() {
 				ComputerPlayer tempPlayer = new ComputerPlayer("Temp", 11, 3, Color.yellow); 
