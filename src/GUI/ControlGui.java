@@ -1,4 +1,4 @@
-package clueGame;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -11,42 +11,41 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 
-public class FirstGUI extends JFrame{
-	private JLabel myName;
-	private FirstGUI controlGUI;
+public class ControlGui extends JFrame{
 
-
-	public FirstGUI() {
+	public ControlGui() {
 		setTitle("SSAL Clue Game");
 		setSize(800, 300);
-		// EXIT_ON_CLOSE is static int
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		setResizable(false);
 		createLayout();
 	}
 
 	private void createLayout() {
-		JLabel nameLabel = new JLabel("Whose turn?");
+		
+		/*JLabel nameLabel = new JLabel("Whose turn?");
 		setLayout(new GridLayout(2,1));
 		JPanel whosTurn = new JPanel();
 		whosTurn.setLayout(new GridLayout(2,1));
 		whosTurn.add(nameLabel);
 		JTextField turn = new JTextField();
 		turn.setEnabled(false);
-		whosTurn.add(turn);
+		whosTurn.add(turn);		
 
 
 		JPanel topRow = new JPanel();
+		
 		topRow.setLayout(new FlowLayout());
 		topRow.add(whosTurn);
 		JButton nextP = new JButton("Next Player");
-		nextP.setSize(100, 200);
-
+		nextP.setSize(100, 100);
+		
 		topRow.add(nextP);
 		topRow.add(new JButton("Make an accusation"));
 
-		add(topRow);
-
+		add(topRow);*/
+		Panels panels = new Panels();
+		add(panels);
 
 	}
 
@@ -65,7 +64,7 @@ public class FirstGUI extends JFrame{
 
 
 	public static void main(String[] args) {
-		FirstGUI gui = new FirstGUI();
+		ControlGui gui = new ControlGui();
 		gui.setVisible(true);
 
 
