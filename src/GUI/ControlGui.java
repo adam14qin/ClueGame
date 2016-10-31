@@ -3,71 +3,79 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
+
+import javafx.scene.layout.Border;
 
 
 public class ControlGui extends JFrame{
 
 	public ControlGui() {
 		setTitle("SSAL Clue Game");
-		setSize(800, 300);
+		setSize(600, 200);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		setResizable(false);
-		createLayout();
+		add(createLayout());
 	}
 
-	private void createLayout() {
+	private JPanel createLayout() {
+		JPanel wholePanel = new JPanel(new GridLayout(2, 0));
 		
-		/*JLabel nameLabel = new JLabel("Whose turn?");
-		setLayout(new GridLayout(2,1));
-		JPanel whosTurn = new JPanel();
-		whosTurn.setLayout(new GridLayout(2,1));
-		whosTurn.add(nameLabel);
-		JTextField turn = new JTextField();
-		turn.setEnabled(false);
-		whosTurn.add(turn);		
-
-
-		JPanel topRow = new JPanel();
+		JPanel top = new JPanel(new GridLayout(0,3));
 		
-		topRow.setLayout(new FlowLayout());
-		topRow.add(whosTurn);
-		JButton nextP = new JButton("Next Player");
-		nextP.setSize(100, 100);
+		JPanel turnPanel = new JPanel(new GridLayout(2,1));
 		
-		topRow.add(nextP);
-		topRow.add(new JButton("Make an accusation"));
-
-		add(topRow);*/
-		Panels panels = new Panels();
-		add(panels);
-
+		JLabel turnLabel = new JLabel("Whose turn?"); 
+		turnLabel.setHorizontalAlignment(JLabel.CENTER);
+		turnPanel.add(turnLabel);
+		
+		JTextField turnName = new JTextField(10); 
+		turnName.setHorizontalAlignment(JTextField.CENTER);
+		turnName.setEnabled(false);
+		turnName.setEditable(false);
+		turnPanel.add(turnName);
+		
+		top.add(turnPanel);
+		top.add(new JButton("Next Player"));
+		top.add(new JButton("Make an accusation"));
+		wholePanel.add(top);
+		
+		JPanel bottom = new JPanel(new FlowLayout()); 
+		JPanel dieRoll = new JPanel(); 
+		dieRoll.setBorder(new TitledBorder (new EtchedBorder(), "Die Roll"));
+		JTextField rollNum = new JTextField(5); 
+		rollNum.setEditable(false);
+		dieRoll.add(rollNum); 
+		bottom.add(dieRoll);
+		
+		JPanel guess = new JPanel();
+		JTextField guessLabel = new JTextField(15); 
+		guessLabel.setEditable(false);
+		guess.add(guessLabel); 
+		guess.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
+		bottom.add(guess);
+		
+		JPanel guessResult = new JPanel();
+		JTextField guessResultLabel = new JTextField(10); 
+		guessResultLabel.setEditable(false);
+		guessResult.add(guessResultLabel); 
+		guessResult.setBorder(new TitledBorder (new EtchedBorder(), "Guess Result"));
+		bottom.add(guessResult);
+		wholePanel.add(bottom);
+		return wholePanel; 
 	}
-
-	/*private void createLayout() {
-		// Create a JPanel
-		JPanel panel = new JPanel();		
-		JLabel nameLabel = new JLabel("Name");
-		//myName = new JTextField(20);
-		add(nameLabel, BorderLayout.NORTH);
-		add(myName, BorderLayout.CENTER);
-		JButton nameButton = new JButton("OK");
-		add(nameButton, BorderLayout.SOUTH);
-		//nameButton.addActionListener(new ButtonListener());
-
-	}*/
-
-
+	
 	public static void main(String[] args) {
 		ControlGui gui = new ControlGui();
 		gui.setVisible(true);
-
-
 	}
 
 }
