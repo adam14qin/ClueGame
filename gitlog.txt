@@ -1,3 +1,124 @@
+commit f504b4a53a782ddac5b3c1bb263a59fe0fe8a1aa
+Merge: 490aca3 4c85b0d
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Nov 3 15:31:18 2016 -0600
+
+    Merge branch 'master' of https://github.com/sheastyermines/ClueGameSSALV2
+    
+    okay
+
+commit 490aca3884b68efea9875b386270ee46f7157793
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Nov 3 15:31:14 2016 -0600
+
+    Git is complaining
+
+commit 4c85b0dae0b886e174cf5251dac415ec3fb85388
+Author: Hao Qin <hqin@mines.edu>
+Date:   Thu Nov 3 15:30:28 2016 -0600
+
+    updated hard-coded part in makeSuggestion() in computerplayer
+
+commit 89c5e1cdeae7f4f582620022f37554c9d57a2e5b
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Nov 3 15:25:50 2016 -0600
+
+    Actually made the computer player draw unseen cards
+
+commit 525b01be6271a657afbde0b94ca24f47e73da55c
+Merge: 66f6687 de423fe
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Nov 3 15:10:51 2016 -0600
+
+    Merge branch 'master' of https://github.com/sheastyermines/ClueGameSSALV2
+    Okay?
+
+commit de423fefeb13c3e8ee42e9f2b3dd1d7681330392
+Author: Hao Qin <hqin@mines.edu>
+Date:   Thu Nov 3 15:10:34 2016 -0600
+
+    reformatted ControlGUI
+
+commit 66f66879e28ea98a96cd22f416b01a79a92a08d0
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Nov 3 15:07:42 2016 -0600
+
+    Removed writing to file functionality, not necessary for our program, creates issue pulling and pushing to git
+
+commit f2bcea79dfc1e7740cd1c102bf342d72491b84b6
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Nov 3 15:05:31 2016 -0600
+
+    Cleaned up calc targets
+
+commit 4c0986743ca5963bc9516f3ccc1f59a195a6cd9e
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Nov 3 14:51:43 2016 -0600
+
+    Changed card constructor to take Enum, not a character, update tests to use this constructor and all the classes in clueGame package. Siginificant change
+
+commit 3089856869a5eb05916b030042e4f133ba74cfc6
+Author: Hao Qin <hqin@mines.edu>
+Date:   Thu Nov 3 14:36:49 2016 -0600
+
+    added 3 comments to Board
+
+commit 934dafd81819ddda946e4539fbbfb39282b2be99
+Author: Anthony Logan <Anthony Logan>
+Date:   Tue Nov 1 00:50:09 2016 -0600
+
+    Minor format changes
+
+commit 035118e13f08c90c185b872d7cbd1866f7c153cf
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Mon Oct 31 17:06:18 2016 -0600
+
+    Finished ControlGui
+
+commit 10261c14b338c5629aea81d7b0d57163184d91b4
+Author: Anthony Logan <Anthony Logan>
+Date:   Thu Oct 27 19:24:06 2016 -0600
+
+    messed around with some gui items, still incomplete. Properly commited now (I think)
+
+commit 70a08870a9590365f444dfd8cd529e8bee304f40
+Author: Anthony Logan <Anthony Logan>
+Date:   Thu Oct 27 19:23:40 2016 -0600
+
+    messed around with some gui items, still incomplete
+
+commit bc88ebc2d12433d4e0f5539d06e2179bd6e0ec16
+Author: anlogan <anlogan@mines.edu>
+Date:   Thu Oct 27 15:17:41 2016 -0600
+
+    Added some gui stuff
+
+commit 0179daf1048f29c65f02f2a2422cfbb175686f22
+Merge: fee5710 880afa8
+Author: Anthony Logan <anlogan@mines.edu>
+Date:   Wed Oct 26 23:40:14 2016 -0600
+
+    comments and stuff
+    Merge branch 'comments'
+
+commit 880afa86014c4ddf8760f3aa5eca13edad21f46b
+Author: Anthony Logan <anlogan@mines.edu>
+Date:   Wed Oct 26 23:39:35 2016 -0600
+
+    More comments
+
+commit fee5710d938a396896fd2c70046ae3295617f8bf
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 23:37:31 2016 -0600
+
+    Added more comments
+
+commit 2d196ad671a79a76b603c8837aca86f27bf19335
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Wed Oct 26 23:33:35 2016 -0600
+
+    Added gitlog.txt
+
 commit 1098de90ddd61d553ea9fbd7fafba669726896db
 Author: sheastyermines <sheastyer@mines.edu>
 Date:   Wed Oct 26 23:31:13 2016 -0600
