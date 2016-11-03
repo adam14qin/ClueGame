@@ -37,7 +37,7 @@ public class ComputerPlayer extends Player {
 		Solution suggestion; 
 		Card playerGuess; 
 		Card weaponGuess;
-		Card roomGuess = new Card('R', board.getLegend().get(board.getCellAt(11, 3).getInitial())); 
+		Card roomGuess = new Card(CardType.ROOM, board.getLegend().get(board.getCellAt(11, 3).getInitial())); 
 		do {
 		ArrayList<Card> weapons = board.getUnseen().get(CardType.WEAPON);
 		weaponGuess = weapons.get(rand.nextInt(weapons.size())); 

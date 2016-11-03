@@ -1,0 +1,351 @@
+diff --git a/SSAL_ClueLayoutExcel.xlsx b/SSAL_ClueLayoutExcel.xlsx
+index 31aec89..6405c06 100644
+Binary files a/SSAL_ClueLayoutExcel.xlsx and b/SSAL_ClueLayoutExcel.xlsx differ
+diff --git a/logfile.txt b/logfile.txt
+index 4147430..b422f9c 100644
+--- a/logfile.txt
++++ b/logfile.txt
+@@ -82,3 +82,9 @@ Invalid room type: X
+ Inconsistent number of columns on row 1
+ Unknown room specifier found: Z
+ Invalid room type: X
++Inconsistent number of columns on row 1
++Unknown room specifier found: Z
++Invalid room type: X
++Inconsistent number of columns on row 1
++Unknown room specifier found: Z
++Invalid room type: X
+diff --git a/src/clueGame/Board.java b/src/clueGame/Board.java
+index e757615..d7e1895 100644
+--- a/src/clueGame/Board.java
++++ b/src/clueGame/Board.java
+@@ -88,7 +88,7 @@ public class Board {
+ 		Player playerAnswer = players.get(rand.nextInt(players.size())); 
+ 		String roomAnswer = habitableRooms.get(rand.nextInt(habitableRooms.size()));
+ 		String weaponAnswer = weapons.get(rand.nextInt(weapons.size())); 
+-		return new Solution(new Card('W', weaponAnswer), new Card('P', playerAnswer.getName()), new Card('R', roomAnswer)); 
++		return new Solution(new Card(CardType.WEAPON, weaponAnswer), new Card(CardType.PERSON, playerAnswer.getName()), new Card(CardType.ROOM, roomAnswer)); 
+ 	}
+ 
+ 	public boolean checkAccusation(Solution accusation) {
+@@ -168,7 +168,7 @@ public class Board {
+ 		{
+ 			if(x != 'W' && x!= 'X')
+ 			{
+-				deck.add(new Card('R', rooms.get(x))); 
++				deck.add(new Card(CardType.ROOM, rooms.get(x))); 
+ 				habitableRooms.add(rooms.get(x)); 
+ 			}
+ 		}
+@@ -249,7 +249,7 @@ public class Board {
+ 				// Error condition: Type of room is not 'Other' or 'Card'
+ 
+ 				// Store the room into the map
+-				deck.add(new Card('P', theChunks[1])); 
++				deck.add(new Card(CardType.PERSON, theChunks[1])); 
+ 				if(theChunks[0].charAt(0)=='P')
+ 				{
+ 					players.add(new HumanPlayer(theChunks[1], Integer.parseInt(theChunks[2]), Integer.parseInt(theChunks[3]), convertColor(theChunks[4])));
+@@ -279,7 +279,7 @@ public class Board {
+ 			// Iterate through definitions of rooms
+ 			while(in.hasNextLine()){
+ 				String theLine = in.nextLine();
+-				deck.add(new Card('W', theLine)); 
++				deck.add(new Card(CardType.WEAPON, theLine)); 
+ 				weapons.add(theLine); 
+ 			}	
+ 		} finally {
+diff --git a/src/clueGame/Card.java b/src/clueGame/Card.java
+index 39795c3..6cf961f 100644
+--- a/src/clueGame/Card.java
++++ b/src/clueGame/Card.java
+@@ -5,31 +5,10 @@ public class Card {
+ 	private String cardName;
+ 	private CardType type; 
+ 	
+-	public Card(char type, String cardName)
++	public Card(CardType type, String cardName) 
+ 	{
+ 		this.cardName = cardName; 
+-		switch(type)
+-		{
+-		case 'P': 
+-		{
+-			this.type = CardType.PERSON;
+-			break; 
+-		}
+-		case 'R': 
+-		{
+-			this.type = CardType.ROOM;
+-			break; 
+-		}
+-		case 'W': 
+-		{
+-			this.type = CardType.WEAPON;
+-			break; 
+-		}
+-		default:
+-		{
+-			System.err.println("Check Card config file");
+-		}
+-		}
++		this.type = type; 
+ 	}
+ 
+ 	@Override
+diff --git a/src/clueGame/ComputerPlayer.java b/src/clueGame/ComputerPlayer.java
+index df71827..74ade1f 100644
+--- a/src/clueGame/ComputerPlayer.java
++++ b/src/clueGame/ComputerPlayer.java
+@@ -37,7 +37,7 @@ public class ComputerPlayer extends Player {
+ 		Solution suggestion; 
+ 		Card playerGuess; 
+ 		Card weaponGuess;
+-		Card roomGuess = new Card('R', board.getLegend().get(board.getCellAt(11, 3).getInitial())); 
++		Card roomGuess = new Card(CardType.ROOM, board.getLegend().get(board.getCellAt(11, 3).getInitial())); 
+ 		do {
+ 		ArrayList<Card> weapons = board.getUnseen().get(CardType.WEAPON);
+ 		weaponGuess = weapons.get(rand.nextInt(weapons.size())); 
+diff --git a/src/tests/SSALGameSetupTests.java b/src/tests/SSALGameSetupTests.java
+index 7a5fb0a..be7932a 100644
+--- a/src/tests/SSALGameSetupTests.java
++++ b/src/tests/SSALGameSetupTests.java
+@@ -12,6 +12,7 @@ import org.junit.Test;
+ 
+ import clueGame.Board;
+ import clueGame.Card;
++import clueGame.CardType;
+ import clueGame.ComputerPlayer;
+ import clueGame.HumanPlayer;
+ import clueGame.Player;
+@@ -32,47 +33,47 @@ public class SSALGameSetupTests {
+ 	}
+ 	
+ 	/* This tests the people cards in the desk, by seeing if they have the proper 
+-	 * letter ('P' for person), as well as having the correct name.
++	 * letter (CardType.PERSON for person), as well as having the correct name.
+ 	 * Then we test that the deck has the proper total of cards  
+ 	 */
+ 	@Test
+ 	public void testPeopleCards()
+ 	{
+ 		ArrayList<Card> deck = board.getDeck(); 
+-		assertTrue(deck.contains(new Card('P', "Thorin")));
+-		assertTrue(deck.contains(new Card('P', "Fili")));
+-		assertTrue(deck.contains(new Card('P', "Kili")));
+-		assertTrue(deck.contains(new Card('P', "Nori")));
++		assertTrue(deck.contains(new Card(CardType.PERSON, "Thorin")));
++		assertTrue(deck.contains(new Card(CardType.PERSON, "Fili")));
++		assertTrue(deck.contains(new Card(CardType.PERSON, "Kili")));
++		assertTrue(deck.contains(new Card(CardType.PERSON, "Nori")));
+ 		assertEquals(21, deck.size());
+ 	}
+ 	
+ 	/* testWeapon cards checks the after reading in the weapons, 
+-	 * they are in the correct format ('W' for weapon) and that 
++	 * they are in the correct format (CardType.WEAPON for weapon) and that 
+ 	 * the names are the properly associated weapons 
+ 	 */
+ 	@Test
+ 	public void testWeaponCards()
+ 	{
+ 		ArrayList<Card> deck = board.getDeck(); 
+-		assertTrue(deck.contains(new Card('W', "Cat")));
+-		assertTrue(deck.contains(new Card('W', "Bunny")));
+-		assertTrue(deck.contains(new Card('W', "AK47")));
+-		assertTrue(deck.contains(new Card('W', "Acid")));
++		assertTrue(deck.contains(new Card(CardType.WEAPON, "Cat")));
++		assertTrue(deck.contains(new Card(CardType.WEAPON, "Bunny")));
++		assertTrue(deck.contains(new Card(CardType.WEAPON, "AK47")));
++		assertTrue(deck.contains(new Card(CardType.WEAPON, "Acid")));
+ 		assertEquals(21, deck.size());
+ 	}
+ 	
+ 	/* testRoomCards tests that the rooms are loaded in correctly
+-	 * we see that each room has an 'R' with it, and that it is also
++	 * we see that each room has an CardType.ROOM with it, and that it is also
+ 	 * named correctly according to our config file
+ 	 */
+ 	@Test
+ 	public void testRoomCards()
+ 	{
+ 		ArrayList<Card> deck = board.getDeck(); 
+-		assertTrue(deck.contains(new Card('R', "Kitchen")));
+-		assertTrue(deck.contains(new Card('R', "Great Hall")));
+-		assertTrue(deck.contains(new Card('R', "Laboratory")));
+-		assertTrue(deck.contains(new Card('R', "Study")));
++		assertTrue(deck.contains(new Card(CardType.ROOM, "Kitchen")));
++		assertTrue(deck.contains(new Card(CardType.ROOM, "Great Hall")));
++		assertTrue(deck.contains(new Card(CardType.ROOM, "Laboratory")));
++		assertTrue(deck.contains(new Card(CardType.ROOM, "Study")));
+ 		assertEquals(21, deck.size());
+ 	}
+ 	
+diff --git a/src/tests/SSAL_GameActionTests.java b/src/tests/SSAL_GameActionTests.java
+index 61ce1fc..9fac78b 100644
+--- a/src/tests/SSAL_GameActionTests.java
++++ b/src/tests/SSAL_GameActionTests.java
+@@ -123,20 +123,20 @@ public class SSAL_GameActionTests {
+ 			weaponGuess = board.getWeapons().get(rand.nextInt(board.getWeapons().size()));
+ 			roomGuess = board.getHabitableRooms().get(rand.nextInt(board.getHabitableRooms().size()));
+ 			playerGuess = board.getPlayers().get(rand.nextInt(board.getPlayers().size())); 
+-			guess = new Solution(new Card('W', weaponGuess), new Card('P', playerGuess.getName()), new Card('R', roomGuess));
++			guess = new Solution(new Card(CardType.WEAPON, weaponGuess), new Card(CardType.PERSON, playerGuess.getName()), new Card(CardType.ROOM, roomGuess));
+ 			if(!board.answer.equals(guess))
+ 				guessIsNotAnswer = true; 
+ 		}
+ 		// All wrong
+ 		assertFalse(board.checkAccusation(guess));
+ 		//Wrong person
+-		Solution wrongPerson = new Solution(board.answer.getWeapon(), new Card('P', "Wrong"), board.answer.getRoom()); 
++		Solution wrongPerson = new Solution(board.answer.getWeapon(), new Card(CardType.PERSON, "Wrong"), board.answer.getRoom()); 
+ 		assertFalse(board.checkAccusation(wrongPerson));
+ 		//Wrong Weapon
+-		Solution wrongWeapon = new Solution(new Card('W', "wrong"), board.answer.getPlayer(), board.answer.getRoom()); 
++		Solution wrongWeapon = new Solution(new Card(CardType.WEAPON, "wrong"), board.answer.getPlayer(), board.answer.getRoom()); 
+ 		assertFalse(board.checkAccusation(wrongWeapon));
+ 		//Wrong Room
+-		Solution wrongRoom = new Solution(board.answer.getWeapon(), board.answer.getPlayer(), new Card('R', "Wrong")); 
++		Solution wrongRoom = new Solution(board.answer.getWeapon(), board.answer.getPlayer(), new Card(CardType.ROOM, "Wrong")); 
+ 		assertFalse(board.checkAccusation(wrongRoom));
+ 		//All right
+ 		assertTrue(board.checkAccusation(new Solution(board.answer.getWeapon(),board.answer.getPlayer(), board.answer.getRoom()))); 
+@@ -155,18 +155,18 @@ public class SSAL_GameActionTests {
+ 	public void makeSuggestion() {
+ 		ComputerPlayer tempPlayer = new ComputerPlayer("Temp", 11, 3, Color.yellow); 
+ 		ArrayList<Card> newHand = new ArrayList<>(); 
+-		newHand.add(new Card('P', "Balin")); 
+-		newHand.add(new Card('W', "Acid")); 
+-		newHand.add(new Card('W', "Bunny"));
++		newHand.add(new Card(CardType.PERSON, "Balin")); 
++		newHand.add(new Card(CardType.WEAPON, "Acid")); 
++		newHand.add(new Card(CardType.WEAPON, "Bunny"));
+ 		tempPlayer.setHand(newHand); 
+ 
+ 		Map<CardType, ArrayList<Card>> newUnseen = new HashMap<>(); 
+ 		ArrayList<Card> weapons = new ArrayList<>(); 
+ 		ArrayList<Card> people = new ArrayList<>(); 
+-		people.add(new Card('P', "Thorin"));
+-		people.add(new Card('P', "Kili"));
+-		weapons.add(new Card('W', "Cat"));
+-		weapons.add(new Card('W', "AK47"));
++		people.add(new Card(CardType.PERSON, "Thorin"));
++		people.add(new Card(CardType.PERSON, "Kili"));
++		weapons.add(new Card(CardType.WEAPON, "Cat"));
++		weapons.add(new Card(CardType.WEAPON, "AK47"));
+ 		newUnseen.put(CardType.PERSON, people);
+ 		newUnseen.put(CardType.WEAPON, weapons); 
+ 		board.setUnseen(newUnseen);
+@@ -190,27 +190,27 @@ public class SSAL_GameActionTests {
+ 	public void disproveSuggestion() {
+ 		ComputerPlayer tempPlayer = new ComputerPlayer("Temp", 11, 3, Color.yellow); 
+ 		ArrayList<Card> newHand = new ArrayList<>(); 
+-		newHand.add(new Card('P', "Balin")); 
+-		newHand.add(new Card('W', "Acid")); 
+-		newHand.add(new Card('W', "Bunny"));
++		newHand.add(new Card(CardType.PERSON, "Balin")); 
++		newHand.add(new Card(CardType.WEAPON, "Acid")); 
++		newHand.add(new Card(CardType.WEAPON, "Bunny"));
+ 		tempPlayer.setHand(newHand); 
+ 
+-		Solution cantBeDisproved = new Solution(new Card('W', "Puppy"), new Card('P', "Dori"), new Card('R', "Kitchen"));
++		Solution cantBeDisproved = new Solution(new Card(CardType.WEAPON, "Puppy"), new Card(CardType.PERSON, "Dori"), new Card(CardType.ROOM, "Kitchen"));
+ 		Card returned = tempPlayer.disproveSuggestion(board, cantBeDisproved); 
+ 		assertNull(returned);
+-		Solution oneCanBeDisproved = new Solution(new Card('W', "Acid"), new Card('P', "Dori"), new Card('R', "Kitchen"));
++		Solution oneCanBeDisproved = new Solution(new Card(CardType.WEAPON, "Acid"), new Card(CardType.PERSON, "Dori"), new Card(CardType.ROOM, "Kitchen"));
+ 		returned = tempPlayer.disproveSuggestion(board, oneCanBeDisproved);
+-		assertEquals(new Card('W', "Acid"), returned);
+-		Solution multipleCanBeDisproved = new Solution(new Card('W', "Acid"), new Card('P', "Balin"), new Card('R', "Kitchen"));
++		assertEquals(new Card(CardType.WEAPON, "Acid"), returned);
++		Solution multipleCanBeDisproved = new Solution(new Card(CardType.WEAPON, "Acid"), new Card(CardType.PERSON, "Balin"), new Card(CardType.ROOM, "Kitchen"));
+ 		boolean acidCard = false;
+ 		boolean balinCard = false;
+ 		for(int i=0; i<100; i++)
+ 		{
+ 			returned = tempPlayer.disproveSuggestion(board, multipleCanBeDisproved); 
+-			if(returned.equals(new Card('W', "Acid"))) {
++			if(returned.equals(new Card(CardType.WEAPON, "Acid"))) {
+ 				acidCard = true; 
+ 			}
+-			else if(returned.equals(new Card('P', "Balin"))) {
++			else if(returned.equals(new Card(CardType.PERSON, "Balin"))) {
+ 				balinCard = true; 
+ 			}
+ 		}
+@@ -228,42 +228,42 @@ public class SSAL_GameActionTests {
+ 
+ 		//Assign cards
+ 		ComputerPlayer playerOne = new ComputerPlayer("Shea", 17, 1, Color.black);
+-		hand1.add(new Card('P', "Balin")); 
+-		hand1.add(new Card('W', "Acid")); 
+-		hand1.add(new Card('W', "Bunny"));
++		hand1.add(new Card(CardType.PERSON, "Balin")); 
++		hand1.add(new Card(CardType.WEAPON, "Acid")); 
++		hand1.add(new Card(CardType.WEAPON, "Bunny"));
+ 		playerOne.setHand(hand1);
+ 		hand1.clear(); 
+ 
+ 		//Assign cards
+ 		ComputerPlayer playerTwo = new ComputerPlayer("Anthony", 15, 8, Color.white);
+-		hand2.add(new Card('P', "Fili")); 
+-		hand2.add(new Card('W', "Bird")); 
+-		hand2.add(new Card('R', "Great Hall"));
++		hand2.add(new Card(CardType.PERSON, "Fili")); 
++		hand2.add(new Card(CardType.WEAPON, "Bird")); 
++		hand2.add(new Card(CardType.ROOM, "Great Hall"));
+ 		playerTwo.setHand(hand2);
+ 		hand2.clear(); 
+ 
+ 		//Assign Cards
+ 		HumanPlayer playerThree = new HumanPlayer("Human", 5, 14, Color.blue); 
+-		hand3.add(new Card('P', "Nori")); 
+-		hand3.add(new Card('W', "Cat")); 
+-		hand3.add(new Card('R', "Library"));
++		hand3.add(new Card(CardType.PERSON, "Nori")); 
++		hand3.add(new Card(CardType.WEAPON, "Cat")); 
++		hand3.add(new Card(CardType.ROOM, "Library"));
+ 		playerThree.setHand(hand3);
+ 		players.add(playerOne);
+ 		players.add(playerTwo);
+ 		players.add(playerThree); 
+ 
+ 		//Nobody can disprove
+-		Solution nobodyCanDisprove = new Solution(new Card('W', "null1"), new Card('P', "null2"), new Card('R', "null3") );
++		Solution nobodyCanDisprove = new Solution(new Card(CardType.WEAPON, "null1"), new Card(CardType.PERSON, "null2"), new Card(CardType.ROOM, "null3") );
+ 		Card x = board.handleSuggestion(players, 0, nobodyCanDisprove);
+ 		assertNull(x); 
+ 
+ 		//Only player one (Accuser) can disprove
+-		Solution playerOneCanDisprove = new Solution(new Card('W', "Acid"), new Card('P', "null2"), new Card('R', "null3") );
++		Solution playerOneCanDisprove = new Solution(new Card(CardType.WEAPON, "Acid"), new Card(CardType.PERSON, "null2"), new Card(CardType.ROOM, "null3") );
+ 		x = board.handleSuggestion(players, 0, playerOneCanDisprove);
+ 		assertNull(x);
+ 
+ 		//Only the human can disprove, but is not accuser
+-		Solution humanCanDisprove = new Solution(new Card('W', "Cat"), new Card('P', "null2"), new Card('R', "null3") );
++		Solution humanCanDisprove = new Solution(new Card(CardType.WEAPON, "Cat"), new Card(CardType.PERSON, "null2"), new Card(CardType.ROOM, "null3") );
+ 		x = board.handleSuggestion(players, 0, humanCanDisprove);
+ 		assertTrue(playerThree.getHand().contains(x));
+ 
+@@ -272,17 +272,17 @@ public class SSAL_GameActionTests {
+ 		assertNull(x);
+ 
+ 		//Only player 1 and 2 can disprove, but player 1 disproves 1st
+-		Solution _0_1_canDisprove = new Solution(new Card('W', "Bird"), new Card('P', "Balin"), new Card('R', "null3"));
++		Solution _0_1_canDisprove = new Solution(new Card(CardType.WEAPON, "Bird"), new Card(CardType.PERSON, "Balin"), new Card(CardType.ROOM, "null3"));
+ 		x = board.handleSuggestion(players, 2, _0_1_canDisprove);
+ 		assertTrue(playerOne.getHand().contains(x));
+ 
+ 		//Only player 2 and human can disprove, but player 2 goes first
+-		Solution _1_2_canDisprove = new Solution(new Card('W', "null1"), new Card('P', "Fili"), new Card('R', "Library"));
++		Solution _1_2_canDisprove = new Solution(new Card(CardType.WEAPON, "null1"), new Card(CardType.PERSON, "Fili"), new Card(CardType.ROOM, "Library"));
+ 		x = board.handleSuggestion(players, 0, _1_2_canDisprove);
+ 		assertTrue(playerTwo.getHand().contains(x));
+ 
+ 		//Only human player and 1 can disprove, but human (player three) goes first
+-		Solution _2_0_canDisprove = new Solution(new Card('W', "Cat"), new Card('P', "Balin"), new Card('R', "null3"));
++		Solution _2_0_canDisprove = new Solution(new Card(CardType.WEAPON, "Cat"), new Card(CardType.PERSON, "Balin"), new Card(CardType.ROOM, "null3"));
+ 		x = board.handleSuggestion(players, 1, _2_0_canDisprove);
+ 		assertTrue(playerThree.getHand().contains(x));
+ 	}
