@@ -123,20 +123,20 @@ public class SSAL_GameActionTests {
 			weaponGuess = board.getWeapons().get(rand.nextInt(board.getWeapons().size()));
 			roomGuess = board.getHabitableRooms().get(rand.nextInt(board.getHabitableRooms().size()));
 			playerGuess = board.getPlayers().get(rand.nextInt(board.getPlayers().size())); 
-			guess = new Solution(new Card('W', weaponGuess), new Card('P', playerGuess.getName()), new Card('R', roomGuess));
+			guess = new Solution(new Card(CardType.WEAPON, weaponGuess), new Card(CardType.PERSON, playerGuess.getName()), new Card(CardType.ROOM, roomGuess));
 			if(!board.answer.equals(guess))
 				guessIsNotAnswer = true; 
 		}
 		// All wrong
 		assertFalse(board.checkAccusation(guess));
 		//Wrong person
-		Solution wrongPerson = new Solution(board.answer.getWeapon(), new Card('P', "Wrong"), board.answer.getRoom()); 
+		Solution wrongPerson = new Solution(board.answer.getWeapon(), new Card(CardType.PERSON, "Wrong"), board.answer.getRoom()); 
 		assertFalse(board.checkAccusation(wrongPerson));
 		//Wrong Weapon
-		Solution wrongWeapon = new Solution(new Card('W', "wrong"), board.answer.getPlayer(), board.answer.getRoom()); 
+		Solution wrongWeapon = new Solution(new Card(CardType.WEAPON, "wrong"), board.answer.getPlayer(), board.answer.getRoom()); 
 		assertFalse(board.checkAccusation(wrongWeapon));
 		//Wrong Room
-		Solution wrongRoom = new Solution(board.answer.getWeapon(), board.answer.getPlayer(), new Card('R', "Wrong")); 
+		Solution wrongRoom = new Solution(board.answer.getWeapon(), board.answer.getPlayer(), new Card(CardType.ROOM, "Wrong")); 
 		assertFalse(board.checkAccusation(wrongRoom));
 		//All right
 		assertTrue(board.checkAccusation(new Solution(board.answer.getWeapon(),board.answer.getPlayer(), board.answer.getRoom()))); 
@@ -155,18 +155,18 @@ public class SSAL_GameActionTests {
 	public void makeSuggestion() {
 		ComputerPlayer tempPlayer = new ComputerPlayer("Temp", 11, 3, Color.yellow); 
 		ArrayList<Card> newHand = new ArrayList<>(); 
-		newHand.add(new Card('P', "Balin")); 
-		newHand.add(new Card('W', "Acid")); 
-		newHand.add(new Card('W', "Bunny"));
+		newHand.add(new Card(CardType.PERSON, "Balin")); 
+		newHand.add(new Card(CardType.WEAPON, "Acid")); 
+		newHand.add(new Card(CardType.WEAPON, "Bunny"));
 		tempPlayer.setHand(newHand); 
 
 		Map<CardType, ArrayList<Card>> newUnseen = new HashMap<>(); 
 		ArrayList<Card> weapons = new ArrayList<>(); 
 		ArrayList<Card> people = new ArrayList<>(); 
-		people.add(new Card('P', "Thorin"));
-		people.add(new Card('P', "Kili"));
-		weapons.add(new Card('W', "Cat"));
-		weapons.add(new Card('W', "AK47"));
+		people.add(new Card(CardType.PERSON, "Thorin"));
+		people.add(new Card(CardType.PERSON, "Kili"));
+		weapons.add(new Card(CardType.WEAPON, "Cat"));
+		weapons.add(new Card(CardType.WEAPON, "AK47"));
 		newUnseen.put(CardType.PERSON, people);
 		newUnseen.put(CardType.WEAPON, weapons); 
 		board.setUnseen(newUnseen);
@@ -190,27 +190,27 @@ public class SSAL_GameActionTests {
 	public void disproveSuggestion() {
 		ComputerPlayer tempPlayer = new ComputerPlayer("Temp", 11, 3, Color.yellow); 
 		ArrayList<Card> newHand = new ArrayList<>(); 
-		newHand.add(new Card('P', "Balin")); 
-		newHand.add(new Card('W', "Acid")); 
-		newHand.add(new Card('W', "Bunny"));
+		newHand.add(new Card(CardType.PERSON, "Balin")); 
+		newHand.add(new Card(CardType.WEAPON, "Acid")); 
+		newHand.add(new Card(CardType.WEAPON, "Bunny"));
 		tempPlayer.setHand(newHand); 
 
-		Solution cantBeDisproved = new Solution(new Card('W', "Puppy"), new Card('P', "Dori"), new Card('R', "Kitchen"));
+		Solution cantBeDisproved = new Solution(new Card(CardType.WEAPON, "Puppy"), new Card(CardType.PERSON, "Dori"), new Card(CardType.ROOM, "Kitchen"));
 		Card returned = tempPlayer.disproveSuggestion(board, cantBeDisproved); 
 		assertNull(returned);
-		Solution oneCanBeDisproved = new Solution(new Card('W', "Acid"), new Card('P', "Dori"), new Card('R', "Kitchen"));
+		Solution oneCanBeDisproved = new Solution(new Card(CardType.WEAPON, "Acid"), new Card(CardType.PERSON, "Dori"), new Card(CardType.ROOM, "Kitchen"));
 		returned = tempPlayer.disproveSuggestion(board, oneCanBeDisproved);
-		assertEquals(new Card('W', "Acid"), returned);
-		Solution multipleCanBeDisproved = new Solution(new Card('W', "Acid"), new Card('P', "Balin"), new Card('R', "Kitchen"));
+		assertEquals(new Card(CardType.WEAPON, "Acid"), returned);
+		Solution multipleCanBeDisproved = new Solution(new Card(CardType.WEAPON, "Acid"), new Card(CardType.PERSON, "Balin"), new Card(CardType.ROOM, "Kitchen"));
 		boolean acidCard = false;
 		boolean balinCard = false;
 		for(int i=0; i<100; i++)
 		{
 			returned = tempPlayer.disproveSuggestion(board, multipleCanBeDisproved); 
-			if(returned.equals(new Card('W', "Acid"))) {
+			if(returned.equals(new Card(CardType.WEAPON, "Acid"))) {
 				acidCard = true; 
 			}
-			else if(returned.equals(new Card('P', "Balin"))) {
+			else if(returned.equals(new Card(CardType.PERSON, "Balin"))) {
 				balinCard = true; 
 			}
 		}
@@ -228,42 +228,42 @@ public class SSAL_GameActionTests {
 
 		//Assign cards
 		ComputerPlayer playerOne = new ComputerPlayer("Shea", 17, 1, Color.black);
-		hand1.add(new Card('P', "Balin")); 
-		hand1.add(new Card('W', "Acid")); 
-		hand1.add(new Card('W', "Bunny"));
+		hand1.add(new Card(CardType.PERSON, "Balin")); 
+		hand1.add(new Card(CardType.WEAPON, "Acid")); 
+		hand1.add(new Card(CardType.WEAPON, "Bunny"));
 		playerOne.setHand(hand1);
 		hand1.clear(); 
 
 		//Assign cards
 		ComputerPlayer playerTwo = new ComputerPlayer("Anthony", 15, 8, Color.white);
-		hand2.add(new Card('P', "Fili")); 
-		hand2.add(new Card('W', "Bird")); 
-		hand2.add(new Card('R', "Great Hall"));
+		hand2.add(new Card(CardType.PERSON, "Fili")); 
+		hand2.add(new Card(CardType.WEAPON, "Bird")); 
+		hand2.add(new Card(CardType.ROOM, "Great Hall"));
 		playerTwo.setHand(hand2);
 		hand2.clear(); 
 
 		//Assign Cards
 		HumanPlayer playerThree = new HumanPlayer("Human", 5, 14, Color.blue); 
-		hand3.add(new Card('P', "Nori")); 
-		hand3.add(new Card('W', "Cat")); 
-		hand3.add(new Card('R', "Library"));
+		hand3.add(new Card(CardType.PERSON, "Nori")); 
+		hand3.add(new Card(CardType.WEAPON, "Cat")); 
+		hand3.add(new Card(CardType.ROOM, "Library"));
 		playerThree.setHand(hand3);
 		players.add(playerOne);
 		players.add(playerTwo);
 		players.add(playerThree); 
 
 		//Nobody can disprove
-		Solution nobodyCanDisprove = new Solution(new Card('W', "null1"), new Card('P', "null2"), new Card('R', "null3") );
+		Solution nobodyCanDisprove = new Solution(new Card(CardType.WEAPON, "null1"), new Card(CardType.PERSON, "null2"), new Card(CardType.ROOM, "null3") );
 		Card x = board.handleSuggestion(players, 0, nobodyCanDisprove);
 		assertNull(x); 
 
 		//Only player one (Accuser) can disprove
-		Solution playerOneCanDisprove = new Solution(new Card('W', "Acid"), new Card('P', "null2"), new Card('R', "null3") );
+		Solution playerOneCanDisprove = new Solution(new Card(CardType.WEAPON, "Acid"), new Card(CardType.PERSON, "null2"), new Card(CardType.ROOM, "null3") );
 		x = board.handleSuggestion(players, 0, playerOneCanDisprove);
 		assertNull(x);
 
 		//Only the human can disprove, but is not accuser
-		Solution humanCanDisprove = new Solution(new Card('W', "Cat"), new Card('P', "null2"), new Card('R', "null3") );
+		Solution humanCanDisprove = new Solution(new Card(CardType.WEAPON, "Cat"), new Card(CardType.PERSON, "null2"), new Card(CardType.ROOM, "null3") );
 		x = board.handleSuggestion(players, 0, humanCanDisprove);
 		assertTrue(playerThree.getHand().contains(x));
 
@@ -272,17 +272,17 @@ public class SSAL_GameActionTests {
 		assertNull(x);
 
 		//Only player 1 and 2 can disprove, but player 1 disproves 1st
-		Solution _0_1_canDisprove = new Solution(new Card('W', "Bird"), new Card('P', "Balin"), new Card('R', "null3"));
+		Solution _0_1_canDisprove = new Solution(new Card(CardType.WEAPON, "Bird"), new Card(CardType.PERSON, "Balin"), new Card(CardType.ROOM, "null3"));
 		x = board.handleSuggestion(players, 2, _0_1_canDisprove);
 		assertTrue(playerOne.getHand().contains(x));
 
 		//Only player 2 and human can disprove, but player 2 goes first
-		Solution _1_2_canDisprove = new Solution(new Card('W', "null1"), new Card('P', "Fili"), new Card('R', "Library"));
+		Solution _1_2_canDisprove = new Solution(new Card(CardType.WEAPON, "null1"), new Card(CardType.PERSON, "Fili"), new Card(CardType.ROOM, "Library"));
 		x = board.handleSuggestion(players, 0, _1_2_canDisprove);
 		assertTrue(playerTwo.getHand().contains(x));
 
 		//Only human player and 1 can disprove, but human (player three) goes first
-		Solution _2_0_canDisprove = new Solution(new Card('W', "Cat"), new Card('P', "Balin"), new Card('R', "null3"));
+		Solution _2_0_canDisprove = new Solution(new Card(CardType.WEAPON, "Cat"), new Card(CardType.PERSON, "Balin"), new Card(CardType.ROOM, "null3"));
 		x = board.handleSuggestion(players, 1, _2_0_canDisprove);
 		assertTrue(playerThree.getHand().contains(x));
 	}

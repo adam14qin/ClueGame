@@ -88,7 +88,7 @@ public class Board {
 		Player playerAnswer = players.get(rand.nextInt(players.size())); 
 		String roomAnswer = habitableRooms.get(rand.nextInt(habitableRooms.size()));
 		String weaponAnswer = weapons.get(rand.nextInt(weapons.size())); 
-		return new Solution(new Card('W', weaponAnswer), new Card('P', playerAnswer.getName()), new Card('R', roomAnswer)); 
+		return new Solution(new Card(CardType.WEAPON, weaponAnswer), new Card(CardType.PERSON, playerAnswer.getName()), new Card(CardType.ROOM, roomAnswer)); 
 	}
 
 	public boolean checkAccusation(Solution accusation) {
@@ -168,7 +168,7 @@ public class Board {
 		{
 			if(x != 'W' && x!= 'X')
 			{
-				deck.add(new Card('R', rooms.get(x))); 
+				deck.add(new Card(CardType.ROOM, rooms.get(x))); 
 				habitableRooms.add(rooms.get(x)); 
 			}
 		}
@@ -249,7 +249,7 @@ public class Board {
 				// Error condition: Type of room is not 'Other' or 'Card'
 
 				// Store the room into the map
-				deck.add(new Card('P', theChunks[1])); 
+				deck.add(new Card(CardType.PERSON, theChunks[1])); 
 				if(theChunks[0].charAt(0)=='P')
 				{
 					players.add(new HumanPlayer(theChunks[1], Integer.parseInt(theChunks[2]), Integer.parseInt(theChunks[3]), convertColor(theChunks[4])));
@@ -279,7 +279,7 @@ public class Board {
 			// Iterate through definitions of rooms
 			while(in.hasNextLine()){
 				String theLine = in.nextLine();
-				deck.add(new Card('W', theLine)); 
+				deck.add(new Card(CardType.WEAPON, theLine)); 
 				weapons.add(theLine); 
 			}	
 		} finally {

@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import clueGame.Board;
 import clueGame.Card;
+import clueGame.CardType;
 import clueGame.ComputerPlayer;
 import clueGame.HumanPlayer;
 import clueGame.Player;
@@ -32,47 +33,47 @@ public class SSALGameSetupTests {
 	}
 	
 	/* This tests the people cards in the desk, by seeing if they have the proper 
-	 * letter ('P' for person), as well as having the correct name.
+	 * letter (CardType.PERSON for person), as well as having the correct name.
 	 * Then we test that the deck has the proper total of cards  
 	 */
 	@Test
 	public void testPeopleCards()
 	{
 		ArrayList<Card> deck = board.getDeck(); 
-		assertTrue(deck.contains(new Card('P', "Thorin")));
-		assertTrue(deck.contains(new Card('P', "Fili")));
-		assertTrue(deck.contains(new Card('P', "Kili")));
-		assertTrue(deck.contains(new Card('P', "Nori")));
+		assertTrue(deck.contains(new Card(CardType.PERSON, "Thorin")));
+		assertTrue(deck.contains(new Card(CardType.PERSON, "Fili")));
+		assertTrue(deck.contains(new Card(CardType.PERSON, "Kili")));
+		assertTrue(deck.contains(new Card(CardType.PERSON, "Nori")));
 		assertEquals(21, deck.size());
 	}
 	
 	/* testWeapon cards checks the after reading in the weapons, 
-	 * they are in the correct format ('W' for weapon) and that 
+	 * they are in the correct format (CardType.WEAPON for weapon) and that 
 	 * the names are the properly associated weapons 
 	 */
 	@Test
 	public void testWeaponCards()
 	{
 		ArrayList<Card> deck = board.getDeck(); 
-		assertTrue(deck.contains(new Card('W', "Cat")));
-		assertTrue(deck.contains(new Card('W', "Bunny")));
-		assertTrue(deck.contains(new Card('W', "AK47")));
-		assertTrue(deck.contains(new Card('W', "Acid")));
+		assertTrue(deck.contains(new Card(CardType.WEAPON, "Cat")));
+		assertTrue(deck.contains(new Card(CardType.WEAPON, "Bunny")));
+		assertTrue(deck.contains(new Card(CardType.WEAPON, "AK47")));
+		assertTrue(deck.contains(new Card(CardType.WEAPON, "Acid")));
 		assertEquals(21, deck.size());
 	}
 	
 	/* testRoomCards tests that the rooms are loaded in correctly
-	 * we see that each room has an 'R' with it, and that it is also
+	 * we see that each room has an CardType.ROOM with it, and that it is also
 	 * named correctly according to our config file
 	 */
 	@Test
 	public void testRoomCards()
 	{
 		ArrayList<Card> deck = board.getDeck(); 
-		assertTrue(deck.contains(new Card('R', "Kitchen")));
-		assertTrue(deck.contains(new Card('R', "Great Hall")));
-		assertTrue(deck.contains(new Card('R', "Laboratory")));
-		assertTrue(deck.contains(new Card('R', "Study")));
+		assertTrue(deck.contains(new Card(CardType.ROOM, "Kitchen")));
+		assertTrue(deck.contains(new Card(CardType.ROOM, "Great Hall")));
+		assertTrue(deck.contains(new Card(CardType.ROOM, "Laboratory")));
+		assertTrue(deck.contains(new Card(CardType.ROOM, "Study")));
 		assertEquals(21, deck.size());
 	}
 	
