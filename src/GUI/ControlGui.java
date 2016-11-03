@@ -37,13 +37,16 @@ public class ControlGui extends JFrame{
 		turnLabel.setHorizontalAlignment(JLabel.CENTER);
 		turnPanel.add(turnLabel);
 		
+		JPanel wrapper =new JPanel();
+		wrapper.add(turnPanel);
+		
 		JTextField turnName = new JTextField(10); 
 		turnName.setHorizontalAlignment(JTextField.CENTER);
 		turnName.setEnabled(false);
 		turnName.setEditable(false);
 		turnPanel.add(turnName);
 		
-		top.add(turnPanel);
+		top.add(wrapper);
 		top.add(new JButton("Next Player"));
 		top.add(new JButton("Make an accusation"));
 		wholePanel.add(top);
