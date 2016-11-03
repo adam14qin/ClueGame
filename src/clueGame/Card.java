@@ -30,4 +30,8 @@ public class Card {
 		return cardName; 
 	}
 	
+	public CardType getCardType() {
+		return type;
+	}
+	
 }

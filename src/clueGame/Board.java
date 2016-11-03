@@ -23,11 +23,11 @@ public class Board {
 	private String playerConfigName; 
 	private String weaponConfigName; 
 
-	private ArrayList<Player> players = new ArrayList<>(); 
-	private ArrayList<String> habitableRooms = new ArrayList<>(); 
-	private Map<Character, String> rooms = new HashMap<Character, String>();
-	private ArrayList<String> weapons = new ArrayList<>(); 
-	private Map<CardType, ArrayList<Card>> unseen = new HashMap<>(); 
+	private ArrayList<Player> players;
+	private ArrayList<String> habitableRooms;
+	private Map<Character, String> rooms;
+	private ArrayList<String> weapons;
+	private Map<CardType, ArrayList<Card>> unseen;
 
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
@@ -41,7 +41,17 @@ public class Board {
 	private static Board theInstance = new Board();
 
 	// Constructor is private to ensure only one can be created
-	private Board() {}
+	private Board() {
+		players = new ArrayList<>(); 
+		habitableRooms = new ArrayList<>(); 
+		rooms = new HashMap<Character, String>();
+		weapons = new ArrayList<>(); 
+		unseen = new HashMap<>();
+		unseen.put(CardType.WEAPON, new ArrayList<Card>());
+		unseen.put(CardType.PERSON, new ArrayList<Card>());
+		unseen.put(CardType.ROOM, new ArrayList<Card>());
+		adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
+	}
 
 	// This method returns the only Board
 	public static Board getInstance() { return theInstance; }
@@ -101,7 +111,10 @@ public class Board {
 		for(int i=accuser+1; i<accuser+playersInGame.size(); i++)//start handling suggestion from the player next to accuser
 		{
 			Card x = playersInGame.get(i%playersInGame.size()).disproveSuggestion(this, suggestion);
-
+			if(x != null)
+			{
+				unseen.get(x.getCardType()).remove(x); 
+			}
 			if(x != null){
 				return x; 
 			}
@@ -129,6 +142,7 @@ public class Board {
 			players.get(currentPlayer%players.size()).getHand().add(tempDeck.get(0)); 
 			tempDeck.remove(0); 
 			currentPlayer++; 
+			
 		}
 	}
 
@@ -169,6 +183,7 @@ public class Board {
 			if(x != 'W' && x!= 'X')
 			{
 				deck.add(new Card(CardType.ROOM, rooms.get(x))); 
+				unseen.get(CardType.ROOM).add(new Card(CardType.ROOM, rooms.get(x))); 
 				habitableRooms.add(rooms.get(x)); 
 			}
 		}
@@ -250,6 +265,7 @@ public class Board {
 
 				// Store the room into the map
 				deck.add(new Card(CardType.PERSON, theChunks[1])); 
+				unseen.get(CardType.ROOM).add(new Card(CardType.PERSON, theChunks[1])); 
 				if(theChunks[0].charAt(0)=='P')
 				{
 					players.add(new HumanPlayer(theChunks[1], Integer.parseInt(theChunks[2]), Integer.parseInt(theChunks[3]), convertColor(theChunks[4])));
@@ -280,6 +296,7 @@ public class Board {
 			while(in.hasNextLine()){
 				String theLine = in.nextLine();
 				deck.add(new Card(CardType.WEAPON, theLine)); 
+				unseen.get(CardType.WEAPON).add(new Card(CardType.WEAPON,theLine)); 
 				weapons.add(theLine); 
 			}	
 		} finally {
