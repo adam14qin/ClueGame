@@ -18,7 +18,7 @@ public class BadConfigFormatException extends Exception {
 	public BadConfigFormatException(String message) {
 		// Parameterized constructor
 		super(message);
-		writeMessageToFile(message);
+		//writeMessageToFile(message);
 	}
 	
 	private void writeMessageToFile(String msg) {
