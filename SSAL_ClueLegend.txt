@@ -1,11 +1,11 @@
-G, Great Hall, Card
-R, Sanctorium, Card
-D, Dungeon, Card
-C, Cellar, Card
-P, Greenhouse, Card
-B, Study, Card
-K, Kitchen, Card
-L, Library, Card
-O, Laboratory, Card
-W, Walkway, Other
-X, Scriptorium, Other
+G, Great Hall, Card, 3, 15
+R, Sanctorium, Card, 9, 20
+D, Dungeon, Card, 22, 17
+C, Cellar, Card, 16, 19
+P, Greenhouse, Card, 19, 6
+B, Study, Card, 20, 1
+K, Kitchen, Card, 12, 0
+L, Library, Card, 3, 1
+O, Laboratory, Card, 2, 7
+W, Walkway, Other, 0, 0
+X, Scriptorium, Other, 0, 0

@@ -17,6 +17,8 @@ import java.util.Set;
 
 import javax.swing.JPanel;
 
+import javafx.scene.text.Font;
+
 import java.lang.reflect.Field;
 
 public class Board extends JPanel{
@@ -28,7 +30,8 @@ public class Board extends JPanel{
 	private String boardConfigName;
 	private String playerConfigName; 
 	private String weaponConfigName; 
-
+	private Map<int[], String> roomNameLocations; 
+	
 	private ArrayList<Player> players;
 	private ArrayList<String> habitableRooms;
 	private Map<Character, String> rooms;
@@ -53,6 +56,7 @@ public class Board extends JPanel{
 		rooms = new HashMap<Character, String>();
 		weapons = new ArrayList<>(); 
 		unseen = new HashMap<>();
+		roomNameLocations = new HashMap<int[], String>(); 
 		unseen.put(CardType.WEAPON, new ArrayList<Card>());
 		unseen.put(CardType.PERSON, new ArrayList<Card>());
 		unseen.put(CardType.ROOM, new ArrayList<Card>());
@@ -169,7 +173,7 @@ public class Board extends JPanel{
 				String[] theChunks = theLine.split(", ");
 
 				// Error condition: Row of legend doesn't have 3 comma separated values
-				if (theChunks.length != 3)
+				if (theChunks.length != 5)
 					throw new BadConfigFormatException("Invalid legend entry: " + theLine);
 
 				// Error condition: Type of room is not 'Other' or 'Card'
@@ -178,6 +182,12 @@ public class Board extends JPanel{
 
 				// Store the room into the map
 				rooms.put(theChunks[0].charAt(0), theChunks[1]);
+				//Push the cell for name into map
+				if(!theChunks[2].equals("Other"))
+				{
+					int[] nameCell = {Integer.parseInt(theChunks[3]), Integer.parseInt(theChunks[4])}; 
+				roomNameLocations.put(nameCell, theChunks[1]);
+				}
 			}
 		} finally {
 			// Cleanup the scanner, even if an exception was thrown
@@ -379,10 +389,19 @@ public class Board extends JPanel{
 		{
 			for(int col =0; col < board[row].length; col++)
 			{
-				System.out.print(board[row][col].getInitial() + " " + board[row][col].isRoom());
 				board[row][col].draw(this, g);
 			}
-			System.out.println();
+		}
+		drawRoomNames(g);
+	}
+	
+	private void drawRoomNames(Graphics g)
+	{
+		for(int[] x : roomNameLocations.keySet())
+		{
+			g.setColor(Color.white);
+			g.setFont(new java.awt.Font("Courier New", 1, 20));
+			g.drawString(roomNameLocations.get(x),x[1]*ClueGame.CELL_PIXEL_SIZE, x[0]*ClueGame.CELL_PIXEL_SIZE);
 		}
 	}
 	

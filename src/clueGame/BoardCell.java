@@ -81,7 +81,6 @@ public class BoardCell {
 	}
 
 	public void draw(JPanel boardPanel, Graphics g) {
-		System.out.println(" ROW: " + row + " COL: " + column + " Initial: " + initial);
 		int pixelRow = row*ClueGame.CELL_PIXEL_SIZE; 
 		int pixelCol = column*ClueGame.CELL_PIXEL_SIZE;
 		if(initial == 'X')
