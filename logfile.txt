@@ -88,3 +88,5 @@ Invalid room type: X
 Inconsistent number of columns on row 1
 Unknown room specifier found: Z
 Invalid room type: X
+Bad configuration format encountered.
+Bad configuration format encountered.

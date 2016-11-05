@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -21,6 +22,16 @@ public class Player {
 		this.color = color;
 	}
 
+	public void draw(Graphics g)
+	{
+		g.setColor(color);
+		g.fillOval(column*ClueGame.CELL_PIXEL_SIZE, row*ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
+		g.setColor(Color.BLACK);
+		g.drawOval(column*ClueGame.CELL_PIXEL_SIZE, row*ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
+
+		
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		Player other = (Player) obj;

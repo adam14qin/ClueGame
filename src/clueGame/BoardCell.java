@@ -85,7 +85,7 @@ public class BoardCell {
 		int pixelCol = column*ClueGame.CELL_PIXEL_SIZE;
 		if(initial == 'X')
 		{
-			g.setColor(Color.RED);
+			g.setColor(new Color(10, 0 ,107));
 			g.fillRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
 		}
 		if(isRoom() && initial != 'X')
@@ -93,7 +93,7 @@ public class BoardCell {
 			
 			g.setColor(Color.darkGray);
 			g.fillRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
-			g.setColor(Color.cyan);
+			g.setColor(Color.WHITE);
 			switch(doorDirection)
 			{
 			case UP:
@@ -120,7 +120,7 @@ public class BoardCell {
 		}
 		if(isWalkway())
 		{
-			g.setColor(Color.YELLOW);
+			g.setColor(new Color(201, 185, 132));
 			g.fillRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
 			g.setColor(Color.BLACK);
 			g.drawRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);

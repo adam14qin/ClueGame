@@ -185,7 +185,7 @@ public class Board extends JPanel{
 				//Push the cell for name into map
 				if(!theChunks[2].equals("Other"))
 				{
-					int[] nameCell = {Integer.parseInt(theChunks[3]), Integer.parseInt(theChunks[4])}; 
+					int[] nameCell = {Integer.parseInt(theChunks[3].trim()), Integer.parseInt(theChunks[4].trim())}; 
 				roomNameLocations.put(nameCell, theChunks[1]);
 				}
 			}
@@ -385,6 +385,13 @@ public class Board extends JPanel{
 	
 	public void draw(Graphics g)
 	{
+		drawBoardCells(g);
+		drawRoomNames(g);
+		drawPlayers(g); 
+	}
+	
+	private void drawBoardCells(Graphics g)
+	{
 		for(int row = 0; row < board.length; row++)
 		{
 			for(int col =0; col < board[row].length; col++)
@@ -392,7 +399,6 @@ public class Board extends JPanel{
 				board[row][col].draw(this, g);
 			}
 		}
-		drawRoomNames(g);
 	}
 	
 	private void drawRoomNames(Graphics g)
@@ -400,8 +406,17 @@ public class Board extends JPanel{
 		for(int[] x : roomNameLocations.keySet())
 		{
 			g.setColor(Color.white);
-			g.setFont(new java.awt.Font("Courier New", 1, 20));
+			int fontSize = (int)((double)(ClueGame.CELL_PIXEL_SIZE)*0.66); 
+			g.setFont(new java.awt.Font("Courier New", 1, fontSize));
 			g.drawString(roomNameLocations.get(x),x[1]*ClueGame.CELL_PIXEL_SIZE, x[0]*ClueGame.CELL_PIXEL_SIZE);
+		}
+	}
+	
+	private void drawPlayers(Graphics g)
+	{
+		for(Player player: players)
+		{
+			player.draw(g);
 		}
 	}
 	
