@@ -1,6 +1,7 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -11,9 +12,12 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
+
+import javax.swing.JPanel;
+
 import java.lang.reflect.Field;
 
-public class Board {
+public class Board extends JPanel{
 	public static final int MAX_BOARD_SIZE = 50;
 	private int numRows, numColumns;
 	private BoardCell[][] board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
@@ -379,6 +383,11 @@ public class Board {
 			// Clean adjacent cell out of visited set
 			visited.remove(adj);
 		}
+	}
+	
+	protected void paintComponent(Graphics g) 
+	{
+		
 	}
 
 	public Set<BoardCell> getAdjList(int row, int column) {
