@@ -1,5 +1,11 @@
 package clueGame;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Scanner;
+
+import javax.swing.JPanel;
+
 public class BoardCell {
 	private static final char walkway = 'W';
 	
@@ -7,6 +13,7 @@ public class BoardCell {
 	private int column;
 	private char initial;
 	private DoorDirection doorDirection;
+	private static final int DOOR_SIZE = 5; 
 	
 	// Parameterized constructor
 	public BoardCell(int row, int col, String initials) {
@@ -71,6 +78,54 @@ public class BoardCell {
 	public String toString() {
 		return "BoardCell [row=" + row + ", column=" + column + ", initial=" + initial + ", doorDirection="
 				+ doorDirection + "]";
+	}
+
+	public void draw(JPanel boardPanel, Graphics g) {
+		System.out.println(" ROW: " + row + " COL: " + column + " Initial: " + initial);
+		int pixelRow = row*ClueGame.CELL_PIXEL_SIZE; 
+		int pixelCol = column*ClueGame.CELL_PIXEL_SIZE;
+		if(initial == 'X')
+		{
+			g.setColor(Color.RED);
+			g.fillRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
+		}
+		if(isRoom() && initial != 'X')
+		{
+			
+			g.setColor(Color.darkGray);
+			g.fillRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
+			g.setColor(Color.cyan);
+			switch(doorDirection)
+			{
+			case UP:
+			{
+				g.fillRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, DOOR_SIZE);
+				break;
+			}
+			case DOWN:
+			{
+				g.fillRect(pixelCol, pixelRow + ClueGame.CELL_PIXEL_SIZE-DOOR_SIZE, ClueGame.CELL_PIXEL_SIZE, DOOR_SIZE);
+				break;
+			}
+			case RIGHT:
+			{
+				g.fillRect(pixelCol+ ClueGame.CELL_PIXEL_SIZE-DOOR_SIZE, pixelRow, DOOR_SIZE, ClueGame.CELL_PIXEL_SIZE);
+				break;
+			}
+			case LEFT:
+			{
+				g.fillRect(pixelCol, pixelRow, DOOR_SIZE, ClueGame.CELL_PIXEL_SIZE);
+				break;
+			}
+			}
+		}
+		if(isWalkway())
+		{
+			g.setColor(Color.YELLOW);
+			g.fillRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
+			g.setColor(Color.BLACK);
+			g.drawRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
+		}
 	}
 	
 	

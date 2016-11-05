@@ -2,6 +2,8 @@ package clueGame;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.GridLayout;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import java.lang.reflect.Field;
 public class Board extends JPanel{
 	public static final int MAX_BOARD_SIZE = 50;
 	private int numRows, numColumns;
-	private BoardCell[][] board = new BoardCell[MAX_BOARD_SIZE][MAX_BOARD_SIZE];
+	private BoardCell[][] board;
 
 	private String roomConfigName;
 	private String boardConfigName;
@@ -195,54 +197,40 @@ public class Board extends JPanel{
 
 	// Read the layout file
 	public void loadBoardConfig() throws FileNotFoundException, BadConfigFormatException {
-		// File reader objects
-		FileReader reader = new FileReader(boardConfigName);
-		Scanner in = null;
-		numColumns = -1; numRows = 0;
-
+		Scanner fileScanner2;
+		ArrayList<String[]> rows = new ArrayList<>(); 
 		try {
-			// Initialize the file scanner
-			in = new Scanner(reader);
-
-			// Iterate through rows of layout file
-			while(in.hasNextLine()){
-				String theLine = in.nextLine();
-				String[] elements = theLine.split(",");
-
-				// If the number of columns is unknown, set it to the length of this row
-				if (numColumns == -1)
-					numColumns = elements.length;
-
-				// Error condition: more rows or columns than the absolute maximum
-				if (elements.length >= MAX_BOARD_SIZE || numRows >= MAX_BOARD_SIZE)
-					throw new BadConfigFormatException("Number of rows/columns exceeded maximum of " + MAX_BOARD_SIZE);
-
-				// Error condition: row has different number of elements than the first row
-				else if (elements.length != numColumns)
-					throw new BadConfigFormatException("Inconsistent number of columns on row " + numRows);
-
-				// Iterate through columns
-				for (int i = 0; i < elements.length; i++) {
-
-					// Error condition: string representation of cell is null or empty
-					if (elements[i] == null || elements[i].length() == 0)
-						throw new BadConfigFormatException("Invalid board cell specifier found at (" + numRows + ", " + i + ")");
-
-					// Error condition: string representation references unknown room
-					else if (!rooms.containsKey(elements[i].charAt(0)))
-						throw new BadConfigFormatException("Unknown room specifier found: " + elements[i].charAt(0));
-
-					// Add a new BoardCell to the Board
-					board[numRows][i] = new BoardCell(numRows, i, elements[i]);					
-				}
-
-				// Go to the next row
-				numRows++;
+			fileScanner2 = new Scanner(new File(boardConfigName));
+			while (fileScanner2.hasNextLine()){
+				String [] row = fileScanner2.nextLine().split(",");
+				rows.add(row);  
 			}
-		} finally {
-			// Cleanup the scanner, even if an exception was thrown
-			if (in != null)
-				in.close();
+			int supposedSize = rows.get(0).length;
+			for(String[] tempArray : rows)
+			{
+				if(tempArray.length != supposedSize)
+				{
+					throw new BadConfigFormatException();
+				}
+			}
+			board = new BoardCell[rows.size()][rows.get(0).length]; 
+			for(int i=0; i<rows.size(); i++)
+			{
+				for(int z=0; z<rows.get(i).length; z++)
+				{
+					board[i][z] = new BoardCell(i, z, rows.get(i)[z].trim());
+					if(!rooms.containsKey(board[i][z].getInitial()))
+					{
+						throw new BadConfigFormatException("" + board[i][z].getInitial()); 
+					}
+				}
+			}
+			numRows = rows.size();
+			numColumns = rows.get(0).length; 
+			fileScanner2.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -385,9 +373,23 @@ public class Board extends JPanel{
 		}
 	}
 	
+	public void draw(Graphics g)
+	{
+		for(int row = 0; row < board.length; row++)
+		{
+			for(int col =0; col < board[row].length; col++)
+			{
+				System.out.print(board[row][col].getInitial() + " " + board[row][col].isRoom());
+				board[row][col].draw(this, g);
+			}
+			System.out.println();
+		}
+	}
+	
 	protected void paintComponent(Graphics g) 
 	{
-		
+		super.paintComponent(g);
+		this.draw(g);
 	}
 
 	public Set<BoardCell> getAdjList(int row, int column) {

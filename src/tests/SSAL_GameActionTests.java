@@ -39,6 +39,7 @@ public class SSAL_GameActionTests {
 		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");		
 		// Initialize will load BOTH config files 
 		board.initialize();
+		BoardCell x = board.getCellAt(5, 5); 
 	}
 
 	@Test
