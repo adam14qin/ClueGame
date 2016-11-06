@@ -13,9 +13,11 @@ import GUI.detectiveNotes;
 
 public class ClueGame extends JFrame{
 
-	public static final int CELL_PIXEL_SIZE = 30; 
+
+	public static final int CELL_PIXEL_SIZE = 25; 
 	private JFrame dNotes;
 	public Board board;
+
 	
 	public ClueGame(Board board, JFrame frame)
 	{
