@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class ClueGame extends JFrame{
 
-	public static final int CELL_PIXEL_SIZE = 30; 
+	public static final int CELL_PIXEL_SIZE = 25; 
 	
 	public ClueGame()
 	{
