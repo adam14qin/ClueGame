@@ -1,3 +1,70 @@
+commit b2d4f7a876ccf869a46e5797caacd2156194f16c
+Merge: 47beb3b 5fb7277
+Author: CHR <CHR>
+Date:   Sun Nov 6 00:54:09 2016 -0600
+
+    accepted changes from origin master
+
+commit 47beb3ba8c4589be11f0aa25770062fa17f0ef79
+Author: CHR <CHR>
+Date:   Sun Nov 6 00:50:58 2016 -0600
+
+    updated clueGame
+
+commit 69d4cc0e77a4aff41a5cb27105d13fb55249cb95
+Author: CHR <CHR>
+Date:   Sun Nov 6 00:32:08 2016 -0600
+
+    some updates on detectiveNotes
+
+commit e5ef19d7d95d558c099390bd445766f4f2bc61c9
+Author: CHR <CHR>
+Date:   Sat Nov 5 23:59:19 2016 -0600
+
+    added detectiveNotes
+
+commit 309e3c8030cbfd0a0c7bdf1b85f0e02702f06ce3
+Author: CHR <CHR>
+Date:   Sat Nov 5 23:58:56 2016 -0600
+
+    added menu bar and detectiveNotes class
+
+commit 5fb7277f6b73e3292ce8669b04970d1a6849e138
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Sat Nov 5 19:09:56 2016 -0600
+
+    commenting
+
+commit 05d279994b1248c29f441a0fcc874a47cac69514
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Sat Nov 5 12:44:55 2016 -0600
+
+    All done with board, players are drawn color scheme looks good.
+
+commit 347077f31aa6b254d8de339a11f9d078cd91015d
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Sat Nov 5 12:01:58 2016 -0600
+
+    Updated legend, the names are now being drawn.
+
+commit 0ad8ab6de10a652c1e15f063f7e667e0559eadba
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Sat Nov 5 11:26:56 2016 -0600
+
+    Board is drawing door directions and the rooms themselves with grid for walkways.
+
+commit efc7347ae79b693b8f713409376e2944d332149d
+Author: sheastyermines <sheastyer@mines.edu>
+Date:   Sat Nov 5 09:59:33 2016 -0600
+
+    Added ClueGame class and paint component method
+
+commit c339735228c3f40ba41f8b6faace376d14c1062c
+Author: Shea Styer <sheastyer@mymail.mines.edu>
+Date:   Thu Nov 3 15:32:52 2016 -0600
+
+    Added gitlog
+
 commit f504b4a53a782ddac5b3c1bb263a59fe0fe8a1aa
 Merge: 490aca3 4c85b0d
 Author: Shea Styer <sheastyer@mymail.mines.edu>
