@@ -22,7 +22,7 @@ import clueGame.CardType;
 public class detectiveNotes extends JPanel {
 	
 	public detectiveNotes(){
-		//initialize board and get inputs of cards
+		//Initialize board and get inputs of cards
 		Board board= Board.getInstance();
 		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");
 		board.initialize();
@@ -49,7 +49,7 @@ public class detectiveNotes extends JPanel {
 				weapon.add(card);
 			}
 		}
-		//set font size
+		//Set font size
 		Font font = new Font("Times New Roman", Font.BOLD, 20);
 		//setFont(font);
 		
