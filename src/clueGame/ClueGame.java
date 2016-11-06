@@ -14,26 +14,18 @@ import GUI.detectiveNotes;
 public class ClueGame extends JFrame{
 
 	public static final int CELL_PIXEL_SIZE = 30; 
-	private static JFrame dNotes;
+	private JFrame dNotes;
+	public Board board;
 	
-	public ClueGame()
+	public ClueGame(Board board, JFrame frame)
 	{
-		Board board= Board.getInstance();
-		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");
-		board.initialize();
+		this.board=board;
+		this.dNotes=frame;
 		setTitle("Clue Game");
 		setSize(board.getNumRows()*CELL_PIXEL_SIZE, board.getNumColumns()*CELL_PIXEL_SIZE);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		setResizable(true);
 		add(board);
-		// Set detective notes 
-		dNotes=new JFrame();
-		dNotes.setSize(600,600);
-		dNotes.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		// Create the JPanel and add it to the JFrame
-		detectiveNotes notes = new detectiveNotes();
-		dNotes.add(notes, BorderLayout.CENTER);
-		dNotes.setEnabled(true);
 		// Set menu bar
 		JMenu menu=new JMenu("File");
 		JMenuBar menuBar=new JMenuBar();
@@ -68,7 +60,18 @@ public class ClueGame extends JFrame{
 	}
 	
 	public static void main(String[] args) {
-		ClueGame game = new ClueGame();
+		Board board= Board.getInstance();
+		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");
+		board.initialize();
+		// Create a new detective note 
+		JFrame frame=new JFrame();
+		frame.setSize(600,600);
+		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		// Create the JPanel and add it to the JFrame
+		detectiveNotes notes = new detectiveNotes(board);
+		frame.add(notes, BorderLayout.CENTER);
+		frame.setEnabled(true);
+		ClueGame game = new ClueGame(board, frame);
 		game.setVisible(true);
 	}
 

@@ -21,11 +21,7 @@ import clueGame.CardType;
 
 public class detectiveNotes extends JPanel {
 	
-	public detectiveNotes(){
-		//Initialize board and get inputs of cards
-		Board board= Board.getInstance();
-		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");
-		board.initialize();
+	public detectiveNotes(Board board){
 
 		//Create three rows and two columns in the detective notes
 		setLayout(new GridLayout(3,2));
@@ -95,17 +91,5 @@ public class detectiveNotes extends JPanel {
 		add(Weapons);
 		add(WeaponCombo);
 	}
-	
-	public static void main(String[] args) {
-		// Create a JFrame with all the normal functionality
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(600,600);	
-		// Create the JPanel and add it to the JFrame
-		detectiveNotes notes = new detectiveNotes();
-		frame.add(notes, BorderLayout.CENTER);
-		// Now let's view it
-		frame.setVisible(true);
-		frame.setEnabled(true);
-	}
+
 }
