@@ -22,10 +22,13 @@ public class ClueGame extends JFrame{
 	public Board board;
 	private JDialog dNotes;
 
-	public ClueGame(Board board, JDialog dialog)
+	public ClueGame()
 	{
+		Board board= Board.getInstance();
+		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");
 		this.board=board;
-		this.dNotes=dialog;
+		board.initialize();
+		this.dNotes=dNotes;
 		setTitle("Clue Game");
 		setSize(board.getNumColumns()*CELL_PIXEL_SIZE, board.getNumRows()*(3+CELL_PIXEL_SIZE));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
@@ -38,12 +41,13 @@ public class ClueGame extends JFrame{
 		menu.add(createDetectiveNotes());
 		menu.add(creatFileExitItem());
 		menuBar.add(menu);
-		displaySplashScreen(this);
+		detectiveNotes notes = new detectiveNotes(board);
+		
 	}
 	
-	private void displaySplashScreen(JFrame frame)
+	public void displaySplashScreen()
 	{
-		JOptionPane.showMessageDialog(frame, "You are " + board.getHuman().getName() + ", press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
+		JOptionPane.showMessageDialog(this, "You are " + board.getHuman().getName() + ", press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private JMenuItem creatFileExitItem()
@@ -71,17 +75,11 @@ public class ClueGame extends JFrame{
 	}
 	
 	public static void main(String[] args) {
-		Board board= Board.getInstance();
-		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");
-		board.initialize();
 		// Create a new detective note 
-		detectiveNotes notes = new detectiveNotes(board);
-		notes.setVisible(false);
-		notes.setSize(new Dimension(600,600));
-		notes.setEnabled(true);
-		notes.setDefaultCloseOperation(HIDE_ON_CLOSE);
-		ClueGame game = new ClueGame(board, notes);
+
+		ClueGame game = new ClueGame();
 		game.setVisible(true);
+		game.displaySplashScreen();
 	}
 
 }

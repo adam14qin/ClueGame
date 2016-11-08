@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ import clueGame.CardType;
 public class detectiveNotes extends JDialog {
 	
 	public detectiveNotes(Board board){
-
+		setVisible(false);
+		setSize(new Dimension(600,600));
 		//Create three rows and two columns in the detective notes
 		setLayout(new GridLayout(3,2));
 		JComboBox<String> personGuess=new JComboBox<String>();
