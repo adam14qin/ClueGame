@@ -90,3 +90,5 @@ Unknown room specifier found: Z
 Invalid room type: X
 Bad configuration format encountered.
 Bad configuration format encountered.
+Bad configuration format encountered.
+Bad configuration format encountered.
