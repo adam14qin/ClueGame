@@ -17,14 +17,14 @@ public class ClueGame extends JFrame{
 
 
 	public static final int CELL_PIXEL_SIZE = 25; 
-	private JDialog dNotes;
+
 	public Board board;
 
 	
 	public ClueGame(Board board, JDialog dialog)
 	{
 		this.board=board;
-		this.dNotes=dialog;
+
 		setTitle("Clue Game");
 		setSize(board.getNumColumns()*CELL_PIXEL_SIZE, board.getNumRows()*(3+CELL_PIXEL_SIZE));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
@@ -56,7 +56,7 @@ public class ClueGame extends JFrame{
 		JMenuItem item=new JMenuItem("Open Detective Notes");
 		class MenuItemListener implements ActionListener{
 			public void actionPerformed(ActionEvent e){
-				dNotes.setVisible(true);
+				setVisible(true);
 			}
 		}
 		item.addActionListener(new MenuItemListener());
