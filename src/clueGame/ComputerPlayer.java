@@ -34,7 +34,6 @@ public class ComputerPlayer extends Player {
 	public Solution makeSuggestion(Board board)
 	{
 		Random rand = new Random();
-		Solution suggestion; 
 		Card playerGuess; 
 		Card weaponGuess;
 		Card roomGuess = new Card(CardType.ROOM, board.getLegend().get(board.getCellAt(row, column).getInitial())); 
