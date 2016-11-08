@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import GUI.detectiveNotes;
 
@@ -37,6 +38,12 @@ public class ClueGame extends JFrame{
 		menu.add(createDetectiveNotes());
 		menu.add(creatFileExitItem());
 		menuBar.add(menu);
+		displaySplashScreen(this);
+	}
+	
+	private void displaySplashScreen(JFrame frame)
+	{
+		JOptionPane.showMessageDialog(frame, "You are " + board.getHuman().getName() + ", press Next Player to begin play", "Welcome to Clue", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	private JMenuItem creatFileExitItem()

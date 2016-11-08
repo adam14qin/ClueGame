@@ -33,6 +33,7 @@ public class Board extends JPanel{
 	private Map<int[], String> roomNameLocations; 
 	
 	private ArrayList<Player> players;
+	private HumanPlayer human; 
 	private ArrayList<String> habitableRooms;
 	private Map<Character, String> rooms;
 	private ArrayList<String> weapons;
@@ -270,7 +271,8 @@ public class Board extends JPanel{
 				unseen.get(CardType.ROOM).add(new Card(CardType.PERSON, theChunks[1])); 
 				if(theChunks[0].charAt(0)=='P')
 				{
-					players.add(new HumanPlayer(theChunks[1], Integer.parseInt(theChunks[2]), Integer.parseInt(theChunks[3]), convertColor(theChunks[4])));
+					human = new HumanPlayer(theChunks[1], Integer.parseInt(theChunks[2]), Integer.parseInt(theChunks[3]), convertColor(theChunks[4]));
+					players.add(human);
 				}
 				else
 				{
@@ -466,6 +468,11 @@ public class Board extends JPanel{
 		unseen = newUnseen; 
 	}
 
+	public HumanPlayer getHuman()
+	{
+		return human;
+	}
+	
 	public Color convertColor(String strColor) {
 		Color color; 
 		try {     
