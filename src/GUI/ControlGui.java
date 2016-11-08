@@ -16,13 +16,10 @@ import javax.swing.border.TitledBorder;
 import javafx.scene.layout.Border;
 
 
-public class ControlGui extends JFrame{
+public class ControlGui extends JPanel{
 
 	public ControlGui() {
-		setTitle("SSAL Clue Game");
-		setSize(600, 200);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		setResizable(false);
+		setName("SSAL Clue Game");
 		add(createLayout());
 	}
 
@@ -76,9 +73,9 @@ public class ControlGui extends JFrame{
 		return wholePanel; 
 	}
 	
-	public static void main(String[] args) {
-		ControlGui gui = new ControlGui();
-		gui.setVisible(true);
-	}
+//	public static void main(String[] args) {
+//		ControlGui gui = new ControlGui();
+//		gui.setVisible(true);
+//	}
 
 }

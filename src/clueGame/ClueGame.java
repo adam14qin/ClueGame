@@ -2,6 +2,7 @@ package clueGame;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,6 +13,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+import GUI.ControlGui;
 import GUI.detectiveNotes;
 
 public class ClueGame extends JFrame{
@@ -31,10 +33,10 @@ public class ClueGame extends JFrame{
 		board.initialize();
 		this.dNotes=dNotes;
 		setTitle("Clue Game");
-		setSize(board.getNumColumns()*CELL_PIXEL_SIZE, board.getNumRows()*(3+CELL_PIXEL_SIZE));
+		setSize((6+board.getNumColumns())*CELL_PIXEL_SIZE, board.getNumRows()*(8+CELL_PIXEL_SIZE));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		setResizable(true);
-		add(board);
+		add(board, BorderLayout.CENTER);
 		// Set menu bar
 		JMenu menu=new JMenu("File");
 		JMenuBar menuBar=new JMenuBar();
@@ -45,8 +47,10 @@ public class ClueGame extends JFrame{
 		detectiveNotes notes = new detectiveNotes(board);
 		
 		cards=new MyCards(board);
+		add(cards, BorderLayout.EAST);
 		
-		
+		ControlGui control = new ControlGui();
+		add(control, BorderLayout.SOUTH);
 	}
 	
 	public void displaySplashScreen()
