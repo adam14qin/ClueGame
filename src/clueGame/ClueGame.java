@@ -1,9 +1,11 @@
 package clueGame;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -15,14 +17,14 @@ public class ClueGame extends JFrame{
 
 
 	public static final int CELL_PIXEL_SIZE = 25; 
-	private JFrame dNotes;
+	private JDialog dNotes;
 	public Board board;
 
 	
-	public ClueGame(Board board, JFrame frame)
+	public ClueGame(Board board, JDialog dialog)
 	{
 		this.board=board;
-		this.dNotes=frame;
+		this.dNotes=dialog;
 		setTitle("Clue Game");
 		setSize(board.getNumColumns()*CELL_PIXEL_SIZE, board.getNumRows()*(3+CELL_PIXEL_SIZE));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
@@ -66,14 +68,12 @@ public class ClueGame extends JFrame{
 		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");
 		board.initialize();
 		// Create a new detective note 
-		JFrame frame=new JFrame();
-		frame.setSize(600,600);
-		frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		// Create the JPanel and add it to the JFrame
 		detectiveNotes notes = new detectiveNotes(board);
-		frame.add(notes, BorderLayout.CENTER);
-		frame.setEnabled(true);
-		ClueGame game = new ClueGame(board, frame);
+		notes.setVisible(false);
+		notes.setSize(new Dimension(600,600));
+		notes.setEnabled(true);
+		notes.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		ClueGame game = new ClueGame(board, notes);
 		game.setVisible(true);
 	}
 

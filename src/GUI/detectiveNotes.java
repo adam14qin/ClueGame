@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,7 +20,7 @@ import clueGame.Board;
 import clueGame.Card;
 import clueGame.CardType;
 
-public class detectiveNotes extends JPanel {
+public class detectiveNotes extends JDialog {
 	
 	public detectiveNotes(Board board){
 
