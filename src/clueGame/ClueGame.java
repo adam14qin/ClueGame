@@ -21,6 +21,7 @@ public class ClueGame extends JFrame{
 
 	public Board board;
 	private JDialog dNotes;
+	private MyCards cards;
 
 	public ClueGame()
 	{
@@ -42,6 +43,9 @@ public class ClueGame extends JFrame{
 		menu.add(creatFileExitItem());
 		menuBar.add(menu);
 		detectiveNotes notes = new detectiveNotes(board);
+		
+		cards=new MyCards(board);
+		
 		
 	}
 	
