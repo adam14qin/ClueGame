@@ -34,10 +34,12 @@ public class Board extends JPanel{
 	
 	private ArrayList<Player> players;
 	private HumanPlayer human; 
+	private Player currentPlayer;
 	private ArrayList<String> habitableRooms;
 	private Map<Character, String> rooms;
 	private ArrayList<String> weapons;
 	private Map<CardType, ArrayList<Card>> unseen;
+	public int playerIndex; 
 
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
@@ -118,6 +120,12 @@ public class Board extends JPanel{
 		return false;
 	}
 
+	public int rollDie()
+	{
+		Random ran = new Random();
+		return ran.nextInt(6)+1;
+	}
+	
 	public Card handleSuggestion(ArrayList<Player> playersInGame, int accuser, Solution suggestion) {
 		for(int i=accuser+1; i<accuser+playersInGame.size(); i++)//start handling suggestion from the player next to accuser
 		{
@@ -268,10 +276,11 @@ public class Board extends JPanel{
 
 				// Store the room into the map
 				deck.add(new Card(CardType.PERSON, theChunks[1])); 
-				unseen.get(CardType.ROOM).add(new Card(CardType.PERSON, theChunks[1])); 
+				unseen.get(CardType.PERSON).add(new Card(CardType.PERSON, theChunks[1])); 
 				if(theChunks[0].charAt(0)=='P')
 				{
 					human = new HumanPlayer(theChunks[1], Integer.parseInt(theChunks[2]), Integer.parseInt(theChunks[3]), convertColor(theChunks[4]));
+					playerIndex = players.size(); 
 					players.add(human);
 				}
 				else
@@ -387,9 +396,12 @@ public class Board extends JPanel{
 	
 	public void draw(Graphics g)
 	{
+		currentPlayer = human;
+		calcTargets(human.getRow(), human.getCol(), 6);
 		drawBoardCells(g);
 		drawRoomNames(g);
 		drawPlayers(g); 
+		
 	}
 	
 	private void drawBoardCells(Graphics g)
@@ -398,7 +410,7 @@ public class Board extends JPanel{
 		{
 			for(int col =0; col < board[row].length; col++)
 			{
-				board[row][col].draw(this, g);
+				board[row][col].draw(this, g, (targets.contains(board[row][col]) && (currentPlayer.equals(human)) ? true : false));
 			}
 		}
 	}

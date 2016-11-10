@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import GUI.ControlGui;
 import GUI.detectiveNotes;
+import clueGame.Solution.typeSolution;
 
 public class ClueGame extends JFrame{
 
@@ -72,6 +73,50 @@ public class ClueGame extends JFrame{
 		return item;
 	}
 	
+	private void playGame()
+	{
+		boolean gameWon = false;
+		while(!gameWon)
+		{
+		int dieRoll = board.rollDie(); 
+		gameWon = makeTurn(board.getPlayers().get(board.playerIndex%board.getPlayers().size()), dieRoll);
+		if(gameWon)
+			{
+				//TODO : show winner dialog
+			}
+		try {
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		board.repaint(); 
+		board.playerIndex++; 
+		}
+		System.out.println("GAME WON");
+		System.exit(0);
+	}
+	
+	private boolean makeTurn(Player currentPlayer, int dieRoll) {
+		board.calcTargets(currentPlayer.getRow(), currentPlayer.getCol(), dieRoll);
+		BoardCell newSpot = board.getPlayers().get(board.playerIndex%board.getPlayers().size()).getMove(board.getTargets());
+		Solution guess = currentPlayer.moveToSpot(newSpot, board); 
+		if(guess != null)
+		{
+			Card disprove = board.handleSuggestion(board.getPlayers(), board.playerIndex, guess);
+			if(disprove == null && guess.getType()==typeSolution.ACCUSATION)
+			{
+				return true;
+			}
+			else
+			{
+				return false; 
+			}
+		}
+		
+		return false;
+	}
+	
 	private JMenuItem createDetectiveNotes()
 	{
 		JMenuItem item=new JMenuItem("Open Detective Notes");
@@ -90,6 +135,7 @@ public class ClueGame extends JFrame{
 		ClueGame game = new ClueGame();
 		game.setVisible(true);
 		game.displaySplashScreen();
+		game.playGame();
 	}
 
 }

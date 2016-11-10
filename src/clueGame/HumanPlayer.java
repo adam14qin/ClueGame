@@ -14,8 +14,7 @@ public class HumanPlayer extends Player{
 
 	@Override
 	public BoardCell getMove(Set<BoardCell>targets) {
-		// TODO Auto-generated method stub
-		return null;
+		return new BoardCell(0,0,""); 
 	}
 	
 	@Override

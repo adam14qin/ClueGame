@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
+import clueGame.Solution.typeSolution;
 import jdk.internal.org.objectweb.asm.Handle;
 
 public class ComputerPlayer extends Player {
@@ -30,6 +31,48 @@ public class ComputerPlayer extends Player {
 		return (BoardCell) targets.toArray()[rand.nextInt(targets.size())]; 
 	}
 	
+	@Override 
+	public Solution moveToSpot(BoardCell spot, Board board)
+	{
+		super.moveToSpot(spot, board);
+		Solution accusation = makeAccusation(board); 
+		if(accusation == null)
+		{
+			if(spot.isRoom())
+			{
+				Solution suggestion = makeSuggestion(board); 
+				return suggestion; 
+			}
+			else
+				return null; 
+		} else {
+			return makeAccusation(board); 
+		}
+		
+	}
+	
+	@Override
+	public Solution makeAccusation(Board board)
+	{
+		ArrayList<Card> allUnseen = new ArrayList<>();
+		for(CardType type : board.getUnseen().keySet())
+		{
+			for(Card card : board.getUnseen().get(type))
+			{
+				allUnseen.add(card); 
+			}
+		}
+		if(allUnseen.size() == 3)
+		{
+		Card playerGuess = board.getUnseen().get(CardType.PERSON).get(0); 
+		Card roomGuess = board.getUnseen().get(CardType.ROOM).get(0); 
+		Card weaponGuess = board.getUnseen().get(CardType.WEAPON).get(0); 
+		return new Solution(weaponGuess, playerGuess, roomGuess, typeSolution.ACCUSATION); 
+		}
+		else
+			return null;
+	}
+	
 	@Override
 	public Solution makeSuggestion(Board board)
 	{
@@ -45,7 +88,7 @@ public class ComputerPlayer extends Player {
 		
 		}while(hand.contains(weaponGuess) && hand.contains(playerGuess));
 		
-		return new Solution(weaponGuess, playerGuess, roomGuess); 
+		return new Solution(weaponGuess, playerGuess, roomGuess, typeSolution.SUGGESTION); 
 	}
 	
 	@Override

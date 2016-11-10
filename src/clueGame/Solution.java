@@ -5,6 +5,10 @@ public class Solution {
 	private Card weapon;
 	private Card player; 
 	private Card room; 
+	private typeSolution type; 
+	public enum typeSolution {
+		SUGGESTION, ACCUSATION
+	}
 	
 	public Solution()
 	{
@@ -16,7 +20,19 @@ public class Solution {
 		this.player = player;
 		this.room = room; 
 	}
+	
+	public Solution(Card weapon, Card player, Card room, typeSolution type){
+		this.weapon = weapon; 
+		this.player = player;
+		this.room = room; 
+		this.type = type; 
+	}
 
+	public typeSolution getType()
+	{
+		return type; 
+	}
+	
 	public Card getWeapon() {
 		return weapon;
 	}

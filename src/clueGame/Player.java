@@ -9,8 +9,8 @@ public class Player {
 
 	private String playerName;
 	private Color color; 
-	int row; 
-	int column; 
+	protected int row; 
+	protected int column; 
 	protected ArrayList<Card> hand; 
 	
 	public Player(String playerName,int row, int column, Color color)
@@ -28,8 +28,18 @@ public class Player {
 		g.fillOval(column*ClueGame.CELL_PIXEL_SIZE, row*ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
 		g.setColor(Color.BLACK);
 		g.drawOval(column*ClueGame.CELL_PIXEL_SIZE, row*ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
-
-		
+	}
+	
+	public Solution moveToSpot(BoardCell spot, Board board)
+	{
+		this.row = spot.getRow();
+		this.column = spot.getColumn();
+		return null;
+	}
+	
+	public Solution makeAccusation(Board board)
+	{
+		return null;
 	}
 	
 	@Override

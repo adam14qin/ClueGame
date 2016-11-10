@@ -80,9 +80,10 @@ public class BoardCell {
 				+ doorDirection + "]";
 	}
 
-	public void draw(JPanel boardPanel, Graphics g) {
+	public void draw(JPanel boardPanel, Graphics g, boolean highlighted) {
 		int pixelRow = row*ClueGame.CELL_PIXEL_SIZE; 
 		int pixelCol = column*ClueGame.CELL_PIXEL_SIZE;
+		g.setColor(Color.white);
 		if(initial == 'X')
 		{
 			g.setColor(new Color(10, 0 ,107));
@@ -90,8 +91,10 @@ public class BoardCell {
 		}
 		if(isRoom() && initial != 'X')
 		{
-			
-			g.setColor(Color.darkGray);
+			if(!highlighted)
+			{
+				g.setColor(Color.darkGray);
+			}
 			g.fillRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
 			g.setColor(Color.WHITE);
 			switch(doorDirection)
@@ -120,7 +123,10 @@ public class BoardCell {
 		}
 		if(isWalkway())
 		{
+			if(!highlighted)
+			{
 			g.setColor(new Color(201, 185, 132));
+			}
 			g.fillRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
 			g.setColor(Color.BLACK);
 			g.drawRect(pixelCol, pixelRow, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
