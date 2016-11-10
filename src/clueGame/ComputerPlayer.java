@@ -22,6 +22,7 @@ public class ComputerPlayer extends Player {
 
 	@Override
 	public BoardCell getMove(Set<BoardCell>targets) {
+		ArrayList<BoardCell> locations = new ArrayList<BoardCell>();
 		for(BoardCell x : targets)
 		{
 			if(x.isRoom() && !roomsVisited.contains(x.getInitial()))
@@ -30,11 +31,12 @@ public class ComputerPlayer extends Player {
 				roomsVisited.add(x.getInitial()); 
 				return x; 
 			}
+			else locations.add(x);
 		}
 		Random rand = new Random();
-		int random = rand.nextInt(targets.size());
+		int random = rand.nextInt(locations.size());
 		System.out.println("ROW : " + row + " COL : " + column + " Size: " + targets.toArray().length + " INDEX: "+ random);
-		return (BoardCell) targets.toArray()[random]; 
+		return locations.get(random); 
 	}
 	
 	@Override 
