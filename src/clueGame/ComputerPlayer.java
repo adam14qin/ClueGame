@@ -32,7 +32,9 @@ public class ComputerPlayer extends Player {
 			}
 		}
 		Random rand = new Random();
-		return (BoardCell) targets.toArray()[rand.nextInt(targets.size())]; 
+		int random = rand.nextInt(targets.size());
+		System.out.println("ROW : " + row + " COL : " + column + " Size: " + targets.toArray().length + " INDEX: "+ random);
+		return (BoardCell) targets.toArray()[random]; 
 	}
 	
 	@Override 
