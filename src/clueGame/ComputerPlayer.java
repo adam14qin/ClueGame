@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 
 import clueGame.Solution.typeSolution;
 import jdk.internal.org.objectweb.asm.Handle;
@@ -11,9 +12,11 @@ import jdk.internal.org.objectweb.asm.Handle;
 public class ComputerPlayer extends Player {
 
 	private char lastRoomVisited; 
+	private Set<Character> roomsVisited; 
 	
 	public ComputerPlayer(String playerName, int row, int column, Color color) {
 		super(playerName, row, column, color);
+		roomsVisited = new TreeSet<Character>(); 
 		// TODO Auto-generated constructor stub
 	}
 
@@ -21,9 +24,10 @@ public class ComputerPlayer extends Player {
 	public BoardCell getMove(Set<BoardCell>targets) {
 		for(BoardCell x : targets)
 		{
-			if(x.isRoom() && x.getInitial()!=lastRoomVisited)
+			if(x.isRoom() && !roomsVisited.contains(x.getInitial()))
 			{
 				lastRoomVisited = x.getInitial(); 
+				roomsVisited.add(x.getInitial()); 
 				return x; 
 			}
 		}
