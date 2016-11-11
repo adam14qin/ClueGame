@@ -30,7 +30,7 @@ public class Player {
 		g.drawOval(column*ClueGame.CELL_PIXEL_SIZE, row*ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE, ClueGame.CELL_PIXEL_SIZE);
 	}
 	
-	public Solution moveToSpot(BoardCell spot, Board board)
+	public Solution moveToSpot(BoardCell spot, Board board, boolean onlyMove)
 	{
 		this.row = spot.getRow();
 		this.column = spot.getColumn();
@@ -39,6 +39,12 @@ public class Player {
 	
 	public Solution makeAccusation(Board board)
 	{
+		return null;
+	}
+	
+	public Solution makeAccusation(Board board, Solution accusation)
+	{
+		board.checkAccusation(accusation);
 		return null;
 	}
 	

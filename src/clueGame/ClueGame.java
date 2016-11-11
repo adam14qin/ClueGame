@@ -15,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import GUI.ControlGui;
+import GUI.MakeAGuess;
 import GUI.MyCards;
 import GUI.detectiveNotes;
 import clueGame.Solution.typeSolution;
@@ -36,7 +37,7 @@ public class ClueGame extends JFrame{
 		board.initialize();
 		board.getHuman().setClueGame(this);
 		setTitle("Clue Game");
-		setSize(680,675);
+		setSize(700,700);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		setResizable(true);
@@ -69,14 +70,7 @@ public class ClueGame extends JFrame{
 	{
 		if(!board.currentPlayer.equals(board.getHuman()) || board.getHuman().isFinished)
 		{
-			board.playerIndex = (board.playerIndex+1)%board.getPlayers().size();
-			board.currentPlayer = board.getPlayers().get(board.playerIndex%board.getPlayers().size()); 
-			if(board.currentPlayer.equals(board.getHuman()))
-			{
-				board.getHuman().isFinished = false;
-			}
-			board.rollDie(); 
-			board.calcTargets(board.currentPlayer.getRow(), board.currentPlayer.getCol(), board.dieRoll);
+			board.advancePlayer();
 			update(); 
 			nextMove(board.currentPlayer);
 		}
@@ -90,6 +84,10 @@ public class ClueGame extends JFrame{
 		if(board.currentPlayer!=board.getHuman())
 		{
 			JOptionPane.showMessageDialog(this, "Not your turn!", "Wait!", JOptionPane.ERROR_MESSAGE);
+		}
+		else
+		{
+			MakeAGuess accusation = new MakeAGuess(board, typeSolution.ACCUSATION, board.getHuman());
 		}
 	}
 	
@@ -124,7 +122,7 @@ public class ClueGame extends JFrame{
 		if(board.currentPlayer!= board.getHuman())
 		{
 			BoardCell newSpot = board.currentPlayer.getMove(board.getTargets());
-			Solution guess = player.moveToSpot(newSpot, board);
+			Solution guess = player.moveToSpot(newSpot, board, false);
 			makeTurn(player, guess); 
 		}
 	}

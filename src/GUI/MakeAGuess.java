@@ -20,6 +20,7 @@ import clueGame.CardType;
 import clueGame.ClueGame;
 import clueGame.HumanPlayer;
 import clueGame.Solution;
+import clueGame.Solution.typeSolution;
 
 public class MakeAGuess extends JDialog{
 	public Solution.typeSolution type;
@@ -31,6 +32,7 @@ public class MakeAGuess extends JDialog{
 	public HumanPlayer human; 
 	
 	public MakeAGuess(Board board, Solution.typeSolution type, HumanPlayer human){
+		setModal(true);
 		this.human = human;
 		this.type=type;
 		setLayout(new GridLayout(4,2));
@@ -70,7 +72,7 @@ public class MakeAGuess extends JDialog{
 		weaponDisp.setFont(font);
 		JButton submit=new JButton("Submit");
 		submit.setFont(font);
-		submit.addActionListener(e->submitButtonPressed());
+		submit.addActionListener(e->submitButtonPressed(board));
 		JButton cancel=new JButton("Cancel");
 		cancel.setFont(font);
 		cancel.addActionListener(e->cancelButtonPressed());
@@ -105,7 +107,7 @@ public class MakeAGuess extends JDialog{
 		setVisible(true);
 	}
 	
-	public void submitButtonPressed()
+	public void submitButtonPressed(Board board)
 	{
 		Card person=new Card(CardType.PERSON,(String)personDisp.getSelectedItem());
 		Card weapon=new Card(CardType.WEAPON,(String)weaponDisp.getSelectedItem());
@@ -117,7 +119,12 @@ public class MakeAGuess extends JDialog{
 		}		
 		solution=new Solution (weapon,person,room, type);
 		setVisible(false);
+		if(type==typeSolution.SUGGESTION)
+		{
 		human.submitSuggestion(solution);
+		} else {
+			board.checkAccusation(solution); 
+		}
 	}
 	
 	public void cancelButtonPressed(){

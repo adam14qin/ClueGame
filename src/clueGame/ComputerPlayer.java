@@ -39,9 +39,14 @@ public class ComputerPlayer extends Player {
 	}
 	
 	@Override 
-	public Solution moveToSpot(BoardCell spot, Board board)
+	public Solution moveToSpot(BoardCell spot, Board board, boolean onlyMove)
 	{
-		super.moveToSpot(spot, board);
+		
+		super.moveToSpot(spot, board, true);
+		if(onlyMove)
+		{
+			return null;
+		}
 		Solution accusation = makeAccusation(board); 
 		if(accusation == null)
 		{

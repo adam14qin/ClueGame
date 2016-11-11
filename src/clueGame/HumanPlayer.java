@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Set;
 
 import GUI.MakeAGuess;
+import clueGame.Solution.typeSolution;
 
 public class HumanPlayer extends Player{
 
@@ -22,6 +23,7 @@ public class HumanPlayer extends Player{
 	public void submitSuggestion(Solution suggestion)
 	{
 		isFinished = true;
+		if(suggestion.getType()==typeSolution.SUGGESTION)
 		clueGame.makeTurn(this, suggestion);
 	}
 	
@@ -31,9 +33,11 @@ public class HumanPlayer extends Player{
 	}
 	
 	@Override 
-	public Solution moveToSpot(BoardCell spot, Board board)
+	public Solution moveToSpot(BoardCell spot, Board board, boolean onlyMove)
 	{
-		super.moveToSpot(spot, board);
+		super.moveToSpot(spot, board, false);
+		if(onlyMove)
+			return null;
 		if(spot.isRoom())
 		{
 			MakeAGuess guess = new MakeAGuess(board, Solution.typeSolution.SUGGESTION, this);		 
