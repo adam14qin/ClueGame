@@ -13,12 +13,21 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import clueGame.ClueGame;
 import javafx.scene.layout.Border;
 
 
 public class ControlGui extends JPanel{
-
-	public ControlGui() {
+	
+	public JTextField turnName = new JTextField(10); 
+	public JTextField rollNum = new JTextField(5); 
+	public JTextField guessLabel = new JTextField(15); 
+	public JTextField guessResultLabel = new JTextField(10); 
+	public JButton nextPlayerButton = new JButton("Next Player");
+	public JButton makeAccusationButton = new JButton("Make Accusation");
+	public ClueGame clueGame; 
+	public ControlGui(ClueGame game) {
+		this.clueGame = game;
 		setName("SSAL Clue Game");
 		add(createLayout());
 	}
@@ -31,48 +40,53 @@ public class ControlGui extends JPanel{
 		JPanel turnPanel = new JPanel(new GridLayout(2,1));
 		
 		JLabel turnLabel = new JLabel("Whose turn?"); 
+		
 		turnLabel.setHorizontalAlignment(JLabel.CENTER);
 		turnPanel.add(turnLabel);
 		
 		JPanel wrapper =new JPanel();
 		wrapper.add(turnPanel);
 		
-		JTextField turnName = new JTextField(10); 
 		turnName.setHorizontalAlignment(JTextField.CENTER);
 		turnName.setEnabled(false);
 		turnName.setEditable(false);
 		turnPanel.add(turnName);
 		
 		top.add(wrapper);
-		top.add(new JButton("Next Player"));
-		top.add(new JButton("Make an accusation"));
+		
+		top.add(nextPlayerButton);
+		top.add(makeAccusationButton);
 		wholePanel.add(top);
 		
 		JPanel bottom = new JPanel(new FlowLayout()); 
 		JPanel dieRoll = new JPanel(); 
 		dieRoll.setBorder(new TitledBorder (new EtchedBorder(), "Die Roll"));
-		JTextField rollNum = new JTextField(5); 
 		rollNum.setEditable(false);
 		dieRoll.add(rollNum); 
 		bottom.add(dieRoll);
 		
 		JPanel guess = new JPanel();
-		JTextField guessLabel = new JTextField(15); 
+		
 		guessLabel.setEditable(false);
 		guess.add(guessLabel); 
 		guess.setBorder(new TitledBorder (new EtchedBorder(), "Guess"));
 		bottom.add(guess);
 		
 		JPanel guessResult = new JPanel();
-		JTextField guessResultLabel = new JTextField(10); 
+		
 		guessResultLabel.setEditable(false);
 		guessResult.add(guessResultLabel); 
 		guessResult.setBorder(new TitledBorder (new EtchedBorder(), "Guess Result"));
 		bottom.add(guessResult);
 		wholePanel.add(bottom);
+		setupActionListeners(); 
 		return wholePanel; 
 	}
 	
+	public void setupActionListeners() {
+		nextPlayerButton.addActionListener(e -> clueGame.nextPlayerButtonPressed());
+		makeAccusationButton.addActionListener(e-> clueGame.makeAccusationButtonPressed());
+	}
 //	public static void main(String[] args) {
 //		ControlGui gui = new ControlGui();
 //		gui.setVisible(true);

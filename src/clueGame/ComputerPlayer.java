@@ -35,7 +35,6 @@ public class ComputerPlayer extends Player {
 		}
 		Random rand = new Random();
 		int random = rand.nextInt(locations.size());
-		System.out.println("ROW : " + row + " COL : " + column + " Size: " + targets.toArray().length + " INDEX: "+ random);
 		return locations.get(random); 
 	}
 	

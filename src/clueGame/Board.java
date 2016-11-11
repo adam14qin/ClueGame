@@ -34,12 +34,13 @@ public class Board extends JPanel{
 	
 	private ArrayList<Player> players;
 	private HumanPlayer human; 
-	private Player currentPlayer;
+	public Player currentPlayer;
 	private ArrayList<String> habitableRooms;
 	private Map<Character, String> rooms;
 	private ArrayList<String> weapons;
 	private Map<CardType, ArrayList<Card>> unseen;
 	public int playerIndex; 
+	public int dieRoll;
 
 	private Map<BoardCell, Set<BoardCell>> adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 	private Set<BoardCell> visited = new HashSet<BoardCell>();
@@ -54,6 +55,7 @@ public class Board extends JPanel{
 
 	// Constructor is private to ensure only one can be created
 	private Board() {
+		setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");
 		players = new ArrayList<>(); 
 		habitableRooms = new ArrayList<>(); 
 		rooms = new HashMap<Character, String>();
@@ -81,7 +83,7 @@ public class Board extends JPanel{
 		else
 			return null;
 	}
-
+	
 	// Store the legend and layout configuration file names
 	public void setConfigFiles(String layoutFileName, String legendFileName, String weaponFileName, String playerFileName) {
 		roomConfigName = legendFileName;
@@ -120,10 +122,10 @@ public class Board extends JPanel{
 		return false;
 	}
 
-	public int rollDie()
+	public void rollDie()
 	{
 		Random ran = new Random();
-		return ran.nextInt(6)+1;
+		dieRoll = ran.nextInt(6)+1;
 	}
 	
 	public Card handleSuggestion(ArrayList<Player> playersInGame, int accuser, Solution suggestion) {
@@ -280,8 +282,9 @@ public class Board extends JPanel{
 				if(theChunks[0].charAt(0)=='P')
 				{
 					human = new HumanPlayer(theChunks[1], Integer.parseInt(theChunks[2]), Integer.parseInt(theChunks[3]), convertColor(theChunks[4]));
-					playerIndex = players.size(); 
+					playerIndex = players.size()-1; 
 					players.add(human);
+					currentPlayer = human;
 				}
 				else
 				{
@@ -396,8 +399,6 @@ public class Board extends JPanel{
 	
 	public void draw(Graphics g)
 	{
-		currentPlayer = human;
-		calcTargets(human.getRow(), human.getCol(), 6);
 		drawBoardCells(g);
 		drawRoomNames(g);
 		drawPlayers(g); 

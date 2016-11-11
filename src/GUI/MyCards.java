@@ -1,4 +1,4 @@
-package clueGame;
+package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
+import clueGame.Board;
+import clueGame.Card;
 import javafx.scene.layout.Border;
 import oracle.jrockit.jfr.JFR;
 

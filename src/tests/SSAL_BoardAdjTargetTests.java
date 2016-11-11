@@ -217,7 +217,6 @@ public class SSAL_BoardAdjTargetTests {
 		// Includes a path that doesn't have enough length
 		board.calcTargets(0, 12, 4);
 		targets= board.getTargets();
-		System.out.println(targets.toString());
 		assertEquals(4, targets.size());
 		assertTrue(targets.contains(board.getCellAt(2, 12)));
 		assertTrue(targets.contains(board.getCellAt(4, 12)));	

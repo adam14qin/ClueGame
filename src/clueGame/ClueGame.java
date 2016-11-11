@@ -14,37 +14,37 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import GUI.ControlGui;
+import GUI.MyCards;
 import GUI.detectiveNotes;
 import clueGame.Solution.typeSolution;
 
 public class ClueGame extends JFrame{
 
 
-	public static final int CELL_PIXEL_SIZE = 25; 
+	public static final int CELL_PIXEL_SIZE = 20; 
 
 	public Board board;
 	private detectiveNotes notes;
 	private MyCards cards;
+	private ControlGui control; 
 
 	public ClueGame()
 	{
-		Board board= Board.getInstance();
-		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");
-		this.board=board;
+		// Get single instance of board
+		this.board = Board.getInstance();
 		board.initialize();
-//		this.dNotes=new JDialog();
 		setTitle("Clue Game");
 		setSize((8+board.getNumColumns())*CELL_PIXEL_SIZE, board.getNumRows()*(8+CELL_PIXEL_SIZE));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		setResizable(true);
 		add(board, BorderLayout.CENTER);
-
+		
 		this.notes = new detectiveNotes(board);
 		
-		cards=new MyCards(board);
+		this.cards=new MyCards(board);
 		add(cards, BorderLayout.EAST);
 		
-		ControlGui control = new ControlGui();
+		this.control = new ControlGui(this);
 		add(control, BorderLayout.SOUTH);
 		
 		// Set menu bar
@@ -53,7 +53,42 @@ public class ClueGame extends JFrame{
 		setJMenuBar(menuBar);
 		menu.add(createDetectiveNotes());
 		menu.add(creatFileExitItem());
-		menuBar.add(menu);
+		menuBar.add(menu); 
+	}
+	
+	public void nextPlayerButtonPressed()
+	{
+		
+		if(!board.currentPlayer.equals(board.getHuman()) || board.getHuman().isFinished)
+		{
+			board.playerIndex = (board.playerIndex+1)%board.getPlayers().size();
+			board.currentPlayer = board.getPlayers().get(board.playerIndex%board.getPlayers().size()); 
+			if(board.currentPlayer.equals(board.getHuman()))
+			{
+				board.getHuman().isFinished = false;
+			}
+			board.rollDie(); 
+			board.calcTargets(board.currentPlayer.getRow(), board.currentPlayer.getCol(), board.dieRoll);
+			update(); 
+			makeTurn(board.currentPlayer);
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "You must finish your turn!", "Not done!", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public void makeAccusationButtonPressed()
+	{
+		System.out.println("Also Pressed");
+	}
+	
+	public void update()
+	{
+		control.guessLabel.setText("");
+		control.guessResultLabel.setText("");
+		control.rollNum.setText("      " + board.dieRoll);
+		control.turnName.setText(board.getPlayers().get(board.playerIndex).getName());
+		repaint(); 
 	}
 	
 	public void displaySplashScreen()
@@ -73,47 +108,31 @@ public class ClueGame extends JFrame{
 		return item;
 	}
 	
-	private void playGame()
-	{
-		boolean gameWon = false;
-		while(!gameWon)
+	private boolean makeTurn(Player currentPlayer) {
+		if(board.currentPlayer!= board.getHuman())
 		{
-		int dieRoll = board.rollDie(); 
-		gameWon = makeTurn(board.getPlayers().get(board.playerIndex%board.getPlayers().size()), dieRoll);
-		if(gameWon)
-			{
-				//TODO : show winner dialog
-			}
-		try {
-			Thread.sleep(50);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		board.repaint(); 
-		board.playerIndex++; 
-		}
-		System.out.println("GAME WON");
-		System.exit(0);
-	}
-	
-	private boolean makeTurn(Player currentPlayer, int dieRoll) {
-		board.calcTargets(currentPlayer.getRow(), currentPlayer.getCol(), dieRoll);
-		BoardCell newSpot = board.getPlayers().get(board.playerIndex%board.getPlayers().size()).getMove(board.getTargets());
+		BoardCell newSpot = board.currentPlayer.getMove(board.getTargets());
 		Solution guess = currentPlayer.moveToSpot(newSpot, board); 
 		if(guess != null)
 		{
+			control.guessLabel.setText(guess.getPlayer().getCardName() + " " + guess.getWeapon().getCardName() + " " + guess.getRoom().getCardName());
 			Card disprove = board.handleSuggestion(board.getPlayers(), board.playerIndex, guess);
 			if(disprove == null && guess.getType()==typeSolution.ACCUSATION)
 			{
 				return true;
 			}
-			else
+			else if(disprove == null && guess.getType() == typeSolution.SUGGESTION)
 			{
+				control.guessResultLabel.setText("No disprove Card");
 				return false; 
 			}
+			else if(disprove != null)
+			{
+				control.guessResultLabel.setText(disprove.getCardName());
+				return false;
+			}
 		}
-		
+		}
 		return false;
 	}
 	
@@ -130,12 +149,9 @@ public class ClueGame extends JFrame{
 	}
 	
 	public static void main(String[] args) {
-		// Create a new detective note 
-
 		ClueGame game = new ClueGame();
 		game.setVisible(true);
 		game.displaySplashScreen();
-		game.playGame();
 	}
 
 }

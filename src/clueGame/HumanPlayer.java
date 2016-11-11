@@ -7,14 +7,12 @@ import java.util.Set;
 
 public class HumanPlayer extends Player{
 
+	public boolean isFinished; 
+	
 	public HumanPlayer(String playerName, int row, int column, Color color) {
 		super(playerName, row, column, color);
+		isFinished = true;
 		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public BoardCell getMove(Set<BoardCell>targets) {
-		return new BoardCell(0,0,""); 
 	}
 	
 	@Override
