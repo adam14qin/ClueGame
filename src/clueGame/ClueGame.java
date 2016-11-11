@@ -33,6 +33,7 @@ public class ClueGame extends JFrame{
 		// Get single instance of board
 		this.board = Board.getInstance();
 		board.initialize();
+		board.getHuman().setClueGame(this);
 		setTitle("Clue Game");
 		setSize((8+board.getNumColumns())*CELL_PIXEL_SIZE, board.getNumRows()*(8+CELL_PIXEL_SIZE));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
@@ -44,7 +45,7 @@ public class ClueGame extends JFrame{
 		this.cards=new MyCards(board);
 		add(cards, BorderLayout.EAST);
 		
-		this.control = new ControlGui(this);
+		this.control = new ControlGui();
 		add(control, BorderLayout.SOUTH);
 		
 		// Set menu bar
@@ -54,11 +55,16 @@ public class ClueGame extends JFrame{
 		menu.add(createDetectiveNotes());
 		menu.add(creatFileExitItem());
 		menuBar.add(menu); 
+		setupActionListeners();
+	}
+	
+	public void setupActionListeners() {
+		control.nextPlayerButton.addActionListener(e -> nextPlayerButtonPressed());
+		control.makeAccusationButton.addActionListener(e-> makeAccusationButtonPressed());
 	}
 	
 	public void nextPlayerButtonPressed()
 	{
-		
 		if(!board.currentPlayer.equals(board.getHuman()) || board.getHuman().isFinished)
 		{
 			board.playerIndex = (board.playerIndex+1)%board.getPlayers().size();
@@ -70,7 +76,7 @@ public class ClueGame extends JFrame{
 			board.rollDie(); 
 			board.calcTargets(board.currentPlayer.getRow(), board.currentPlayer.getCol(), board.dieRoll);
 			update(); 
-			makeTurn(board.currentPlayer);
+			nextMove(board.currentPlayer);
 		}
 		else {
 			JOptionPane.showMessageDialog(this, "You must finish your turn!", "Not done!", JOptionPane.ERROR_MESSAGE);
@@ -108,11 +114,18 @@ public class ClueGame extends JFrame{
 		return item;
 	}
 	
-	private boolean makeTurn(Player currentPlayer) {
+	private void nextMove(Player player)
+	{
 		if(board.currentPlayer!= board.getHuman())
 		{
-		BoardCell newSpot = board.currentPlayer.getMove(board.getTargets());
-		Solution guess = currentPlayer.moveToSpot(newSpot, board); 
+			BoardCell newSpot = board.currentPlayer.getMove(board.getTargets());
+			Solution guess = player.moveToSpot(newSpot, board);
+			makeTurn(player, guess); 
+		}
+	}
+	
+	public boolean makeTurn(Player currentPlayer, Solution guess) {
+		
 		if(guess != null)
 		{
 			control.guessLabel.setText(guess.getPlayer().getCardName() + " " + guess.getWeapon().getCardName() + " " + guess.getRoom().getCardName());
@@ -131,7 +144,6 @@ public class ClueGame extends JFrame{
 				control.guessResultLabel.setText(disprove.getCardName());
 				return false;
 			}
-		}
 		}
 		return false;
 	}

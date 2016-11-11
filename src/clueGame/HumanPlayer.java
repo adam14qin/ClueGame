@@ -9,6 +9,8 @@ public class HumanPlayer extends Player{
 
 	public boolean isFinished; 
 	
+	public ClueGame clueGame; 
+	
 	public HumanPlayer(String playerName, int row, int column, Color color) {
 		super(playerName, row, column, color);
 		isFinished = true;
@@ -18,6 +20,24 @@ public class HumanPlayer extends Player{
 	@Override
 	public Solution makeSuggestion(Board board)
 	{
+		return null;
+	}
+	
+	public void setClueGame(ClueGame game)
+	{
+		this.clueGame = game;
+	}
+	
+	@Override 
+	public Solution moveToSpot(BoardCell spot, Board board)
+	{
+		super.moveToSpot(spot, board);
+		if(spot.isRoom())
+		{
+			Solution suggestion = makeSuggestion(board);
+			clueGame.makeTurn(this, suggestion); 
+		}
+		isFinished = true;
 		return null;
 	}
 	

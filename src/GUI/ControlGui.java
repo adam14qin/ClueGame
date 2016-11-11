@@ -25,9 +25,8 @@ public class ControlGui extends JPanel{
 	public JTextField guessResultLabel = new JTextField(10); 
 	public JButton nextPlayerButton = new JButton("Next Player");
 	public JButton makeAccusationButton = new JButton("Make Accusation");
-	public ClueGame clueGame; 
-	public ControlGui(ClueGame game) {
-		this.clueGame = game;
+	
+	public ControlGui() {
 		setName("SSAL Clue Game");
 		add(createLayout());
 	}
@@ -79,14 +78,10 @@ public class ControlGui extends JPanel{
 		guessResult.setBorder(new TitledBorder (new EtchedBorder(), "Guess Result"));
 		bottom.add(guessResult);
 		wholePanel.add(bottom);
-		setupActionListeners(); 
 		return wholePanel; 
 	}
 	
-	public void setupActionListeners() {
-		nextPlayerButton.addActionListener(e -> clueGame.nextPlayerButtonPressed());
-		makeAccusationButton.addActionListener(e-> clueGame.makeAccusationButtonPressed());
-	}
+	
 //	public static void main(String[] args) {
 //		ControlGui gui = new ControlGui();
 //		gui.setVisible(true);

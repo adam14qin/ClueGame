@@ -1,8 +1,12 @@
 package clueGame;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,6 +19,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import javafx.scene.text.Font;
@@ -52,7 +57,7 @@ public class Board extends JPanel{
 
 	// Variable used for singleton pattern
 	private static Board theInstance = new Board();
-
+	
 	// Constructor is private to ensure only one can be created
 	private Board() {
 		setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");
@@ -66,6 +71,7 @@ public class Board extends JPanel{
 		unseen.put(CardType.PERSON, new ArrayList<Card>());
 		unseen.put(CardType.ROOM, new ArrayList<Card>());
 		adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
+		addMouseListener(new ClickOnBoard());
 	}
 
 	// This method returns the only Board
@@ -497,4 +503,49 @@ public class Board extends JPanel{
 		}
 		return color;
 	}
+	
+	public void handleClick(int rowClicked, int columnClicked)
+	{
+		if(targets.contains(board[rowClicked][columnClicked]))
+		{
+			Solution sugg = human.moveToSpot(board[rowClicked][columnClicked], this);
+			
+			targets.clear();
+			repaint();
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(this, "Invalid Target", "Oops!", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public class ClickOnBoard implements MouseListener{
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			int rowClicked = e.getY()/ClueGame.CELL_PIXEL_SIZE;
+			int columnClicked = e.getX()/ClueGame.CELL_PIXEL_SIZE;
+			handleClick(rowClicked, columnClicked);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+		
+		
+	}
 }
+
+
