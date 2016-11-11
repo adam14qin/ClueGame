@@ -72,6 +72,7 @@ public class Board extends JPanel{
 		unseen.put(CardType.ROOM, new ArrayList<Card>());
 		adjMtx = new HashMap<BoardCell, Set<BoardCell>>();
 		addMouseListener(new ClickOnBoard());
+		setSize(ClueGame.CELL_PIXEL_SIZE*numRows, ClueGame.CELL_PIXEL_SIZE*numColumns);
 	}
 
 	// This method returns the only Board

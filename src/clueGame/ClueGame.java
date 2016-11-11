@@ -35,7 +35,8 @@ public class ClueGame extends JFrame{
 		board.initialize();
 		board.getHuman().setClueGame(this);
 		setTitle("Clue Game");
-		setSize((8+board.getNumColumns())*CELL_PIXEL_SIZE, board.getNumRows()*(8+CELL_PIXEL_SIZE));
+		setSize(650,675);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		setResizable(true);
 		add(board, BorderLayout.CENTER);
