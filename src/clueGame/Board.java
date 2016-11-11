@@ -41,7 +41,7 @@ public class Board extends JPanel{
 	private HumanPlayer human; 
 	public Player currentPlayer;
 	private ArrayList<String> habitableRooms;
-	private Map<Character, String> rooms;
+	public Map<Character, String> rooms;
 	private ArrayList<String> weapons;
 	private Map<CardType, ArrayList<Card>> unseen;
 	public int playerIndex; 
