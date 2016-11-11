@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
+import GUI.MakeAGuess;
+
 public class HumanPlayer extends Player{
 
 	public boolean isFinished; 
@@ -17,10 +19,10 @@ public class HumanPlayer extends Player{
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
-	public Solution makeSuggestion(Board board)
+	public void submitSuggestion(Solution suggestion)
 	{
-		return null;
+		isFinished = true;
+		clueGame.makeTurn(this, suggestion);
 	}
 	
 	public void setClueGame(ClueGame game)
@@ -34,10 +36,10 @@ public class HumanPlayer extends Player{
 		super.moveToSpot(spot, board);
 		if(spot.isRoom())
 		{
-			Solution suggestion = makeSuggestion(board);
-			clueGame.makeTurn(this, suggestion); 
+			MakeAGuess guess = new MakeAGuess(board, Solution.typeSolution.SUGGESTION, this);		 
+		} else {
+			isFinished = true;
 		}
-		isFinished = true;
 		return null;
 	}
 	

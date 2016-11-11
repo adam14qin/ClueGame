@@ -18,6 +18,7 @@ import clueGame.BoardCell;
 import clueGame.Card;
 import clueGame.CardType;
 import clueGame.ClueGame;
+import clueGame.HumanPlayer;
 import clueGame.Solution;
 
 public class MakeAGuess extends JDialog{
@@ -27,8 +28,10 @@ public class MakeAGuess extends JDialog{
 	public JComboBox<String> roomDispAccu;
 	public JTextArea roomDispSugg;
 	public Solution solution;
+	public HumanPlayer human; 
 	
-	public MakeAGuess(Board board, Solution.typeSolution type){
+	public MakeAGuess(Board board, Solution.typeSolution type, HumanPlayer human){
+		this.human = human;
 		this.type=type;
 		setLayout(new GridLayout(4,2));
 		setSize(new Dimension(300,300));
@@ -36,6 +39,7 @@ public class MakeAGuess extends JDialog{
 		Font font = new Font("Times New Roman", Font.BOLD, 20);
 		
 		JTextArea roomLabel =new JTextArea();
+		roomLabel.setEditable(false);
 		roomLabel.setFont(font);
 		if (type==Solution.typeSolution.SUGGESTION){
 			roomLabel.setText("Your room");
@@ -45,8 +49,10 @@ public class MakeAGuess extends JDialog{
 		JTextArea personLabel=new JTextArea();
 		personLabel.setFont(font);
 		personLabel.setText("Person");
+		personLabel.setEditable(false);
 		JTextArea weaponLabel=new JTextArea();
 		weaponLabel.setFont(font);
+		weaponLabel.setEditable(false);
 		weaponLabel.setText("Weapon");
 		
 		roomDispSugg=new JTextArea();
@@ -57,6 +63,7 @@ public class MakeAGuess extends JDialog{
 		
 		roomDispAccu=new JComboBox<String>();
 		roomDispAccu.setFont(font);
+		roomDispSugg.setEditable(false);
 		personDisp=new JComboBox<String>();
 		personDisp.setFont(font);
 		weaponDisp=new JComboBox<String>();
@@ -94,30 +101,33 @@ public class MakeAGuess extends JDialog{
 		add(weaponLabel);
 		add(weaponDisp);
 		add(submit);
-		add(cancel);	
+		add(cancel);
+		setVisible(true);
 	}
 	
 	public void submitButtonPressed()
 	{
-		Card person=new Card(CardType.PERSON,personDisp.getItemAt(0));
-		Card weapon=new Card(CardType.WEAPON,weaponDisp.getItemAt(0));
+		Card person=new Card(CardType.PERSON,(String)personDisp.getSelectedItem());
+		Card weapon=new Card(CardType.WEAPON,(String)weaponDisp.getSelectedItem());
 		Card room;
 		if (type==Solution.typeSolution.SUGGESTION){
 			room=new Card(CardType.ROOM,roomDispSugg.getText());
 		}else {
-			room=new Card(CardType.ROOM,roomDispAccu.getItemAt(0));
+			room=new Card(CardType.ROOM,(String)roomDispAccu.getSelectedItem());
 		}		
 		solution=new Solution (weapon,person,room, type);
+		setVisible(false);
+		human.submitSuggestion(solution);
 	}
 	
 	public void cancelButtonPressed(){
 		setVisible(false);
 	}
 	
-	public static void main(String[] args) {
-		Board board = Board.getInstance();
-		board.initialize();
-		MakeAGuess pane = new MakeAGuess(board, Solution.typeSolution.ACCUSATION);
-		pane.setVisible(true);
-	}
+//	public static void main(String[] args) {
+//		Board board = Board.getInstance();
+//		board.initialize();
+//		MakeAGuess pane = new MakeAGuess(board, Solution.typeSolution.ACCUSATION);
+//		pane.setVisible(true);
+//	}
 }

@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Currency;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -86,7 +87,10 @@ public class ClueGame extends JFrame{
 	
 	public void makeAccusationButtonPressed()
 	{
-		System.out.println("Also Pressed");
+		if(board.currentPlayer!=board.getHuman())
+		{
+			JOptionPane.showMessageDialog(this, "Not your turn!", "Wait!", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	
 	public void update()
