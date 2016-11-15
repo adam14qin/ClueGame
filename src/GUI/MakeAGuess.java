@@ -123,7 +123,7 @@ public class MakeAGuess extends JDialog{
 		{
 		human.submitSuggestion(solution);
 		} else {
-			board.checkAccusation(solution); 
+			board.acceptSolution(solution);
 		}
 	}
 	
