@@ -129,14 +129,14 @@ public class Board extends JPanel{
 			{
 				if(currentPlayer.equals(human))
 				{
-				JOptionPane.showMessageDialog(this, "Correct! You win!", "Accusation", JOptionPane.INFORMATION_MESSAGE);
+				//JOptionPane.showMessageDialog(this, "Correct! You win!", "Accusation", JOptionPane.INFORMATION_MESSAGE);
 				System.exit(0);
 				return true;
 				} else {
-					JOptionPane.showMessageDialog(this, currentPlayer.getName() + " guessed Correctly!\nThe answer was " + answer.getPlayer().getCardName() + " " + answer.getWeapon().getCardName() + " " + answer.getRoom().getCardName(), "Accusation", JOptionPane.INFORMATION_MESSAGE);
+					//JOptionPane.showMessageDialog(this, currentPlayer.getName() + " guessed Correctly!\nThe answer was " + answer.getPlayer().getCardName() + " " + answer.getWeapon().getCardName() + " " + answer.getRoom().getCardName(), "Accusation", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
-		JOptionPane.showMessageDialog(this, "False, that is not right.", "Accusation", JOptionPane.INFORMATION_MESSAGE);
+		//JOptionPane.showMessageDialog(this, "False, that is not right.", "Accusation", JOptionPane.INFORMATION_MESSAGE);
 		human.isFinished = true;
 		targets.clear();
 		repaint(); 
