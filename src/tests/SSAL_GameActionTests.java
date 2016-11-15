@@ -35,11 +35,8 @@ public class SSAL_GameActionTests {
 	public static void setUp() {
 		// Board is singleton, get the only instance
 		board = Board.getInstance();
-		// set the file names to use my config files
-		board.setConfigFiles("SSAL_ClueLayout.csv", "SSAL_ClueLegend.txt", "SSAL_Weapons.txt", "SSAL_Players.txt");		
 		// Initialize will load BOTH config files 
 		board.initialize();
-		BoardCell x = board.getCellAt(5, 5); 
 	}
 
 	@Test
@@ -63,6 +60,7 @@ public class SSAL_GameActionTests {
 		 * picking all three possible random spots it could out of 100 tries. 
 		 */
 		Player testPlayer = board.getPlayers().get(1); 
+		System.out.println(testPlayer.getRow() + " " + testPlayer.getCol());
 		boolean loc_21_4 = false;
 		boolean loc_20_5 = false;
 		boolean loc_23_4 = false;
@@ -114,6 +112,7 @@ public class SSAL_GameActionTests {
 		 * must be false as we check to make sure it is different than the answer for the board,
 		 * then we check to see if our method returns false with the guess and true with the true answer.
 		 */
+		
 		Random rand = new Random();
 		Solution guess = new Solution();
 		String weaponGuess;
@@ -141,6 +140,7 @@ public class SSAL_GameActionTests {
 		assertFalse(board.checkAccusation(wrongRoom));
 		//All right
 		assertTrue(board.checkAccusation(new Solution(board.answer.getWeapon(),board.answer.getPlayer(), board.answer.getRoom()))); 
+		System.out.println("Running");
 	}
 
 	/* This test checks that we created a suggestion properly, 
